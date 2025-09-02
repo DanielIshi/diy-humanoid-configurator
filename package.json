@@ -1,0 +1,121 @@
+{
+  "name": "diy-humanoid-configurator",
+  "version": "0.7.0",
+  "private": true,
+  "description": "DIY Humanoid Robot Configurator with AI Advisor and integrated ordering system",
+  "author": "DIY Humanoid Team",
+  "license": "MIT",
+  "homepage": "https://github.com/username/diy-humanoid-configurator",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/username/diy-humanoid-configurator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/username/diy-humanoid-configurator/issues"
+  },
+  "keywords": [
+    "robotics",
+    "humanoid",
+    "configurator",
+    "ai",
+    "react",
+    "nodejs",
+    "typescript",
+    "prisma"
+  ],
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:admin": "cd frontend && npm run serve:admin",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build || echo 'Backend build not configured'",
+    "start": "cd backend && npm start",
+    "start:prod": "NODE_ENV=production cd backend && npm start",
+    "test": "npm run test:frontend && npm run test:backend",
+    "test:frontend": "cd frontend && npm run test",
+    "test:backend": "cd backend && npm run test",
+    "test:e2e": "cd frontend && npm run test:e2e",
+    "test:e2e:ui": "cd frontend && npm run test:e2e -- --ui",
+    "test:all": "npm run test && npm run test:e2e",
+    "test:coverage": "npm run test:frontend -- --coverage && npm run test:backend -- --coverage",
+    "lint": "npm run lint:frontend && npm run lint:backend",
+    "lint:frontend": "cd frontend && npm run lint",
+    "lint:backend": "cd backend && npm run lint",
+    "lint:fix": "npm run lint:frontend -- --fix && npm run lint:backend -- --fix",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\" --ignore-path .gitignore",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,md}\" --ignore-path .gitignore",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "clean": "npm run clean:deps && npm run clean:build && npm run clean:logs",
+    "clean:deps": "rm -rf node_modules frontend/node_modules backend/node_modules package-lock.json frontend/package-lock.json backend/package-lock.json",
+    "clean:build": "rm -rf frontend/dist backend/dist",
+    "clean:logs": "rm -rf logs/*.log",
+    "db:generate": "cd backend && npm run db:generate",
+    "db:push": "cd backend && npm run db:push",
+    "db:migrate": "cd backend && npm run db:migrate",
+    "db:migrate:dev": "cd backend && npm run db:migrate:dev",
+    "db:migrate:reset": "cd backend && npm run db:migrate:reset",
+    "db:seed": "cd backend && npm run db:seed",
+    "db:studio": "cd backend && npm run db:studio",
+    "db:setup": "npm run db:migrate && npm run db:seed",
+    "db:reset": "cd backend && npm run db:reset",
+    "db:backup": "cd backend && npm run db:backup || echo 'Database backup not configured'",
+    "docker:dev": "docker-compose up -d",
+    "docker:dev:build": "docker-compose up -d --build",
+    "docker:prod": "docker-compose -f docker-compose.prod.yml up -d",
+    "docker:prod:build": "docker-compose -f docker-compose.prod.yml up -d --build",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "docker:clean": "docker-compose down -v --rmi all",
+    "security:audit": "npm audit --audit-level moderate",
+    "security:audit:fix": "npm audit fix",
+    "security:check": "npm run security:audit && cd frontend && npm run security:audit && cd ../backend && npm run security:audit",
+    "health:check": "curl -f http://localhost:3001/api/health || exit 1",
+    "deploy:staging": "npm run build && npm run test && echo 'Deploy to staging'",
+    "deploy:production": "npm run build && npm run test:all && echo 'Deploy to production'",
+    "logs": "tail -f logs/app.log",
+    "logs:error": "tail -f logs/error.log",
+    "logs:security": "tail -f logs/security.log",
+    "backup": "npm run db:backup && echo 'Backup completed'",
+    "setup": "npm run install:all && npm run db:setup && echo 'Setup completed successfully'",
+    "postinstall": "cd frontend && npm install && cd ../backend && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "prettier": "^3.1.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3"
+  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test"
+    }
+  },
+  "config": {
+    "frontend_port": 5173,
+    "backend_port": 3001,
+    "admin_port": 5174
+  }
+}

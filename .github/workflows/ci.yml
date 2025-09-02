@@ -1,208 +1,344 @@
-name: CI Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
     branches: [main, develop]
   pull_request:
-    branches: [main]
+    branches: [main, develop]
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+env:
+  NODE_VERSION: '20'
+  POSTGRES_PASSWORD: postgres
+  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/humanoid_configurator_test
 
 jobs:
-  backend-test:
-    name: Backend Tests
+  # Lint and Format Check
+  lint-and-format:
+    name: Lint & Format Check
     runs-on: ubuntu-latest
     
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-    
-    defaults:
-      run:
-        working-directory: ./backend
-    
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
-        
-      - name: Setup Node.js ${{ matrix.node-version }}
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-          cache-dependency-path: './backend/package-lock.json'
-          
+
       - name: Install dependencies
         run: npm ci
-        
-      - name: Generate Prisma Client
-        run: npm run db:generate
-        
-      - name: Run linting
+
+      - name: Install workspace dependencies
+        run: |
+          cd frontend && npm ci
+          cd ../backend && npm ci
+
+      - name: Run ESLint
         run: npm run lint
-        
-      - name: Run unit tests
-        run: npm test
-        
-      - name: Run integration tests
-        run: npm run test:integration
-        env:
-          NODE_ENV: test
-          DATABASE_URL: "file:./test.db"
-          JWT_SECRET: "test-secret"
-          
-      - name: Upload coverage reports
-        uses: codecov/codecov-action@v3
-        with:
-          file: ./backend/coverage/lcov.info
-          flags: backend
-          
-  frontend-test:
+
+      - name: Check Prettier formatting
+        run: npm run format:check
+
+      - name: Security audit
+        run: npm run security:check
+
+  # Frontend Tests
+  frontend-tests:
     name: Frontend Tests
     runs-on: ubuntu-latest
     
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-    
-    defaults:
-      run:
-        working-directory: ./frontend
-    
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
-        
-      - name: Setup Node.js ${{ matrix.node-version }}
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-          cache-dependency-path: './frontend/package-lock.json'
-          
+
       - name: Install dependencies
-        run: npm ci
-        
-      - name: Run linting
-        run: npm run lint
-        
+        run: |
+          npm ci
+          cd frontend && npm ci
+
       - name: Run unit tests
-        run: npm test
-        
-      - name: Build frontend
-        run: npm run build
-        
-      - name: Upload coverage reports
+        run: cd frontend && npm run test -- --coverage
+
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
           file: ./frontend/coverage/lcov.info
           flags: frontend
-          
-  e2e-tests:
-    name: E2E Tests
+          name: frontend-coverage
+
+  # Backend Tests
+  backend-tests:
+    name: Backend Tests
     runs-on: ubuntu-latest
-    needs: [backend-test, frontend-test]
     
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: humanoid_configurator_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+      redis:
+        image: redis:7
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-          
-      - name: Install backend dependencies
-        run: npm ci
-        working-directory: ./backend
-        
-      - name: Install frontend dependencies
-        run: npm ci
-        working-directory: ./frontend
-        
-      - name: Generate Prisma Client
-        run: npm run db:generate
-        working-directory: ./backend
-        
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps
-        working-directory: ./frontend
-        
-      - name: Start backend server
+
+      - name: Install dependencies
         run: |
-          npm run db:push
-          npm start &
-        working-directory: ./backend
+          npm ci
+          cd backend && npm ci
+
+      - name: Generate Prisma client
+        run: cd backend && npm run db:generate
+
+      - name: Run database migrations
+        run: cd backend && npm run db:migrate
         env:
+          DATABASE_URL: ${{ env.DATABASE_URL }}
+
+      - name: Run unit tests
+        run: cd backend && npm run test -- --coverage
+        env:
+          DATABASE_URL: ${{ env.DATABASE_URL }}
+          JWT_SECRET: test-jwt-secret
           NODE_ENV: test
-          DATABASE_URL: "file:./test.db"
-          PORT: 3001
-          JWT_SECRET: "test-secret"
-          
-      - name: Build and start frontend
-        run: |
-          npm run build
-          npm run preview &
-        working-directory: ./frontend
+
+      - name: Run integration tests
+        run: cd backend && npm run test:integration
         env:
-          VITE_API_URL: http://localhost:3001
-          
+          DATABASE_URL: ${{ env.DATABASE_URL }}
+          JWT_SECRET: test-jwt-secret
+          NODE_ENV: test
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./backend/coverage/lcov.info
+          flags: backend
+          name: backend-coverage
+
+  # End-to-End Tests
+  e2e-tests:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: humanoid_configurator_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          cd frontend && npm ci
+          cd ../backend && npm ci
+
+      - name: Setup database
+        run: |
+          cd backend && npm run db:generate
+          cd backend && npm run db:migrate
+          cd backend && npm run db:seed
+        env:
+          DATABASE_URL: ${{ env.DATABASE_URL }}
+          JWT_SECRET: test-jwt-secret
+
+      - name: Install Playwright browsers
+        run: cd frontend && npx playwright install --with-deps
+
+      - name: Build frontend
+        run: cd frontend && npm run build
+        env:
+          VITE_API_URL: http://localhost:3001/api
+
+      - name: Start backend server
+        run: cd backend && npm start &
+        env:
+          DATABASE_URL: ${{ env.DATABASE_URL }}
+          JWT_SECRET: test-jwt-secret
+          NODE_ENV: test
+          PORT: 3001
+
+      - name: Start frontend server
+        run: cd frontend && npm run preview -- --port 5173 &
+
       - name: Wait for servers
         run: |
-          timeout 30 bash -c 'until curl -f http://localhost:3001/health; do sleep 1; done'
-          timeout 30 bash -c 'until curl -f http://localhost:4173; do sleep 1; done'
-          
-      - name: Run Playwright tests
-        run: npm run test:e2e
-        working-directory: ./frontend
+          npx wait-on http://localhost:3001/api/health
+          npx wait-on http://localhost:5173
+
+      - name: Run E2E tests
+        run: cd frontend && npm run test:e2e
         env:
-          PLAYWRIGHT_BASE_URL: http://localhost:4173
-          
-      - name: Upload Playwright Report
+          VITE_API_URL: http://localhost:3001/api
+
+      - name: Upload E2E test results
         uses: actions/upload-artifact@v3
-        if: always()
+        if: failure()
         with:
           name: playwright-report
           path: frontend/playwright-report/
           retention-days: 30
-          
-  build-test:
-    name: Build Test
+
+  # Security Scanning
+  security-scan:
+    name: Security Scan
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-          
-      - name: Install backend dependencies
-        run: npm ci
-        working-directory: ./backend
-        
-      - name: Install frontend dependencies
-        run: npm ci
-        working-directory: ./frontend
-        
-      - name: Generate Prisma Client
-        run: npm run db:generate
-        working-directory: ./backend
-        
-      - name: Build frontend
-        run: npm run build
-        working-directory: ./frontend
-        
-      - name: Test backend startup
-        run: timeout 10 npm start
-        working-directory: ./backend
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          cd frontend && npm ci
+          cd ../backend && npm ci
+
+      - name: Setup test environment
+        run: |
+          cd backend && npm run db:generate
         env:
-          NODE_ENV: test
-          DATABASE_URL: "file:./test.db"
-          PORT: 3001
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test
+
+      - name: Start application for security scan
+        run: |
+          cd backend && npm start &
+          cd frontend && npm run preview -- --port 5173 &
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test
+          JWT_SECRET: test-jwt-secret
+
+      - name: Wait for application startup
+        run: |
+          npx wait-on http://localhost:3001/api/health
+          npx wait-on http://localhost:5173
+
+      - name: OWASP ZAP Scan
+        uses: zaproxy/action-baseline@v0.9.0
+        with:
+          target: 'http://localhost:3001'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'
+
+  # Build and Deploy (only on main branch)
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: [lint-and-format, frontend-tests, backend-tests, e2e-tests, security-scan]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          cd frontend && npm ci
+          cd ../backend && npm ci
+
+      - name: Build frontend
+        run: cd frontend && npm run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_STRIPE_PUBLISHABLE_KEY: ${{ secrets.VITE_STRIPE_PUBLISHABLE_KEY }}
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-args: '--prod'
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: frontend
+
+      - name: Deploy Backend to Railway
+        uses: bervProject/railway-deploy@v1.3.0
+        with:
+          railway_token: ${{ secrets.RAILWAY_TOKEN }}
+          service: ${{ secrets.RAILWAY_SERVICE_ID }}
+          detach: false
+
+  # Notify on deployment success/failure
+  notify:
+    name: Notify
+    runs-on: ubuntu-latest
+    needs: [deploy]
+    if: always() && github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Notify deployment success
+        if: needs.deploy.result == 'success'
+        run: |
+          echo "✅ Deployment successful!"
+          # Add notification logic (Slack, Discord, Email, etc.)
+
+      - name: Notify deployment failure
+        if: needs.deploy.result == 'failure'
+        run: |
+          echo "❌ Deployment failed!"
+          # Add notification logic (Slack, Discord, Email, etc.)

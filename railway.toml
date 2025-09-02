@@ -1,0 +1,65 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "cd backend && npm ci && npm run db:generate"
+
+[deploy]
+startCommand = "cd backend && npm start"
+healthcheckPath = "/api/health"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+[environments.production]
+variables = [
+  "NODE_ENV=production",
+  "DATABASE_URL=${{Postgres.DATABASE_URL}}",
+  "JWT_SECRET=${{JWT_SECRET}}",
+  "STRIPE_SECRET_KEY=${{STRIPE_SECRET_KEY}}",
+  "STRIPE_WEBHOOK_SECRET=${{STRIPE_WEBHOOK_SECRET}}",
+  "OPENAI_API_KEY=${{OPENAI_API_KEY}}",
+  "SMTP_HOST=${{SMTP_HOST}}",
+  "SMTP_USER=${{SMTP_USER}}",
+  "SMTP_PASS=${{SMTP_PASS}}",
+  "CORS_ORIGIN=https://diy-humanoid-configurator.vercel.app"
+]
+
+[environments.development]
+variables = [
+  "NODE_ENV=development",
+  "DATABASE_URL=${{Postgres.DATABASE_URL}}",
+  "JWT_SECRET=dev-secret-key",
+  "CORS_ORIGIN=http://localhost:5173"
+]
+
+# Service Configuration
+[[services]]
+name = "backend"
+port = 3001
+type = "web"
+
+[[services.variables]]
+name = "PORT"
+value = "3001"
+
+# Database Service
+[[services]]
+name = "postgres"
+type = "postgresql"
+version = "14"
+
+[services.variables]
+POSTGRES_DB = "humanoid_configurator"
+POSTGRES_USER = "postgres"
+POSTGRES_PASSWORD = "${{POSTGRES_PASSWORD}}"
+
+# Redis for Caching (optional)
+[[services]]
+name = "redis"
+type = "redis"
+version = "7"
+
+# File Storage Volume
+[[volumes]]
+name = "uploads"
+mount = "/app/backend/uploads"
+size = "1GB"

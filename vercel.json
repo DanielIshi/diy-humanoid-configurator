@@ -1,0 +1,70 @@
+{
+  "version": 2,
+  "name": "diy-humanoid-configurator",
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/admin(.*)",
+      "dest": "/admin/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://diy-humanoid-configurator-backend.railway.app/api/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "X-Requested-With, Content-Type, Authorization"
+        }
+      ]
+    }
+  ],
+  "env": {
+    "VITE_API_URL": "@vite_api_url",
+    "VITE_APP_ENV": "@vite_app_env",
+    "VITE_STRIPE_PUBLISHABLE_KEY": "@vite_stripe_publishable_key",
+    "VITE_ENABLE_LLM_ADVISOR": "@vite_enable_llm_advisor",
+    "VITE_ENABLE_AUDIO_GUIDES": "@vite_enable_audio_guides"
+  },
+  "build": {
+    "env": {
+      "VITE_API_URL": "https://diy-humanoid-configurator-backend.railway.app/api",
+      "VITE_APP_ENV": "production"
+    }
+  },
+  "functions": {
+    "frontend/src/**/*.{js,jsx,ts,tsx}": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "regions": ["fra1"]
+}
