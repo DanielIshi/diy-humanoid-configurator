@@ -1,0 +1,185 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User management
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  orders         Order[]
+  configurations Configuration[]
+
+  @@map("users")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+// Product catalog
+model Product {
+  id            String  @id @default(cuid())
+  name          String
+  description   String?
+  category      String
+  price         Float
+  availability  String  @default("in-stock")
+  imageUrl      String?
+  specifications Json?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  orderItems      OrderItem[]
+  configComponents ConfigComponent[]
+
+  @@map("products")
+}
+
+// Configuration system
+model Configuration {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  totalPrice  Float
+  metadata    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  userId     String?
+  user       User?                @relation(fields: [userId], references: [id], onDelete: SetNull)
+  components ConfigComponent[]
+  orders     Order[]
+
+  @@map("configurations")
+}
+
+model ConfigComponent {
+  id            String  @id @default(cuid())
+  componentType String  // head, torso, arms, legs, etc.
+  options       Json?   // customization options
+  quantity      Int     @default(1)
+
+  // Relations
+  configurationId String
+  configuration   Configuration @relation(fields: [configurationId], references: [id], onDelete: Cascade)
+  productId       String
+  product         Product       @relation(fields: [productId], references: [id])
+
+  @@map("config_components")
+}
+
+// Order management
+model Order {
+  id           String      @id @default(cuid())
+  orderNumber  String      @unique
+  status       OrderStatus @default(PENDING)
+  total        Float
+  paymentMethod String?    // stripe, paypal
+  paymentId    String?    // external payment ID
+  notes        String?
+  customerInfo Json       // name, email, address
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  // Relations
+  userId          String?
+  user            User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
+  configurationId String?
+  configuration   Configuration? @relation(fields: [configurationId], references: [id], onDelete: SetNull)
+  items           OrderItem[]
+  payments        Payment[]
+
+  @@map("orders")
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+model OrderItem {
+  id       String @id @default(cuid())
+  name     String
+  price    Float
+  quantity Int
+  options  Json?  // product customizations
+
+  // Relations
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  @@map("order_items")
+}
+
+// Payment tracking
+model Payment {
+  id              String        @id @default(cuid())
+  paymentId       String        @unique // external payment ID
+  provider        String        // stripe, paypal
+  amount          Float
+  currency        String        @default("USD")
+  status          PaymentStatus
+  paymentData     Json?         // raw payment data from provider
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  // Relations
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+// System configuration
+model SystemConfig {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  updatedAt DateTime @updatedAt
+
+  @@map("system_config")
+}
+
+// Audit log
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String
+  entity    String   // table name
+  entityId  String?  // record ID
+  changes   Json?    // what changed
+  userId    String?
+  metadata  Json?    // additional context
+  createdAt DateTime @default(now())
+
+  @@map("audit_logs")
+}
