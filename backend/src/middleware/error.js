@@ -41,6 +41,18 @@ export class PaymentError extends AppError {
   }
 }
 
+export class BadRequestError extends AppError {
+  constructor(message = 'Bad Request') {
+    super(message, 400, 'BAD_REQUEST');
+  }
+}
+
+export class ConflictError extends AppError {
+  constructor(message = 'Conflict') {
+    super(message, 409, 'CONFLICT');
+  }
+}
+
 // Error handler middleware
 export const errorHandler = (err, req, res, next) => {
   let error = { ...err };
