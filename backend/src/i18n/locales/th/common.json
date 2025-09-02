@@ -1,0 +1,15 @@
+{
+  "success": "สำเร็จ",
+  "error": "ข้อผิดพลาด",
+  "notFound": "ไม่พบ",
+  "unauthorized": "ไม่ได้รับอนุญาต",
+  "forbidden": "ห้าม",
+  "badRequest": "คำขอไม่ถูกต้อง",
+  "internalError": "ข้อผิดพลาดของเซิร์ฟเวอร์ภายใน",
+  "validationError": "ข้อผิดพลาดในการตรวจสอบ",
+  "created": "สร้างแล้ว",
+  "updated": "อัปเดตแล้ว",
+  "deleted": "ลบแล้ว",
+  "saved": "บันทึกแล้ว",
+  "loaded": "โหลดแล้ว"
+}

@@ -7,6 +7,16 @@ import { UserMenu } from './components/auth/UserMenu';
 import Header from './components/shared/Header';
 import Footer from './components/shared/Footer';
 
+// Import page components
+import ProfilePage from './components/pages/ProfilePage';
+import OrdersPage from './components/pages/OrdersPage';
+import ConfigurationsPage from './components/pages/ConfigurationsPage';
+import SupportPage from './components/pages/SupportPage';
+import PrivacyPage from './components/pages/PrivacyPage';
+import TermsPage from './components/pages/TermsPage';
+import NotFoundPage from './components/pages/NotFoundPage';
+import SEOHead from './components/common/SEOHead';
+
 // Lazy Loading für bessere Performance
 const ConfiguratorPage = lazy(() => import('./pages/customer/ConfiguratorPage'));
 const AdvisorPage = lazy(() => import('./pages/customer/AdvisorPage'));
@@ -20,7 +30,7 @@ function LoadingSpinner() {
   return (
     <div className="flex items-center justify-center min-h-[50vh]">
       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      <span className="ml-3 text-slate-300">Laden...</span>
+      <span className="ml-3 text-slate-300">Loading...</span>
     </div>
   );
 }
@@ -28,6 +38,7 @@ function LoadingSpinner() {
 function CustomerLayout({ children }) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0d1224] to-[#080a16] text-slate-100">
+      <SEOHead />
       <Header userMenu={<UserMenu />} />
       {children}
       <Footer />
@@ -102,14 +113,7 @@ function App() {
               element={
                 <ProtectedRoute>
                   <CustomerLayout>
-                    <div className="max-w-4xl mx-auto px-6 py-12">
-                      <h1 className="text-3xl font-bold mb-8">Mein Profil</h1>
-                      <div className="bg-slate-800 rounded-lg p-6">
-                        <p className="text-slate-300">
-                          Profil-Seite kommt bald...
-                        </p>
-                      </div>
-                    </div>
+                    <ProfilePage />
                   </CustomerLayout>
                 </ProtectedRoute>
               } 
@@ -120,14 +124,7 @@ function App() {
               element={
                 <ProtectedRoute>
                   <CustomerLayout>
-                    <div className="max-w-6xl mx-auto px-6 py-12">
-                      <h1 className="text-3xl font-bold mb-8">Meine Bestellungen</h1>
-                      <div className="bg-slate-800 rounded-lg p-6">
-                        <p className="text-slate-300">
-                          Bestellungsübersicht kommt bald...
-                        </p>
-                      </div>
-                    </div>
+                    <OrdersPage />
                   </CustomerLayout>
                 </ProtectedRoute>
               } 
@@ -138,14 +135,7 @@ function App() {
               element={
                 <ProtectedRoute>
                   <CustomerLayout>
-                    <div className="max-w-6xl mx-auto px-6 py-12">
-                      <h1 className="text-3xl font-bold mb-8">Meine Konfigurationen</h1>
-                      <div className="bg-slate-800 rounded-lg p-6">
-                        <p className="text-slate-300">
-                          Gespeicherte Konfigurationen kommen bald...
-                        </p>
-                      </div>
-                    </div>
+                    <ConfigurationsPage />
                   </CustomerLayout>
                 </ProtectedRoute>
               } 
@@ -169,14 +159,7 @@ function App() {
               element={
                 <ProtectedRoute requireRole={['admin', 'support']} requireVerified={true}>
                   <CustomerLayout>
-                    <div className="max-w-6xl mx-auto px-6 py-12">
-                      <h1 className="text-3xl font-bold mb-8">Support Dashboard</h1>
-                      <div className="bg-slate-800 rounded-lg p-6">
-                        <p className="text-slate-300">
-                          Support-Dashboard kommt bald...
-                        </p>
-                      </div>
-                    </div>
+                    <SupportPage />
                   </CustomerLayout>
                 </ProtectedRoute>
               } 
@@ -187,14 +170,7 @@ function App() {
               path="/privacy" 
               element={
                 <CustomerLayout>
-                  <div className="max-w-4xl mx-auto px-6 py-12">
-                    <h1 className="text-3xl font-bold mb-8">Datenschutzerklärung</h1>
-                    <div className="bg-slate-800 rounded-lg p-6 prose prose-invert max-w-none">
-                      <p className="text-slate-300">
-                        Datenschutzerklärung wird hier eingefügt...
-                      </p>
-                    </div>
-                  </div>
+                  <PrivacyPage />
                 </CustomerLayout>
               } 
             />
@@ -203,14 +179,7 @@ function App() {
               path="/terms" 
               element={
                 <CustomerLayout>
-                  <div className="max-w-4xl mx-auto px-6 py-12">
-                    <h1 className="text-3xl font-bold mb-8">Allgemeine Geschäftsbedingungen</h1>
-                    <div className="bg-slate-800 rounded-lg p-6 prose prose-invert max-w-none">
-                      <p className="text-slate-300">
-                        AGB werden hier eingefügt...
-                      </p>
-                    </div>
-                  </div>
+                  <TermsPage />
                 </CustomerLayout>
               } 
             />
@@ -220,18 +189,7 @@ function App() {
               path="*" 
               element={
                 <CustomerLayout>
-                  <div className="max-w-6xl mx-auto px-6 py-24 text-center">
-                    <h1 className="text-2xl font-bold mb-4">Seite nicht gefunden</h1>
-                    <p className="text-slate-300 mb-8">
-                      Die angeforderte Seite existiert nicht.
-                    </p>
-                    <button
-                      onClick={() => window.history.back()}
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition duration-200"
-                    >
-                      Zurück
-                    </button>
-                  </div>
+                  <NotFoundPage />
                 </CustomerLayout>
               } 
             />

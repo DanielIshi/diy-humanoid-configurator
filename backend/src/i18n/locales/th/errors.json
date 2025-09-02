@@ -1,0 +1,21 @@
+{
+  "userNotFound": "ไม่พบผู้ใช้",
+  "invalidCredentials": "ข้อมูลรับรองไม่ถูกต้อง",
+  "emailAlreadyExists": "ที่อยู่อีเมลมีอยู่แล้ว",
+  "weakPassword": "รหัสผ่านอ่อนแอเกินไป",
+  "invalidEmail": "ที่อยู่อีเมลไม่ถูกต้อง",
+  "tokenExpired": "โทเค็นหมดอายุ",
+  "invalidToken": "โทเค็นไม่ถูกต้อง",
+  "accessDenied": "การเข้าถึงถูกปฏิเสธ",
+  "configurationNotFound": "ไม่พบการกำหนดค่า",
+  "componentNotFound": "ไม่พบส่วนประกอบ",
+  "orderNotFound": "ไม่พบคำสั่งซื้อ",
+  "paymentFailed": "การชำระเงินล้มเหลว",
+  "inventoryInsufficient": "สินค้าคงคลังไม่เพียงพอ",
+  "rateLimitExceeded": "เกินขีดจำกัดอัตรา",
+  "serverError": "เกิดข้อผิดพลาดของเซิร์ฟเวอร์",
+  "databaseError": "ข้อผิดพลาดของฐานข้อมูล",
+  "validationFailed": "การตรวจสอบล้มเหลว",
+  "fileUploadFailed": "การอัปโหลดไฟล์ล้มเหลว",
+  "emailSendFailed": "ไม่สามารถส่งอีเมลได้"
+}

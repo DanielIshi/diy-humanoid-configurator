@@ -12,3 +12,66 @@ body {
   background-color: #0b1328;
 }
 
+/* RTL Support */
+[dir="rtl"] {
+  text-align: right;
+}
+
+/* RTL specific adjustments */
+.rtl .flex-row {
+  flex-direction: row-reverse;
+}
+
+.rtl .text-left {
+  text-align: right;
+}
+
+.rtl .text-right {
+  text-align: left;
+}
+
+/* RTL friendly animations and transforms */
+.rtl .animate-slide-in-left {
+  animation: slide-in-right 0.3s ease-out;
+}
+
+.rtl .animate-slide-in-right {
+  animation: slide-in-left 0.3s ease-out;
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Language-specific font adjustments */
+html[lang="th"] {
+  font-family: 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Improve Thai text rendering */
+html[lang="th"] body {
+  line-height: 1.7;
+}
+
+html[lang="th"] .text-sm {
+  font-size: 0.95rem;
+}
+
+html[lang="th"] .text-xs {
+  font-size: 0.8rem;
+}
+

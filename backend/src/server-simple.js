@@ -21,8 +21,9 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Import AI routes
+// Import routes
 import aiRoutes from './routes/ai.js';
+import productRoutes from './routes/products.js';
 
 // Simple auth middleware for testing
 const simpleAuth = (req, res, next) => {
@@ -49,6 +50,9 @@ app.get('/api/health', (req, res) => {
 
 // AI routes with simple auth
 app.use('/api/ai', simpleAuth, aiRoutes);
+
+// Product routes (no auth needed for testing)
+app.use('/api/products', productRoutes);
 
 // Test route for components
 app.get('/api/components', (req, res) => {

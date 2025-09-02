@@ -1,0 +1,109 @@
+{
+  "categories": {
+    "SERVO": "Servomotoren",
+    "CONTROLLER": "Steuerungen",
+    "SENSOR": "Sensoren",
+    "FRAME": "Rahmen",
+    "POWER": "Stromversorgung",
+    "WHEELS": "Räder",
+    "ELECTRONICS": "Elektronik",
+    "MISC": "Sonstiges"
+  },
+  "products": {
+    "MG996R": {
+      "name": "Leichtes Metall-Servo MG996R",
+      "description": "Zuverlässiges Servo mit Metallgetriebe für präzise Bewegungen",
+      "tech": "MG996R (Metallgetriebe), ca. 9–11 kg·cm @ 6V"
+    },
+    "DS3218": {
+      "name": "Starkes Servo DS3218 (20 kg)",
+      "description": "Hochleistungs-Servo für schwere Lasten",
+      "tech": "DS3218, wasserdicht, bis ~20 kg·cm"
+    },
+    "ARD_MEGA": {
+      "name": "Arduino Mega 2560",
+      "description": "Mikrocontroller-Platine mit vielen Ein-/Ausgängen",
+      "tech": "ATmega2560, 54 Digital-I/O, 16 Analogeingänge"
+    },
+    "PCA9685": {
+      "name": "16-Kanal Servo-Treiber (PCA9685)",
+      "description": "PWM-Controller für mehrere Servos",
+      "tech": "PCA9685, 12-Bit PWM, I²C"
+    },
+    "RPI5": {
+      "name": "Raspberry Pi 5 (8 GB)",
+      "description": "Leistungsstarker Einplatinencomputer",
+      "tech": "Broadcom SoC, 8 GB RAM"
+    },
+    "MPU6050": {
+      "name": "IMU MPU-6050 (Gyro+Accel)",
+      "description": "6-achsiger Bewegungssensor",
+      "tech": "6 DOF, I²C"
+    },
+    "BNO055": {
+      "name": "IMU BNO055 (9 DOF Fusion)",
+      "description": "9-achsiger Orientierungssensor mit Sensor-Fusion",
+      "tech": "Sensor-Fusion, absolute Orientierung"
+    },
+    "OAKDLITE": {
+      "name": "Luxonis OAK-D Lite (DepthAI)",
+      "description": "KI-Kamera mit Tiefenerkennung",
+      "tech": "Stereo-Depth + AI-Beschleuniger"
+    },
+    "UBEC6A": {
+      "name": "Leichtgewichtiger Schaltregler (UBEC 5V/6A)",
+      "description": "Effizienter Spannungsregler für mobile Anwendungen",
+      "tech": "UBEC 5V/6A, Eingang 2–6S LiPo"
+    },
+    "PSU12V10A": {
+      "name": "Netzteil 12 V / 10 A (Bench)",
+      "description": "Labornetzteil für Testzwecke",
+      "tech": "~120 W, 2.1 mm Hohlstecker"
+    },
+    "LIPO4S5000": {
+      "name": "LiPo-Akku 4S 5000 mAh",
+      "description": "Hochleistungs-Lithium-Polymer-Akku",
+      "tech": "14.8 V nominal, 5 Ah"
+    },
+    "FILAMENT": {
+      "name": "3D-Druck-Filament (1 kg Spule)",
+      "description": "Hochwertiges Filament für 3D-Drucker",
+      "tech": "PLA/PETG je nach Anwendung"
+    },
+    "FASTENERS": {
+      "name": "Schrauben, Lager & Kleinteile (Set)",
+      "description": "Komplettset für Montage und Wartung",
+      "tech": "M3/M4, Muttern, Lager, Kleinteile"
+    }
+  },
+  "properties": {
+    "lightweight": "leicht",
+    "waterproof": "wasserdicht",
+    "heavy_duty": "hochbelastbar",
+    "precise": "präzise",
+    "robust": "robust",
+    "efficient": "effizient",
+    "high_performance": "hochleistungsfähig"
+  },
+  "units": {
+    "piece": "Stk.",
+    "set": "Set",
+    "spool": "Spule",
+    "meter": "m",
+    "kilogram": "kg"
+  },
+  "presets": {
+    "starter": {
+      "label": "Starter – Oberkörper (ca. 12 DOF)",
+      "description": "Arme/Hand/Kopf (kein Gehen). Optional: OAK-D Lite für Vision."
+    },
+    "walker": {
+      "label": "Walker-Light – kleiner Biped (ca. 18 DOF)",
+      "description": "Einfaches Gehen möglich, langsame Gaits; Standzeit & Drehmoment begrenzt."
+    },
+    "inmoov": {
+      "label": "InMoov-Scale – großer Oberkörper (30+ DOF)",
+      "description": "Lebensgroßer Oberkörper; Beine sind gesondertes (schwieriges) Projekt."
+    }
+  }
+}

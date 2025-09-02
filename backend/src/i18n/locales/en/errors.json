@@ -1,0 +1,21 @@
+{
+  "userNotFound": "User not found",
+  "invalidCredentials": "Invalid credentials",
+  "emailAlreadyExists": "Email address already exists",
+  "weakPassword": "Password too weak",
+  "invalidEmail": "Invalid email address",
+  "tokenExpired": "Token expired",
+  "invalidToken": "Invalid token",
+  "accessDenied": "Access denied",
+  "configurationNotFound": "Configuration not found",
+  "componentNotFound": "Component not found",
+  "orderNotFound": "Order not found",
+  "paymentFailed": "Payment failed",
+  "inventoryInsufficient": "Insufficient inventory",
+  "rateLimitExceeded": "Rate limit exceeded",
+  "serverError": "Server error occurred",
+  "databaseError": "Database error",
+  "validationFailed": "Validation failed",
+  "fileUploadFailed": "File upload failed",
+  "emailSendFailed": "Could not send email"
+}

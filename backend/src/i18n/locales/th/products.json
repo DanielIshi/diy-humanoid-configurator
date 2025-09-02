@@ -1,0 +1,109 @@
+{
+  "categories": {
+    "SERVO": "เซอร์โวมอเตอร์",
+    "CONTROLLER": "ตัวควบคุม",
+    "SENSOR": "เซ็นเซอร์",
+    "FRAME": "โครงสร้าง",
+    "POWER": "แหล่งจ่ายไฟ",
+    "WHEELS": "ล้อ",
+    "ELECTRONICS": "อิเล็กทรอนิกส์",
+    "MISC": "เบ็ดเตล็ด"
+  },
+  "products": {
+    "MG996R": {
+      "name": "เซอร์โวโลหะน้ำหนักเบา MG996R",
+      "description": "เซอร์โวที่เชื่อถือได้พร้อมเกียร์โลหะสำหรับการเคลื่อนไหวที่แม่นยำ",
+      "tech": "MG996R (เกียร์โลหะ), ประมาณ 9–11 kg·cm @ 6V"
+    },
+    "DS3218": {
+      "name": "เซอร์โวแรง DS3218 (20 kg)",
+      "description": "เซอร์โวสมรรถนะสูงสำหรับการใช้งานหนัก",
+      "tech": "DS3218, กันน้ำ, สูงสุด ~20 kg·cm"
+    },
+    "ARD_MEGA": {
+      "name": "Arduino Mega 2560",
+      "description": "บอร์ดไมโครคอนโทรลเลอร์พร้อมความสามารถ I/O ที่กว้างขวาง",
+      "tech": "ATmega2560, 54 Digital I/O, 16 analog inputs"
+    },
+    "PCA9685": {
+      "name": "ไดรเวอร์เซอร์โว 16 ช่อง (PCA9685)",
+      "description": "ตัวควบคุม PWM สำหรับการจัดการเซอร์โวหลายตัว",
+      "tech": "PCA9685, 12-bit PWM, I²C interface"
+    },
+    "RPI5": {
+      "name": "Raspberry Pi 5 (8 GB)",
+      "description": "คอมพิวเตอร์บอร์ดเดียวที่มีประสิทธิภาพสูง",
+      "tech": "Broadcom SoC, 8 GB RAM"
+    },
+    "MPU6050": {
+      "name": "IMU MPU-6050 (Gyro+Accel)",
+      "description": "เซ็นเซอร์ติดตามการเคลื่อนไหว 6 แกน",
+      "tech": "6 DOF, I²C interface"
+    },
+    "BNO055": {
+      "name": "IMU BNO055 (9 DOF Fusion)",
+      "description": "เซ็นเซอร์ทิศทาง 9 แกนพร้อมการรวมเซ็นเซอร์",
+      "tech": "Sensor fusion, absolute orientation"
+    },
+    "OAKDLITE": {
+      "name": "Luxonis OAK-D Lite (DepthAI)",
+      "description": "กล้อง AI พร้อมการรับรู้ความลึก",
+      "tech": "Stereo depth + AI accelerator"
+    },
+    "UBEC6A": {
+      "name": "ตัวปรับแรงดันสวิตชิ่งน้ำหนักเบา (UBEC 5V/6A)",
+      "description": "ตัวปรับแรงดันที่มีประสิทธิภาพสำหรับการใช้งานแบบเคลื่อนที่",
+      "tech": "UBEC 5V/6A, input 2–6S LiPo"
+    },
+    "PSU12V10A": {
+      "name": "แหล่งจ่ายไฟ 12V / 10A (Lab)",
+      "description": "แหล่งจ่ายไฟห้องปฏิบัติการสำหรับการทดสอบ",
+      "tech": "~120W, 2.1mm barrel connector"
+    },
+    "LIPO4S5000": {
+      "name": "แบตเตอรี่ LiPo 4S 5000 mAh",
+      "description": "แบตเตอรี่ลิเธียมโพลิเมอร์สมรรถนะสูง",
+      "tech": "14.8V nominal, 5 Ah capacity"
+    },
+    "FILAMENT": {
+      "name": "เส้นใยพิมพ์ 3D (ม้วน 1 kg)",
+      "description": "เส้นใยคุณภาพสูงสำหรับเครื่องพิมพ์ 3D",
+      "tech": "PLA/PETG ขึ้นอยู่กับการใช้งาน"
+    },
+    "FASTENERS": {
+      "name": "สกรู แบริ่ง และฮาร์ดแวร์ (ชุด)",
+      "description": "ชุดสมบูรณ์สำหรับการประกอบและการบำรุงรักษา",
+      "tech": "สกรู M3/M4, นัต, แบริ่ง, ฮาร์ดแวร์"
+    }
+  },
+  "properties": {
+    "lightweight": "น้ำหนักเบา",
+    "waterproof": "กันน้ำ",
+    "heavy_duty": "ทนทานสูง",
+    "precise": "แม่นยำ",
+    "robust": "แข็งแรง",
+    "efficient": "มีประสิทธิภาพ",
+    "high_performance": "สมรรถนะสูง"
+  },
+  "units": {
+    "piece": "ชิ้น",
+    "set": "ชุด",
+    "spool": "ม้วน",
+    "meter": "ม.",
+    "kilogram": "กก."
+  },
+  "presets": {
+    "starter": {
+      "label": "Starter – ลำตัวส่วนบน (ประมาณ 12 DOF)",
+      "description": "แขน/มือ/หัว (ไม่เดิน) เสริม: OAK-D Lite สำหรับการมองเห็น"
+    },
+    "walker": {
+      "label": "Walker-Light – หุ่นยนต์สองขาขนาดเล็ก (ประมาณ 18 DOF)",
+      "description": "เดินได้แบบพื้นฐาน ก้าวช้า; เวลาใช้งานและแรงบิดจำกัด"
+    },
+    "inmoov": {
+      "label": "InMoov-Scale – ลำตัวส่วนบนขนาดใหญ่ (30+ DOF)",
+      "description": "ลำตัวส่วนบนขนาดคนจริง; ขาเป็นโครงการแยกต่างหาก (ท้าทาย)"
+    }
+  }
+}

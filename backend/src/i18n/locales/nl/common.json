@@ -1,0 +1,15 @@
+{
+  "success": "Succes",
+  "error": "Fout",
+  "notFound": "Niet gevonden",
+  "unauthorized": "Niet geautoriseerd",
+  "forbidden": "Verboden",
+  "badRequest": "Onjuist verzoek",
+  "internalError": "Interne serverfout",
+  "validationError": "Validatiefout",
+  "created": "Aangemaakt",
+  "updated": "Bijgewerkt",
+  "deleted": "Verwijderd",
+  "saved": "Opgeslagen",
+  "loaded": "Geladen"
+}

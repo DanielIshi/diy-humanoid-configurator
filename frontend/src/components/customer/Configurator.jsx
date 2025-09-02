@@ -1,10 +1,21 @@
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ConfiguratorContext } from '../../contexts/ConfiguratorContext';
-import { PARTS, PRESETS } from '../../utils/data.js';
+import { 
+  PARTS, 
+  PRESETS, 
+  getLocalizedProductName,
+  getLocalizedProductDescription,
+  getLocalizedPresetLabel,
+  getLocalizedUnit,
+  getProductsByCategory,
+  getLocalizedCategoryName
+} from '../../utils/data.js';
 import { clamp, currency } from '../../utils/helpers.js';
 import Tooltip from '../shared/Tooltip';
 
 function Configurator() {
+  const { t } = useTranslation('products');
   const {
     presetKey, setPresetKey,
     items, setItems,
@@ -50,7 +61,7 @@ function Configurator() {
                   : 'border-slate-600 hover:bg-slate-700/30'
               }`}
             >
-              {p.label}
+              {getLocalizedPresetLabel(k, t)}
             </button>
           ))}
         </div>
@@ -62,9 +73,14 @@ function Configurator() {
               <div key={k} className="flex items-start justify-between gap-3 border border-slate-700/60 rounded-xl p-3 bg-[#0b1328]">
                 <div className="min-w-0">
                   <div className="font-medium flex items-center flex-wrap gap-x-1">
-                    {p.name}
+                    {getLocalizedProductName(k, t)}
                     {p.tech && <Tooltip label={p.tech}/>}
                   </div>
+                  {getLocalizedProductDescription(k, t) && (
+                    <div className="text-xs text-slate-400 mt-1">
+                      {getLocalizedProductDescription(k, t)}
+                    </div>
+                  )}
                   <a 
                     href={p.link} 
                     target="_blank" 
@@ -97,7 +113,7 @@ function Configurator() {
                       value={q} 
                       onChange={(e) => setQty(k, Number(e.target.value))} 
                     />
-                    <span className="text-xs text-slate-400">{p.unit}</span>
+                    <span className="text-xs text-slate-400">{getLocalizedUnit(p.unit, t)}</span>
                   </div>
                   <div className="text-xs text-slate-400">
                     EK {currency(p.price)} → VK {currency(retailForPart(k))}

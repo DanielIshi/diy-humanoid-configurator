@@ -1,12 +1,16 @@
 import { useContext, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ConfiguratorContext } from '../../contexts/ConfiguratorContext';
 import Configurator from '../../components/customer/Configurator';
 import CostPanel from '../../components/customer/CostPanel';
 import GuidesCompiler from '../../components/customer/GuidesCompiler';
 import { ChatAdvisor, CompositionAssistant } from '../../components/ai';
 import { Sparkles, Wand2 } from 'lucide-react';
+import useProductTranslation from '../../hooks/useProductTranslation';
 
 function ConfiguratorPage() {
+  const { t } = useTranslation(['translation', 'products']);
+  const { translateProduct } = useProductTranslation();
   const { items, addItem, updateTotalCost } = useContext(ConfiguratorContext);
   
   // AI Features State

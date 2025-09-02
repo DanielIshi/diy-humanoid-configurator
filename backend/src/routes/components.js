@@ -3,9 +3,15 @@ import { ComponentRepository } from '../repositories/index.js';
 import { asyncHandler } from '../middleware/error.js';
 import { validate, schemas } from '../middleware/validation.js';
 import { logger } from '../lib/logger.js';
+import { productLocalizationMiddleware } from '../utils/productTranslator.js';
+import { languageMiddleware } from '../i18n/index.js';
 
 const router = express.Router();
 const componentRepository = new ComponentRepository();
+
+// Apply localization middleware to all component routes
+router.use(languageMiddleware);
+router.use(productLocalizationMiddleware);
 
 // GET /api/components - Get all components with filtering
 router.get('/', 

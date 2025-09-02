@@ -1,16 +1,22 @@
 // Produktdaten und Konfigurationen für DIY Humanoid Configurator
+// Erweitert um i18n-Unterstützung
 
+// Basis Produktdaten mit technischen Spezifikationen
 export const PARTS = {
   // Aktuatoren
   MG996R: {
-    name: "Leichtes Metall‑Servo MG996R",
+    i18nKey: "MG996R",
+    category: "SERVO",
+    name: "Leichtes Metall‑Servo MG996R",  // Fallback
     unit: "Stk.",
     price: 6.2,
     link: "https://electropeak.com/mg996r-high-torque-digital-servo",
     tech: "MG996R (Metallgetriebe), ca. 9–11 kg·cm @ 6V"
   },
   DS3218: {
-    name: "Starkes Servo DS3218 (20 kg)",
+    i18nKey: "DS3218",
+    category: "SERVO",
+    name: "Starkes Servo DS3218 (20 kg)",  // Fallback
     unit: "Stk.",
     price: 12.9,
     link: "https://srituhobby.com/product/ds3218-20kg-metal-gear-servo-motor-waterproof-servo/",
@@ -19,21 +25,27 @@ export const PARTS = {
 
   // Steuerung
   ARD_MEGA: {
-    name: "Arduino Mega 2560",
+    i18nKey: "ARD_MEGA",
+    category: "CONTROLLER",
+    name: "Arduino Mega 2560",  // Fallback
     unit: "Stk.",
     price: 38.0,
     link: "https://www.kubii.com/en/micro-controllers/2075-arduino-mega-2560-rev3-7630049200067.html",
     tech: "ATmega2560, 54 Digital‑I/O, 16 Analogeingänge"
   },
   PCA9685: {
-    name: "16‑Kanal Servo‑Treiber (PCA9685)",
+    i18nKey: "PCA9685",
+    category: "CONTROLLER",
+    name: "16‑Kanal Servo‑Treiber (PCA9685)",  // Fallback
     unit: "Stk.",
     price: 13.2,
     link: "https://eu.robotshop.com/products/pca9685-16-channel-12-bit-pwm-servo-driver",
     tech: "PCA9685, 12‑Bit PWM, I²C"
   },
   RPI5: {
-    name: "Raspberry Pi 5 (8 GB)",
+    i18nKey: "RPI5",
+    category: "CONTROLLER",
+    name: "Raspberry Pi 5 (8 GB)",  // Fallback
     unit: "Stk.",
     price: 81.9,
     link: "https://www.welectron.com/Raspberry-Pi-5-8-GB-RAM_1",
@@ -42,21 +54,27 @@ export const PARTS = {
 
   // Sensorik
   MPU6050: {
-    name: "IMU MPU‑6050 (Gyro+Accel)",
+    i18nKey: "MPU6050",
+    category: "SENSOR",
+    name: "IMU MPU‑6050 (Gyro+Accel)",  // Fallback
     unit: "Stk.",
     price: 14.2,
     link: "https://eu.robotshop.com/products/6-dof-gyro-accelerometer-imu-mpu6050",
     tech: "6 DOF, I²C"
   },
   BNO055: {
-    name: "IMU BNO055 (9 DOF Fusion)",
+    i18nKey: "BNO055",
+    category: "SENSOR",
+    name: "IMU BNO055 (9 DOF Fusion)",  // Fallback
     unit: "Stk.",
     price: 36.6,
     link: "https://eu.robotshop.com/products/bno055-9-dof-absolute-orientation-imu-fusion-breakout-board",
     tech: "Sensor‑Fusion, absolute Orientierung"
   },
   OAKDLITE: {
-    name: "Luxonis OAK‑D Lite (DepthAI)",
+    i18nKey: "OAKDLITE",
+    category: "SENSOR",
+    name: "Luxonis OAK‑D Lite (DepthAI)",  // Fallback
     unit: "Stk.",
     price: 128.1,
     link: "https://eu.mouser.com/ProductDetail/Luxonis/OAK-D-Lite-FF",
@@ -65,21 +83,27 @@ export const PARTS = {
 
   // Strom / Leistung
   UBEC6A: {
-    name: "Leichtgewichtiger Schaltregler (UBEC 5V/6A)",
+    i18nKey: "UBEC6A",
+    category: "POWER",
+    name: "Leichtgewichtiger Schaltregler (UBEC 5V/6A)",  // Fallback
     unit: "Stk.",
     price: 19.9,
     link: "https://mg-modellbau.de/Akkuweichen-usw/D-Power/D-Power-Antares-6A-UBEC-Regler.html",
     tech: "UBEC 5V/6A, Eingang 2–6S LiPo"
   },
   PSU12V10A: {
-    name: "Netzteil 12 V / 10 A (Bench)",
+    i18nKey: "PSU12V10A",
+    category: "POWER",
+    name: "Netzteil 12 V / 10 A (Bench)",  // Fallback
     unit: "Stk.",
     price: 79.0,
     link: "https://www.optics-pro.com/power-supplies/pegasusastro-power-supply-12v-10a-europe-2-1mm/p,60252",
     tech: "~120 W, 2.1 mm Hohlstecker"
   },
   LIPO4S5000: {
-    name: "LiPo‑Akku 4S 5000 mAh",
+    i18nKey: "LIPO4S5000",
+    category: "POWER",
+    name: "LiPo‑Akku 4S 5000 mAh",  // Fallback
     unit: "Stk.",
     price: 70.0,
     link: "https://gensace.de/collections/4s-lipo-battery",
@@ -88,14 +112,18 @@ export const PARTS = {
 
   // Sonstiges
   FILAMENT: {
-    name: "3D‑Druck‑Filament (1 kg Spule)",
+    i18nKey: "FILAMENT",
+    category: "MISC",
+    name: "3D‑Druck‑Filament (1 kg Spule)",  // Fallback
     unit: "Spule",
     price: 20.0,
     link: "https://prusa3d.com/",
     tech: "PLA/PETG je nach Anwendung"
   },
   FASTENERS: {
-    name: "Schrauben, Lager & Kleinteile (Set)",
+    i18nKey: "FASTENERS",
+    category: "MISC",
+    name: "Schrauben, Lager & Kleinteile (Set)",  // Fallback
     unit: "Set",
     price: 60.0,
     link: "#",
@@ -105,19 +133,22 @@ export const PARTS = {
 
 export const PRESETS = {
   starter: {
-    label: "Starter – Oberkörper (ca. 12 DOF)",
+    i18nKey: "starter",
+    label: "Starter – Oberkörper (ca. 12 DOF)",  // Fallback
     items: { MG996R: 12, ARD_MEGA: 1, PCA9685: 1, RPI5: 1, MPU6050: 1, UBEC6A: 1, PSU12V10A: 1, FILAMENT: 3, FASTENERS: 1 },
-    notes: "Arme/Hand/Kopf (kein Gehen). Optional: OAK‑D Lite für Vision."
+    notes: "Arme/Hand/Kopf (kein Gehen). Optional: OAK‑D Lite für Vision."  // Fallback
   },
   walker: {
-    label: "Walker‑Light – kleiner Biped (ca. 18 DOF)",
+    i18nKey: "walker",
+    label: "Walker‑Light – kleiner Biped (ca. 18 DOF)",  // Fallback
     items: { DS3218: 18, ARD_MEGA: 1, PCA9685: 2, RPI5: 1, BNO055: 1, OAKDLITE: 1, UBEC6A: 1, LIPO4S5000: 1, FILAMENT: 5, FASTENERS: 1 },
-    notes: "Einfaches Gehen möglich, langsame Gaits; Standzeit & Drehmoment begrenzt."
+    notes: "Einfaches Gehen möglich, langsame Gaits; Standzeit & Drehmoment begrenzt."  // Fallback
   },
   inmoov: {
-    label: "InMoov‑Scale – großer Oberkörper (30+ DOF)",
+    i18nKey: "inmoov",
+    label: "InMoov‑Scale – großer Oberkörper (30+ DOF)",  // Fallback
     items: { MG996R: 30, DS3218: 2, ARD_MEGA: 1, PCA9685: 2, RPI5: 1, MPU6050: 1, OAKDLITE: 1, UBEC6A: 1, PSU12V10A: 1, FILAMENT: 12, FASTENERS: 1 },
-    notes: "Lebensgroßer Oberkörper; Beine sind gesondertes (schwieriges) Projekt."
+    notes: "Lebensgroßer Oberkörper; Beine sind gesondertes (schwieriges) Projekt."  // Fallback
   }
 };
 
@@ -135,4 +166,114 @@ export const GUIDES = {
   LIPO4S5000: "Nur mit geeigneter Sicherung; Balancer‑Laden; Brandschutz beachten.",
   FILAMENT: "PLA für Prototypen, PETG/ABS für belastete Teile.",
   FASTENERS: "Sortierte Kisten; Loctite bei vibrierenden Baugruppen."
+};
+
+// Hilfsfunktionen für lokalisierte Inhalte
+
+// Hilfsfunktion für lokalisierte Produktnamen
+export const getLocalizedProductName = (partKey, t) => {
+  const part = PARTS[partKey];
+  if (!part) return partKey;
+  
+  try {
+    return t(`products.products.${part.i18nKey}.name`, part.name);
+  } catch {
+    return part.name; // Fallback auf deutsche Version
+  }
+};
+
+// Hilfsfunktion für lokalisierte Produktbeschreibung
+export const getLocalizedProductDescription = (partKey, t) => {
+  const part = PARTS[partKey];
+  if (!part) return '';
+  
+  try {
+    return t(`products.products.${part.i18nKey}.description`, '');
+  } catch {
+    return ''; // Kein Fallback für Beschreibung
+  }
+};
+
+// Hilfsfunktion für lokalisierte Preset-Labels
+export const getLocalizedPresetLabel = (presetKey, t) => {
+  const preset = PRESETS[presetKey];
+  if (!preset) return presetKey;
+  
+  try {
+    return t(`products.presets.${preset.i18nKey}.label`, preset.label);
+  } catch {
+    return preset.label; // Fallback
+  }
+};
+
+// Hilfsfunktion für lokalisierte Preset-Beschreibung
+export const getLocalizedPresetDescription = (presetKey, t) => {
+  const preset = PRESETS[presetKey];
+  if (!preset) return '';
+  
+  try {
+    return t(`products.presets.${preset.i18nKey}.description`, preset.notes);
+  } catch {
+    return preset.notes; // Fallback
+  }
+};
+
+// Hilfsfunktion für lokalisierte Kategorienamen
+export const getLocalizedCategoryName = (categoryKey, t) => {
+  try {
+    return t(`products.categories.${categoryKey}`, categoryKey);
+  } catch {
+    return categoryKey;
+  }
+};
+
+// Hilfsfunktion für lokalisierte Einheiten
+export const getLocalizedUnit = (unitKey, t) => {
+  const unitMapping = {
+    "Stk.": "piece",
+    "Set": "set",
+    "Spule": "spool"
+  };
+  
+  const mappedKey = unitMapping[unitKey] || unitKey;
+  
+  try {
+    return t(`products.units.${mappedKey}`, unitKey);
+  } catch {
+    return unitKey;
+  }
+};
+
+// Funktion zum Gruppieren von Produkten nach Kategorien
+export const getProductsByCategory = () => {
+  const grouped = {};
+  
+  Object.entries(PARTS).forEach(([key, part]) => {
+    const category = part.category || 'MISC';
+    if (!grouped[category]) {
+      grouped[category] = [];
+    }
+    grouped[category].push({ key, ...part });
+  });
+  
+  return grouped;
+};
+
+// Funktion für Produktsuche mit i18n-Unterstützung
+export const searchProducts = (searchTerm, t) => {
+  if (!searchTerm) return Object.keys(PARTS);
+  
+  const term = searchTerm.toLowerCase();
+  
+  return Object.keys(PARTS).filter(partKey => {
+    const part = PARTS[partKey];
+    const localizedName = getLocalizedProductName(partKey, t).toLowerCase();
+    const localizedDesc = getLocalizedProductDescription(partKey, t).toLowerCase();
+    const categoryName = getLocalizedCategoryName(part.category, t).toLowerCase();
+    
+    return localizedName.includes(term) || 
+           localizedDesc.includes(term) ||
+           categoryName.includes(term) ||
+           part.tech?.toLowerCase().includes(term);
+  });
 };

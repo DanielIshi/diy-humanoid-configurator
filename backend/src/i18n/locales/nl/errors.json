@@ -1,0 +1,21 @@
+{
+  "userNotFound": "Gebruiker niet gevonden",
+  "invalidCredentials": "Ongeldige inloggegevens",
+  "emailAlreadyExists": "E-mailadres bestaat al",
+  "weakPassword": "Wachtwoord te zwak",
+  "invalidEmail": "Ongeldig e-mailadres",
+  "tokenExpired": "Token verlopen",
+  "invalidToken": "Ongeldig token",
+  "accessDenied": "Toegang geweigerd",
+  "configurationNotFound": "Configuratie niet gevonden",
+  "componentNotFound": "Component niet gevonden",
+  "orderNotFound": "Bestelling niet gevonden",
+  "paymentFailed": "Betaling mislukt",
+  "inventoryInsufficient": "Onvoldoende voorraad",
+  "rateLimitExceeded": "Snelheidslimiet overschreden",
+  "serverError": "Serverfout opgetreden",
+  "databaseError": "Databasefout",
+  "validationFailed": "Validatie mislukt",
+  "fileUploadFailed": "Bestand uploaden mislukt",
+  "emailSendFailed": "Kon e-mail niet verzenden"
+}

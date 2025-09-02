@@ -1,0 +1,15 @@
+{
+  "success": "Erfolgreich",
+  "error": "Fehler",
+  "notFound": "Nicht gefunden",
+  "unauthorized": "Nicht autorisiert",
+  "forbidden": "Verboten",
+  "badRequest": "Ungültige Anfrage",
+  "internalError": "Interner Serverfehler",
+  "validationError": "Validierungsfehler",
+  "created": "Erstellt",
+  "updated": "Aktualisiert",
+  "deleted": "Gelöscht",
+  "saved": "Gespeichert",
+  "loaded": "Geladen"
+}

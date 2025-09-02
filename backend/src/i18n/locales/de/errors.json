@@ -1,0 +1,21 @@
+{
+  "userNotFound": "Benutzer nicht gefunden",
+  "invalidCredentials": "Ungültige Anmeldedaten",
+  "emailAlreadyExists": "E-Mail-Adresse bereits vorhanden",
+  "weakPassword": "Passwort zu schwach",
+  "invalidEmail": "Ungültige E-Mail-Adresse",
+  "tokenExpired": "Token abgelaufen",
+  "invalidToken": "Ungültiger Token",
+  "accessDenied": "Zugriff verweigert",
+  "configurationNotFound": "Konfiguration nicht gefunden",
+  "componentNotFound": "Komponente nicht gefunden",
+  "orderNotFound": "Bestellung nicht gefunden",
+  "paymentFailed": "Zahlung fehlgeschlagen",
+  "inventoryInsufficient": "Lagerbestand unzureichend",
+  "rateLimitExceeded": "Ratenlimit überschritten",
+  "serverError": "Serverfehler aufgetreten",
+  "databaseError": "Datenbankfehler",
+  "validationFailed": "Validierung fehlgeschlagen",
+  "fileUploadFailed": "Datei-Upload fehlgeschlagen",
+  "emailSendFailed": "E-Mail konnte nicht gesendet werden"
+}

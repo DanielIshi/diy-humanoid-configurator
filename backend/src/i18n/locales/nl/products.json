@@ -1,0 +1,109 @@
+{
+  "categories": {
+    "SERVO": "Servomotoren",
+    "CONTROLLER": "Controllers",
+    "SENSOR": "Sensoren",
+    "FRAME": "Frames",
+    "POWER": "Voeding",
+    "WHEELS": "Wielen",
+    "ELECTRONICS": "Elektronica",
+    "MISC": "Diversen"
+  },
+  "products": {
+    "MG996R": {
+      "name": "Lichtgewicht Metaal Servo MG996R",
+      "description": "Betrouwbare servo met metalen tandwielen voor nauwkeurige bewegingen",
+      "tech": "MG996R (metalen tandwielen), ca. 9–11 kg·cm @ 6V"
+    },
+    "DS3218": {
+      "name": "Sterke Servo DS3218 (20 kg)",
+      "description": "Krachtige servo voor zware toepassingen",
+      "tech": "DS3218, waterdicht, tot ~20 kg·cm"
+    },
+    "ARD_MEGA": {
+      "name": "Arduino Mega 2560",
+      "description": "Microcontroller board met uitgebreide I/O mogelijkheden",
+      "tech": "ATmega2560, 54 digitale I/O, 16 analoge ingangen"
+    },
+    "PCA9685": {
+      "name": "16-Kanaals Servo Driver (PCA9685)",
+      "description": "PWM controller voor meerdere servo's",
+      "tech": "PCA9685, 12-bit PWM, I²C interface"
+    },
+    "RPI5": {
+      "name": "Raspberry Pi 5 (8 GB)",
+      "description": "Krachtige single-board computer",
+      "tech": "Broadcom SoC, 8 GB RAM"
+    },
+    "MPU6050": {
+      "name": "IMU MPU-6050 (Gyro+Accel)",
+      "description": "6-assige bewegingssensor",
+      "tech": "6 DOF, I²C interface"
+    },
+    "BNO055": {
+      "name": "IMU BNO055 (9 DOF Fusie)",
+      "description": "9-assige oriëntatiesensor met sensor fusie",
+      "tech": "Sensor fusie, absolute oriëntatie"
+    },
+    "OAKDLITE": {
+      "name": "Luxonis OAK-D Lite (DepthAI)",
+      "description": "AI camera met diepte perceptie",
+      "tech": "Stereo diepte + AI accelerator"
+    },
+    "UBEC6A": {
+      "name": "Lichtgewicht Schakelregelaar (UBEC 5V/6A)",
+      "description": "Efficiënte spanningsregelaar voor mobiele toepassingen",
+      "tech": "UBEC 5V/6A, ingang 2–6S LiPo"
+    },
+    "PSU12V10A": {
+      "name": "Voeding 12V / 10A (Lab)",
+      "description": "Laboratorium voeding voor testdoeleinden",
+      "tech": "~120W, 2.1mm barrel connector"
+    },
+    "LIPO4S5000": {
+      "name": "LiPo Batterij 4S 5000 mAh",
+      "description": "Krachtige lithium polymeer batterij",
+      "tech": "14.8V nominaal, 5 Ah capaciteit"
+    },
+    "FILAMENT": {
+      "name": "3D Print Filament (1 kg Spoel)",
+      "description": "Hoogwaardige filament voor 3D printers",
+      "tech": "PLA/PETG afhankelijk van toepassing"
+    },
+    "FASTENERS": {
+      "name": "Schroeven, Lagers & Hardware (Set)",
+      "description": "Compleet set voor montage en onderhoud",
+      "tech": "M3/M4 schroeven, moeren, lagers, hardware"
+    }
+  },
+  "properties": {
+    "lightweight": "lichtgewicht",
+    "waterproof": "waterdicht",
+    "heavy_duty": "zwaar belastbaar",
+    "precise": "precies",
+    "robust": "robuust",
+    "efficient": "efficiënt",
+    "high_performance": "hoge prestatie"
+  },
+  "units": {
+    "piece": "st",
+    "set": "set",
+    "spool": "spoel",
+    "meter": "m",
+    "kilogram": "kg"
+  },
+  "presets": {
+    "starter": {
+      "label": "Starter – Bovenlichaam (ca. 12 DOF)",
+      "description": "Armen/handen/hoofd (geen lopen). Optioneel: OAK-D Lite voor visie."
+    },
+    "walker": {
+      "label": "Walker-Light – Kleine Tweevoeter (ca. 18 DOF)",
+      "description": "Eenvoudig lopen mogelijk, langzame gangen; beperkte looptijd & koppel."
+    },
+    "inmoov": {
+      "label": "InMoov-Schaal – Groot Bovenlichaam (30+ DOF)",
+      "description": "Levensgroot bovenlichaam; benen zijn apart (uitdagend) project."
+    }
+  }
+}
