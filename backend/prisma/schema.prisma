@@ -15,23 +15,75 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
-  role      Role     @default(USER)
+  role      Role     @default(CUSTOMER)
+  isActive  Boolean  @default(true)
+  lastLogin DateTime?
+  profile   Json?    // Additional profile data
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relations
   orders         Order[]
   configurations Configuration[]
+  auditLogs      AuditLog[]
 
   @@map("users")
 }
 
 enum Role {
-  USER
+  CUSTOMER
   ADMIN
+  SUPPORT
 }
 
-// Product catalog
+// Component catalog with assembly instructions
+model Component {
+  id               String  @id @default(cuid())
+  name             String
+  description      String?
+  category         ComponentCategory
+  price            Float
+  availability     String  @default("in-stock")
+  imageUrl         String?
+  specifications   Json?
+  
+  // Manual/Assembly data
+  instructions     String? // Assembly instructions text
+  toolsRequired    Json?   // Array of required tools
+  timeEstimate     Int?    // Estimated assembly time in minutes
+  difficultyLevel  DifficultyLevel @default(BEGINNER)
+  prerequisites    Json?   // Array of component IDs that must be installed first
+  
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Relations
+  orderItems       OrderItem[]
+  configComponents ConfigComponent[]
+  manuals          Manual[]
+
+  @@map("components")
+}
+
+enum ComponentCategory {
+  HEAD
+  TORSO
+  ARMS
+  LEGS
+  SENSORS
+  ACTUATORS
+  ELECTRONICS
+  ACCESSORIES
+}
+
+enum DifficultyLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+}
+
+// Legacy Product model for backward compatibility
 model Product {
   id            String  @id @default(cuid())
   name          String
@@ -58,6 +110,8 @@ model Configuration {
   description String?
   totalPrice  Float
   metadata    Json?
+  isPublic    Boolean  @default(false) // Allow sharing configurations
+  tags        Json?    // Search tags for configurations
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -66,6 +120,7 @@ model Configuration {
   user       User?                @relation(fields: [userId], references: [id], onDelete: SetNull)
   components ConfigComponent[]
   orders     Order[]
+  manuals    Manual[]
 
   @@map("configurations")
 }
@@ -87,16 +142,20 @@ model ConfigComponent {
 
 // Order management
 model Order {
-  id           String      @id @default(cuid())
-  orderNumber  String      @unique
-  status       OrderStatus @default(PENDING)
-  total        Float
-  paymentMethod String?    // stripe, paypal
-  paymentId    String?    // external payment ID
-  notes        String?
-  customerInfo Json       // name, email, address
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+  id             String      @id @default(cuid())
+  orderNumber    String      @unique
+  status         OrderStatus @default(PENDING)
+  total          Float
+  paymentMethod  String?     // stripe, paypal
+  paymentId      String?     // external payment ID
+  paymentStatus  PaymentStatus @default(PENDING)
+  trackingNumber String?     // shipping tracking number
+  shippingMethod String?     // standard, express, overnight
+  estimatedDelivery DateTime?
+  notes          String?
+  customerInfo   Json        // name, email, address
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
 
   // Relations
   userId          String?
@@ -105,6 +164,7 @@ model Order {
   configuration   Configuration? @relation(fields: [configurationId], references: [id], onDelete: SetNull)
   items           OrderItem[]
   payments        Payment[]
+  manuals         Manual[]
 
   @@map("orders")
 }
@@ -170,6 +230,42 @@ model SystemConfig {
   @@map("system_config")
 }
 
+// Assembly manuals for orders/configurations
+model Manual {
+  id            String      @id @default(cuid())
+  title         String
+  content       String      // Generated assembly instructions
+  format        ManualFormat @default(HTML)
+  version       String      @default("1.0")
+  language      String      @default("en")
+  status        ManualStatus @default(DRAFT)
+  metadata      Json?       // Additional manual metadata
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  // Relations
+  orderId         String?
+  order           Order?         @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  configurationId String?
+  configuration   Configuration? @relation(fields: [configurationId], references: [id], onDelete: SetNull)
+  componentId     String?
+  component       Component?     @relation(fields: [componentId], references: [id], onDelete: SetNull)
+
+  @@map("manuals")
+}
+
+enum ManualFormat {
+  HTML
+  PDF
+  MARKDOWN
+}
+
+enum ManualStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
 // Audit log
 model AuditLog {
   id        String   @id @default(cuid())
@@ -178,7 +274,10 @@ model AuditLog {
   entityId  String?  // record ID
   changes   Json?    // what changed
   userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
   metadata  Json?    // additional context
+  ipAddress String?
+  userAgent String?
   createdAt DateTime @default(now())
 
   @@map("audit_logs")
