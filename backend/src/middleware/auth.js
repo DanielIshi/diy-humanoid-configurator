@@ -113,6 +113,9 @@ export const requireActiveAccount = (req, res, next) => {
 export const requireAuth = [protect, requireActiveAccount];
 export const requireVerifiedAuth = [protect, requireActiveAccount, requireVerifiedEmail];
 
+// Alias for backward compatibility
+export const authenticateToken = protect;
+
 // Resource ownership check
 export const requireOwnership = (resourceIdParam = 'id', userIdField = 'userId') => {
   return async (req, res, next) => {

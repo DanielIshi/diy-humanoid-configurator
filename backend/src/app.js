@@ -15,6 +15,7 @@ import authRouter from './routes/auth.js';
 import ordersRouter from './routes/orders.js';
 import paymentsRouter from './routes/payments.js';
 import llmRouter from './routes/llm.js';
+import aiRouter from './routes/ai.js';
 import pricesRouter from './routes/prices.js';
 import productsRouter from './routes/products.js';
 import configRouter from './routes/config.js';
@@ -71,6 +72,7 @@ export function createServer() {
   app.use('/api/orders', ordersRouter);
   app.use('/api/config', configRouter);
   app.use('/api/llm', llmRouter);
+  app.use('/api/ai', aiRouter); // NEW: AI/LLM Features
   app.use('/api/prices', pricesRouter);
   app.use('/api/manual', manualRouter);
   
@@ -88,4 +90,3 @@ export function createServer() {
 
   return app;
 }
-

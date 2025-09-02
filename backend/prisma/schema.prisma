@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -38,6 +38,10 @@ model User {
   emailVerifications EmailVerification[]
   sessions           Session[]
   trustedDevices     TrustedDevice[]
+  
+  // AI Relations
+  aiChatMessages     AiChatMessage[]
+  aiConfigurations   AiConfiguration[]
 
   @@map("users")
 }
@@ -280,6 +284,34 @@ enum ManualStatus {
   DRAFT
   PUBLISHED
   ARCHIVED
+}
+
+// AI/LLM Features
+model AiChatMessage {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  role      String // 'user', 'assistant', 'system'
+  content   String
+  metadata  Json? // provider, tokens, configuration etc.
+  createdAt DateTime @default(now())
+
+  @@map("ai_chat_messages")
+}
+
+model AiConfiguration {
+  id            String   @id @default(cuid())
+  userId        String?
+  user          User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  name          String
+  description   String?
+  configuration Json // AI-generated configuration data
+  provider      String // 'openai', 'openrouter', etc.
+  metadata      Json? // generation parameters, tokens used, etc.
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("ai_configurations")
 }
 
 // Audit log
