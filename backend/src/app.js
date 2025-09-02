@@ -11,6 +11,7 @@ import { security, rateLimiter } from './middleware/security.js';
 import { errorHandler, notFound, asyncHandler } from './middleware/error.js';
 
 // Route imports
+import authRouter from './routes/auth.js';
 import ordersRouter from './routes/orders.js';
 import paymentsRouter from './routes/payments.js';
 import llmRouter from './routes/llm.js';
@@ -65,6 +66,7 @@ export function createServer() {
   }));
 
   // API routes
+  app.use('/api/auth', authRouter);
   app.use('/api/products', productsRouter);
   app.use('/api/orders', ordersRouter);
   app.use('/api/config', configRouter);
