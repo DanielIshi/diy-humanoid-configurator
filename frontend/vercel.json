@@ -1,0 +1,40 @@
+{
+  "name": "diy-humanoid-configurator",
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://0d446e91fc43.ngrok-free.app/api/$1",
+      "headers": {
+        "x-forwarded-host": "$host"
+      }
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "env": {
+    "VITE_API_URL": "https://0d446e91fc43.ngrok-free.app/api",
+    "VITE_STRIPE_PUBLISHABLE_KEY": "pk_test_your_stripe_publishable_key",
+    "VITE_PAYPAL_CLIENT_ID": "your_paypal_sandbox_client_id",
+    "VITE_ENABLE_LLM_ADVISOR": "true",
+    "VITE_ENABLE_AUDIO_GUIDES": "true"
+  },
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "framework": "vite"
+}
