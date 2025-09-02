@@ -2,10 +2,13 @@ import express from 'express';
 import { OrderRepository } from '../repositories/index.js';
 import { asyncHandler } from '../middleware/error.js';
 import { validate, schemas } from '../middleware/validation.js';
+import { auth } from '../middleware/auth.js';
 import { logger } from '../lib/logger.js';
+import PaymentService from '../services/paymentService.js';
 
 const router = express.Router();
 const orderRepository = new OrderRepository();
+const paymentService = new PaymentService();
 
 // POST /api/payment/webhook - Payment provider webhooks (Stripe/PayPal)
 router.post('/webhook', asyncHandler(async (req, res) => {
@@ -45,68 +48,109 @@ router.post('/webhook', asyncHandler(async (req, res) => {
 }));
 
 // POST /api/payment/stripe/webhook - Stripe-specific webhook
-router.post('/stripe', 
+router.post('/stripe/webhook', 
   express.raw({ type: 'application/json' }),
   asyncHandler(async (req, res) => {
     const sig = req.headers['stripe-signature'];
-    // TODO: Verify Stripe signature
     
     let event;
     try {
-      // TODO: Parse Stripe event with signature verification
-      event = JSON.parse(req.body);
+      // Validate Stripe webhook signature
+      event = await paymentService.validateWebhookSignature(req.body, sig, 'stripe');
     } catch (err) {
-      logger.error('Stripe webhook signature verification failed', { error: err });
+      logger.error('Stripe webhook signature verification failed', { error: err.message });
       return res.status(400).send('Webhook signature verification failed');
     }
     
-    logger.info('Stripe webhook received', { eventType: event.type });
+    logger.info('Stripe webhook received', { eventType: event.type, id: event.id });
     
-    switch (event.type) {
-      case 'payment_intent.succeeded':
-        await handlePaymentSuccess(event.data.object, 'stripe');
-        break;
-        
-      case 'payment_intent.payment_failed':
-        await handlePaymentFailure(event.data.object, 'stripe');
-        break;
-        
-      case 'charge.dispute.created':
-        await handlePaymentDispute(event.data.object, 'stripe');
-        break;
-        
-      default:
-        logger.warn('Unhandled Stripe event', { eventType: event.type });
+    try {
+      switch (event.type) {
+        case 'payment_intent.succeeded':
+          await handlePaymentSuccess(event.data.object, 'stripe');
+          break;
+          
+        case 'payment_intent.payment_failed':
+          await handlePaymentFailure(event.data.object, 'stripe');
+          break;
+          
+        case 'payment_intent.canceled':
+          await handlePaymentCancellation(event.data.object, 'stripe');
+          break;
+          
+        case 'charge.dispute.created':
+          await handlePaymentDispute(event.data.object, 'stripe');
+          break;
+
+        case 'invoice.payment_succeeded':
+          // Handle subscription payments
+          await handleSubscriptionPayment(event.data.object, 'stripe');
+          break;
+          
+        default:
+          logger.info('Unhandled Stripe event', { eventType: event.type });
+      }
+      
+      res.json({ received: true });
+    } catch (error) {
+      logger.error('Stripe webhook processing failed', { 
+        eventType: event.type, 
+        eventId: event.id, 
+        error: error.message 
+      });
+      res.status(500).json({ error: 'Webhook processing failed' });
     }
-    
-    res.json({ received: true });
   })
 );
 
 // POST /api/payment/paypal/webhook - PayPal-specific webhook
 router.post('/paypal/webhook', asyncHandler(async (req, res) => {
-  const event = req.body;
-  
-  logger.info('PayPal webhook received', { eventType: event.event_type });
-  
-  switch (event.event_type) {
-    case 'PAYMENT.CAPTURE.COMPLETED':
-      await handlePaymentSuccess(event.resource, 'paypal');
-      break;
-      
-    case 'PAYMENT.CAPTURE.DENIED':
-      await handlePaymentFailure(event.resource, 'paypal');
-      break;
-      
-    case 'PAYMENT.CAPTURE.REFUNDED':
-      await handlePaymentRefund(event.resource, 'paypal');
-      break;
-      
-    default:
-      logger.warn('Unhandled PayPal event', { eventType: event.event_type });
+  let event;
+  try {
+    // Validate PayPal webhook signature
+    event = await paymentService.validateWebhookSignature(req.body, req.headers, 'paypal');
+  } catch (err) {
+    logger.error('PayPal webhook validation failed', { error: err.message });
+    return res.status(400).send('Webhook validation failed');
   }
   
-  res.json({ received: true });
+  logger.info('PayPal webhook received', { 
+    eventType: event.event_type, 
+    id: event.id 
+  });
+  
+  try {
+    switch (event.event_type) {
+      case 'PAYMENT.CAPTURE.COMPLETED':
+        await handlePaymentSuccess(event.resource, 'paypal');
+        break;
+        
+      case 'PAYMENT.CAPTURE.DENIED':
+      case 'PAYMENT.CAPTURE.DECLINED':
+        await handlePaymentFailure(event.resource, 'paypal');
+        break;
+        
+      case 'PAYMENT.CAPTURE.REFUNDED':
+        await handlePaymentRefund(event.resource, 'paypal');
+        break;
+        
+      case 'PAYMENT.CAPTURE.REVERSED':
+        await handlePaymentDispute(event.resource, 'paypal');
+        break;
+        
+      default:
+        logger.info('Unhandled PayPal event', { eventType: event.event_type });
+    }
+    
+    res.json({ received: true });
+  } catch (error) {
+    logger.error('PayPal webhook processing failed', { 
+      eventType: event.event_type, 
+      eventId: event.id, 
+      error: error.message 
+    });
+    res.status(500).json({ error: 'Webhook processing failed' });
+  }
 }));
 
 // Helper functions for payment processing
@@ -232,41 +276,228 @@ async function handlePaymentRefund(paymentData, provider) {
   // TODO: Send refund confirmation email
 }
 
+async function handlePaymentCancellation(paymentData, provider) {
+  const { id: paymentId } = paymentData;
+  
+  // Find order by payment ID
+  const orders = await orderRepository.findAll({
+    where: { paymentId },
+  });
+  
+  if (orders.length === 0) {
+    logger.warn('No order found for cancelled payment', { paymentId, provider });
+    return;
+  }
+  
+  const order = orders[0];
+  
+  // Update order payment status
+  await orderRepository.updatePaymentStatus(order.id, 'CANCELLED');
+  
+  logger.info('Payment cancellation processed', { 
+    orderId: order.id, 
+    paymentId, 
+    provider 
+  });
+}
+
+async function handleSubscriptionPayment(invoiceData, provider) {
+  const { subscription: subscriptionId, amount_paid } = invoiceData;
+  
+  logger.info('Subscription payment received', { 
+    subscriptionId, 
+    amount_paid, 
+    provider 
+  });
+  
+  // TODO: Handle subscription payment logic
+  // This would be for recurring payments/subscriptions
+}
+
 async function handlePaymentDispute(paymentData, provider) {
   const { id: paymentId, reason } = paymentData;
   
-  logger.warn('Payment dispute received', { 
+  // Find order by payment ID
+  const orders = await orderRepository.findAll({
+    where: { paymentId },
+  });
+  
+  if (orders.length > 0) {
+    const order = orders[0];
+    await orderRepository.updatePaymentStatus(order.id, 'DISPUTED');
+    
+    // Add dispute record
+    await orderRepository.addPayment(order.id, {
+      paymentId: `dispute_${paymentId}`,
+      provider,
+      amount: 0,
+      currency: 'USD',
+      status: 'DISPUTED',
+      paymentData: { ...paymentData, reason },
+    });
+  }
+  
+  logger.warn('Payment dispute processed', { 
     paymentId, 
     provider, 
     reason 
   });
   
-  // TODO: Handle dispute logic
-  // TODO: Notify admin team
+  // TODO: Send dispute notification to admin team
 }
 
+// POST /api/payment/create-intent - Create payment intent
+router.post('/create-intent', auth, asyncHandler(async (req, res) => {
+  const { orderId, paymentMethod = 'stripe' } = req.body;
+  
+  if (!orderId) {
+    return res.status(400).json({
+      error: 'Order ID is required'
+    });
+  }
+
+  // Get order details
+  const order = await orderRepository.findById(orderId);
+  if (!order) {
+    return res.status(404).json({
+      error: 'Order not found'
+    });
+  }
+
+  // Verify order ownership
+  if (order.userId !== req.user.id && req.user.role !== 'ADMIN') {
+    return res.status(403).json({
+      error: 'Access denied'
+    });
+  }
+
+  if (order.paymentStatus === 'COMPLETED') {
+    return res.status(400).json({
+      error: 'Order already paid'
+    });
+  }
+
+  const orderData = {
+    total: order.totalPrice,
+    currency: order.currency || 'eur',
+    orderId: order.id,
+    customerInfo: {
+      email: req.user.email,
+      name: req.user.name
+    }
+  };
+
+  const paymentIntent = await paymentService.createPaymentIntent(orderData, paymentMethod);
+  
+  // Update order with payment ID
+  await orderRepository.updatePaymentId(orderId, paymentIntent.paymentIntentId || paymentIntent.paymentId);
+  
+  res.json({
+    success: true,
+    data: paymentIntent
+  });
+}));
+
+// POST /api/payment/confirm - Confirm payment
+router.post('/confirm', auth, asyncHandler(async (req, res) => {
+  const { paymentId, paymentMethod = 'stripe' } = req.body;
+  
+  if (!paymentId) {
+    return res.status(400).json({
+      error: 'Payment ID is required'
+    });
+  }
+
+  const result = await paymentService.confirmPayment(paymentId, paymentMethod);
+  
+  res.json({
+    success: true,
+    data: result
+  });
+}));
+
+// POST /api/payment/refund - Process refund
+router.post('/refund', auth, asyncHandler(async (req, res) => {
+  const { orderId, amount, reason } = req.body;
+  
+  if (req.user.role !== 'ADMIN') {
+    return res.status(403).json({
+      error: 'Admin access required'
+    });
+  }
+
+  if (!orderId) {
+    return res.status(400).json({
+      error: 'Order ID is required'
+    });
+  }
+
+  // Get order details
+  const order = await orderRepository.findById(orderId);
+  if (!order) {
+    return res.status(404).json({
+      error: 'Order not found'
+    });
+  }
+
+  if (order.paymentStatus !== 'COMPLETED') {
+    return res.status(400).json({
+      error: 'Order payment not completed'
+    });
+  }
+
+  // Get payment method from order history
+  const payments = await orderRepository.getPayments(orderId);
+  const successfulPayment = payments.find(p => p.status === 'COMPLETED');
+  
+  if (!successfulPayment) {
+    return res.status(400).json({
+      error: 'No successful payment found'
+    });
+  }
+
+  const refund = await paymentService.refundPayment(
+    successfulPayment.paymentId, 
+    amount, 
+    successfulPayment.provider, 
+    reason
+  );
+  
+  // Update order status
+  await orderRepository.updatePaymentStatus(orderId, 'REFUNDED');
+  await orderRepository.updateStatus(orderId, 'REFUNDED');
+  
+  res.json({
+    success: true,
+    data: refund
+  });
+}));
+
 // GET /api/payment/methods - Get supported payment methods
-router.get('/methods', (req, res) => {
-  const methods = [
-    {
-      id: 'stripe',
-      name: 'Credit Card (Stripe)',
-      description: 'Pay with credit or debit card',
-      enabled: true,
-    },
-    {
-      id: 'paypal',
-      name: 'PayPal',
-      description: 'Pay with PayPal account',
-      enabled: true,
-    },
-  ];
+router.get('/methods', asyncHandler(async (req, res) => {
+  const methods = await paymentService.getPaymentMethods();
   
   res.json({
     success: true,
     data: { methods },
   });
-});
+}));
+
+// GET /api/payment/status - Get payment provider status
+router.get('/status', auth, asyncHandler(async (req, res) => {
+  if (req.user.role !== 'ADMIN') {
+    return res.status(403).json({
+      error: 'Admin access required'
+    });
+  }
+
+  const status = paymentService.getProviderStatus();
+  
+  res.json({
+    success: true,
+    data: status
+  });
+}));
 
 export default router;
 

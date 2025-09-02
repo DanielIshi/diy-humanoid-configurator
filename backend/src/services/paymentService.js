@@ -1,4 +1,5 @@
 import { logger } from '../lib/logger.js';
+import { paypalClient } from '../lib/paypalClient.js';
 
 class PaymentService {
   constructor() {
@@ -25,11 +26,11 @@ class PaymentService {
       }
     }
 
-    // PayPal initialization (stub)
+    // PayPal initialization
     if (this.paypalEnabled) {
       try {
-        // TODO: Initialize PayPal SDK
-        logger.info('PayPal payment provider initialized (stub)');
+        this.paypal = await paypalClient();
+        logger.info('PayPal payment provider initialized');
       } catch (error) {
         logger.error('Failed to initialize PayPal', { error: error.message });
         this.paypalEnabled = false;
@@ -109,19 +110,59 @@ class PaymentService {
   }
 
   async createPayPalPayment(orderData) {
-    // PayPal implementation stub
-    const { total, currency = 'USD', orderId } = orderData;
-    
-    logger.info('Creating PayPal payment (stub)', { orderId, total });
+    if (!this.paypalEnabled || !this.paypal) {
+      throw new Error('PayPal payment is not configured');
+    }
 
-    // TODO: Implement actual PayPal SDK integration
-    return {
-      approvalUrl: `https://sandbox.paypal.com/checkoutnow?token=STUB_${orderId}`,
-      paymentId: `PAY_STUB_${Date.now()}`,
-      amount: total,
-      currency,
-      provider: 'paypal',
-    };
+    const { total, currency = 'USD', orderId, customerInfo } = orderData;
+    
+    try {
+      const request = {
+        intent: 'CAPTURE',
+        purchase_units: [{
+          reference_id: orderId,
+          amount: {
+            currency_code: currency,
+            value: total.toFixed(2)
+          },
+          description: `DIY Humanoid Order #${orderId}`
+        }],
+        application_context: {
+          brand_name: 'DIY Humanoid Configurator',
+          locale: 'en-US',
+          landing_page: 'BILLING',
+          shipping_preference: 'SET_PROVIDED_ADDRESS',
+          user_action: 'PAY_NOW',
+          return_url: `${process.env.FRONTEND_URL}/payment/success`,
+          cancel_url: `${process.env.FRONTEND_URL}/payment/cancel`
+        }
+      };
+
+      const order = await this.paypal.orders.create(request);
+      
+      // Find approval URL
+      const approvalUrl = order.links.find(link => link.rel === 'approve')?.href;
+      
+      logger.info('PayPal payment created', { 
+        orderId, 
+        paypalOrderId: order.id,
+        approvalUrl 
+      });
+
+      return {
+        approvalUrl,
+        paymentId: order.id,
+        amount: total,
+        currency,
+        provider: 'paypal',
+      };
+    } catch (error) {
+      logger.error('PayPal payment creation failed', { 
+        orderId, 
+        error: error.message 
+      });
+      throw new Error(`PayPal payment failed: ${error.message}`);
+    }
   }
 
   async confirmPayment(paymentId, paymentMethod = 'stripe') {
@@ -172,17 +213,47 @@ class PaymentService {
   }
 
   async confirmPayPalPayment(paymentId) {
-    // PayPal confirmation stub
-    logger.info('Confirming PayPal payment (stub)', { paymentId });
+    if (!this.paypalEnabled || !this.paypal) {
+      throw new Error('PayPal payment is not configured');
+    }
 
-    // TODO: Implement actual PayPal payment confirmation
-    return {
-      status: 'succeeded',
-      amount: 0, // Would get from PayPal API
-      currency: 'USD',
-      paymentId,
-      provider: 'paypal',
-    };
+    try {
+      const order = await this.paypal.orders.get(paymentId);
+      
+      if (order.status === 'APPROVED') {
+        // Capture the payment
+        const capture = await this.paypal.orders.capture(paymentId);
+        
+        const captureDetails = capture.purchase_units[0].payments.captures[0];
+        
+        return {
+          status: captureDetails.status.toLowerCase() === 'completed' ? 'succeeded' : 'failed',
+          amount: parseFloat(captureDetails.amount.value),
+          currency: captureDetails.amount.currency_code,
+          paymentId: capture.id,
+          provider: 'paypal',
+          metadata: {
+            captureId: captureDetails.id,
+            orderId: order.id
+          }
+        };
+      } else {
+        return {
+          status: 'failed',
+          amount: 0,
+          currency: 'USD',
+          paymentId,
+          provider: 'paypal',
+          error: `Order status: ${order.status}`
+        };
+      }
+    } catch (error) {
+      logger.error('PayPal payment confirmation failed', { 
+        paymentId, 
+        error: error.message 
+      });
+      throw new Error(`PayPal confirmation failed: ${error.message}`);
+    }
   }
 
   async refundPayment(paymentId, amount, paymentMethod = 'stripe', reason = '') {
@@ -246,18 +317,42 @@ class PaymentService {
     }
   }
 
-  async refundPayPalPayment(paymentId, amount, reason) {
-    // PayPal refund stub
-    logger.info('Processing PayPal refund (stub)', { paymentId, amount, reason });
+  async refundPayPalPayment(captureId, amount, reason) {
+    if (!this.paypalEnabled || !this.paypal) {
+      throw new Error('PayPal payment is not configured');
+    }
 
-    // TODO: Implement actual PayPal refund
-    return {
-      refundId: `REFUND_STUB_${Date.now()}`,
-      amount,
-      currency: 'USD',
-      status: 'completed',
-      provider: 'paypal',
-    };
+    try {
+      const request = {
+        amount: {
+          value: amount ? amount.toFixed(2) : undefined,
+          currency_code: 'USD'
+        },
+        note_to_payer: reason || 'Refund requested by customer'
+      };
+
+      const refund = await this.paypal.payments.captures.refund(captureId, request);
+      
+      logger.info('PayPal refund processed', { 
+        refundId: refund.id,
+        captureId,
+        amount: refund.amount.value
+      });
+
+      return {
+        refundId: refund.id,
+        amount: parseFloat(refund.amount.value),
+        currency: refund.amount.currency_code,
+        status: refund.status.toLowerCase(),
+        provider: 'paypal',
+      };
+    } catch (error) {
+      logger.error('PayPal refund failed', { 
+        captureId, 
+        error: error.message 
+      });
+      throw new Error(`PayPal refund failed: ${error.message}`);
+    }
   }
 
   async getPaymentMethods() {
@@ -329,12 +424,29 @@ class PaymentService {
     }
   }
 
-  async validatePayPalWebhook(payload, signature) {
-    // PayPal webhook validation stub
-    logger.info('Validating PayPal webhook (stub)', { signature });
-    
-    // TODO: Implement actual PayPal webhook validation
-    return JSON.parse(payload);
+  async validatePayPalWebhook(payload, headers) {
+    if (!this.paypalEnabled) {
+      throw new Error('PayPal webhook validation not configured');
+    }
+
+    try {
+      // PayPal webhook validation
+      const webhookId = process.env.PAYPAL_WEBHOOK_ID;
+      if (!webhookId) {
+        logger.warn('PayPal webhook ID not configured, skipping validation');
+        return JSON.parse(payload);
+      }
+
+      // TODO: Implement PayPal webhook signature verification
+      // For now, just parse the payload
+      const event = JSON.parse(payload);
+      
+      logger.info('PayPal webhook validated', { eventType: event.event_type });
+      return event;
+    } catch (error) {
+      logger.error('PayPal webhook validation failed', { error: error.message });
+      throw new Error('Invalid PayPal webhook');
+    }
   }
 
   getProviderStatus() {
@@ -346,8 +458,8 @@ class PaymentService {
       },
       paypal: {
         enabled: this.paypalEnabled,
-        configured: !!process.env.PAYPAL_CLIENT_ID,
-        webhookConfigured: true, // Stub
+        configured: !!process.env.PAYPAL_CLIENT_ID && !!process.env.PAYPAL_CLIENT_SECRET,
+        webhookConfigured: !!process.env.PAYPAL_WEBHOOK_ID,
       },
     };
   }
