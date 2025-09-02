@@ -4,7 +4,8 @@ import { useAuth } from '../../contexts/AuthContext';
 export function LoginForm({ onSuccess, onSwitchToRegister, onSwitchToForgotPassword }) {
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
+    rememberMe: false
   });
   const [isLoading, setIsLoading] = useState(false);
   const [formError, setFormError] = useState('');
@@ -30,7 +31,7 @@ export function LoginForm({ onSuccess, onSwitchToRegister, onSwitchToForgotPassw
     setFormError('');
 
     try {
-      await login(formData.email, formData.password);
+      await login(formData.email, formData.password, formData.rememberMe);
       if (onSuccess) onSuccess();
     } catch (error) {
       setFormError(error.message);
@@ -50,7 +51,7 @@ export function LoginForm({ onSuccess, onSwitchToRegister, onSwitchToForgotPassw
         </div>
 
         {formError && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-300 rounded-md">
+          <div className="mb-4 p-3 bg-red-50 border border-red-300 rounded-md" data-testid="login-error">
             <p className="text-sm text-red-700">{formError}</p>
           </div>
         )}
@@ -70,6 +71,7 @@ export function LoginForm({ onSuccess, onSwitchToRegister, onSwitchToForgotPassw
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="ihre.email@beispiel.de"
               disabled={isLoading}
+              data-testid="login-email"
             />
           </div>
 
@@ -87,13 +89,43 @@ export function LoginForm({ onSuccess, onSwitchToRegister, onSwitchToForgotPassw
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Ihr Passwort"
               disabled={isLoading}
+              data-testid="login-password"
             />
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="rememberMe"
+                name="rememberMe"
+                checked={formData.rememberMe}
+                onChange={(e) => setFormData(prev => ({ ...prev, rememberMe: e.target.checked }))}
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                disabled={isLoading}
+                data-testid="login-remember-me"
+              />
+              <label htmlFor="rememberMe" className="ml-2 text-sm text-gray-700">
+                Angemeldet bleiben
+              </label>
+            </div>
+            <div>
+              <button
+                type="button"
+                onClick={onSwitchToForgotPassword}
+                className="text-sm text-blue-600 hover:text-blue-500 transition duration-200"
+                data-testid="forgot-password-link"
+              >
+                Passwort vergessen?
+              </button>
+            </div>
           </div>
 
           <button
             type="submit"
             disabled={isLoading || !formData.email || !formData.password}
             className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium py-2 px-4 rounded-md transition duration-200 flex items-center justify-center"
+            data-testid="login-submit"
           >
             {isLoading ? (
               <>
@@ -106,23 +138,14 @@ export function LoginForm({ onSuccess, onSwitchToRegister, onSwitchToForgotPassw
           </button>
         </form>
 
-        <div className="mt-6 space-y-3">
-          <div className="text-center">
-            <button
-              type="button"
-              onClick={onSwitchToForgotPassword}
-              className="text-sm text-blue-600 hover:text-blue-500 transition duration-200"
-            >
-              Passwort vergessen?
-            </button>
-          </div>
-
+        <div className="mt-6">
           <div className="text-center pt-4 border-t border-gray-200">
             <span className="text-sm text-gray-600">Noch kein Account? </span>
             <button
               type="button"
               onClick={onSwitchToRegister}
               className="text-sm text-blue-600 hover:text-blue-500 font-medium transition duration-200"
+              data-testid="auth-register-link"
             >
               Hier registrieren
             </button>

@@ -1,4 +1,5 @@
-import { PaypalServerSDK } from '@paypal/paypal-server-sdk';
+import pkg from '@paypal/paypal-server-sdk';
+const { PaypalServerSDK } = pkg;
 import { logger } from './logger.js';
 
 let paypalClientInstance = null;

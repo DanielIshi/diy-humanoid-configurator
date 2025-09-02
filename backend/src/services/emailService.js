@@ -14,7 +14,7 @@ export class EmailService {
   createTransporter() {
     // For development, use Gmail or other SMTP service
     // For production, use services like SendGrid, AWS SES, etc.
-    return nodemailer.createTransporter({
+    return nodemailer.createTransport({
       host: env.EMAIL_HOST || 'smtp.gmail.com',
       port: parseInt(env.EMAIL_PORT) || 587,
       secure: false, // true for 465, false for other ports

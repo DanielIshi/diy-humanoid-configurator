@@ -2,7 +2,7 @@ import express from 'express';
 import { OrderRepository } from '../repositories/index.js';
 import { asyncHandler } from '../middleware/error.js';
 import { validate, schemas } from '../middleware/validation.js';
-import { auth } from '../middleware/auth.js';
+import { protect } from '../middleware/auth.js';
 import { logger } from '../lib/logger.js';
 import PaymentService from '../services/paymentService.js';
 
@@ -347,7 +347,7 @@ async function handlePaymentDispute(paymentData, provider) {
 }
 
 // POST /api/payment/create-intent - Create payment intent
-router.post('/create-intent', auth, asyncHandler(async (req, res) => {
+router.post('/create-intent', protect, asyncHandler(async (req, res) => {
   const { orderId, paymentMethod = 'stripe' } = req.body;
   
   if (!orderId) {
@@ -399,7 +399,7 @@ router.post('/create-intent', auth, asyncHandler(async (req, res) => {
 }));
 
 // POST /api/payment/confirm - Confirm payment
-router.post('/confirm', auth, asyncHandler(async (req, res) => {
+router.post('/confirm', protect, asyncHandler(async (req, res) => {
   const { paymentId, paymentMethod = 'stripe' } = req.body;
   
   if (!paymentId) {
@@ -417,7 +417,7 @@ router.post('/confirm', auth, asyncHandler(async (req, res) => {
 }));
 
 // POST /api/payment/refund - Process refund
-router.post('/refund', auth, asyncHandler(async (req, res) => {
+router.post('/refund', protect, asyncHandler(async (req, res) => {
   const { orderId, amount, reason } = req.body;
   
   if (req.user.role !== 'ADMIN') {
@@ -484,7 +484,7 @@ router.get('/methods', asyncHandler(async (req, res) => {
 }));
 
 // GET /api/payment/status - Get payment provider status
-router.get('/status', auth, asyncHandler(async (req, res) => {
+router.get('/status', protect, asyncHandler(async (req, res) => {
   if (req.user.role !== 'ADMIN') {
     return res.status(403).json({
       error: 'Admin access required'

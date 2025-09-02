@@ -7,6 +7,8 @@ import { protect, requireAdmin } from '../middleware/auth.js';
 import { validate } from '../middleware/validation.js';
 import { asyncHandler } from '../middleware/error.js';
 import { logger } from '../lib/logger.js';
+import { sessionService } from '../services/sessionService.js';
+import { generateCSRFToken, verifyCSRFToken } from '../middleware/csrf.js';
 
 const router = express.Router();
 
@@ -409,21 +411,167 @@ router.get('/admin/users',
 );
 
 /**
+ * @route   GET /api/auth/sessions
+ * @desc    Get all active sessions for current user
+ * @access  Private
+ */
+router.get('/sessions',
+  protect,
+  asyncHandler(async (req, res) => {
+    const userId = req.user.id;
+    const currentSessionId = req.sessionId;
+    
+    const sessions = await sessionService.getUserSessions(userId);
+    
+    // Mark current session
+    const sessionsWithCurrent = sessions.map(session => ({
+      ...session,
+      isCurrent: session.id === currentSessionId
+    }));
+
+    res.json({
+      success: true,
+      data: {
+        sessions: sessionsWithCurrent,
+        total: sessions.length
+      }
+    });
+  })
+);
+
+/**
+ * @route   DELETE /api/auth/sessions/:sessionId
+ * @desc    Terminate a specific session
+ * @access  Private
+ */
+router.delete('/sessions/:sessionId',
+  protect,
+  verifyCSRFToken,
+  asyncHandler(async (req, res) => {
+    const { sessionId } = req.params;
+    const userId = req.user.id;
+    const currentSessionId = req.sessionId;
+    
+    if (sessionId === currentSessionId) {
+      return res.status(400).json({
+        success: false,
+        message: 'Cannot terminate your current session. Use logout instead.'
+      });
+    }
+    
+    await sessionService.terminateSession(sessionId, userId);
+    
+    logger.info('Session terminated by user', { userId, terminatedSessionId: sessionId });
+    
+    res.json({
+      success: true,
+      message: 'Session terminated successfully'
+    });
+  })
+);
+
+/**
+ * @route   POST /api/auth/sessions/terminate-all
+ * @desc    Terminate all other sessions (except current)
+ * @access  Private
+ */
+router.post('/sessions/terminate-all',
+  protect,
+  verifyCSRFToken,
+  asyncHandler(async (req, res) => {
+    const userId = req.user.id;
+    const currentSessionId = req.sessionId;
+    
+    const terminatedCount = await sessionService.terminateAllUserSessions(
+      userId, 
+      currentSessionId
+    );
+    
+    logger.info('All other sessions terminated by user', { 
+      userId, 
+      terminatedCount 
+    });
+    
+    res.json({
+      success: true,
+      message: `${terminatedCount} sessions terminated successfully`,
+      data: { terminatedCount }
+    });
+  })
+);
+
+/**
+ * @route   POST /api/auth/trust-device
+ * @desc    Trust current device
+ * @access  Private
+ */
+router.post('/trust-device',
+  protect,
+  verifyCSRFToken,
+  validate(z.object({
+    body: z.object({
+      deviceName: z.string().min(1).max(100).optional()
+    })
+  })),
+  asyncHandler(async (req, res) => {
+    const userId = req.user.id;
+    const { deviceName } = req.body;
+    const deviceFingerprint = sessionService.generateDeviceFingerprint(
+      req.get('User-Agent'),
+      req.ip
+    );
+    
+    await sessionService.trustDevice(userId, deviceFingerprint, deviceName);
+    
+    res.json({
+      success: true,
+      message: 'Device trusted successfully'
+    });
+  })
+);
+
+/**
+ * @route   GET /api/auth/csrf-token
+ * @desc    Get CSRF token for forms
+ * @access  Public (but requires session)
+ */
+router.get('/csrf-token',
+  generateCSRFToken,
+  asyncHandler(async (req, res) => {
+    res.json({
+      success: true,
+      data: {
+        csrfToken: res.locals.csrfToken
+      }
+    });
+  })
+);
+
+/**
  * @route   POST /api/auth/admin/cleanup
- * @desc    Cleanup expired tokens (admin only)
+ * @desc    Cleanup expired tokens and sessions (admin only)
  * @access  Private/Admin
  */
 router.post('/admin/cleanup',
   protect,
   requireAdmin,
   asyncHandler(async (req, res) => {
-    await authService.cleanupExpiredTokens();
+    const [tokenCleanup, sessionCleanup] = await Promise.all([
+      authService.cleanupExpiredTokens(),
+      sessionService.cleanupExpiredSessions()
+    ]);
 
-    logger.info('Token cleanup completed by admin', { adminId: req.user.id });
+    logger.info('Cleanup completed by admin', { 
+      adminId: req.user.id,
+      sessionsCleanedUp: sessionCleanup
+    });
 
     res.json({
       success: true,
-      message: 'Expired tokens cleaned up successfully'
+      message: 'Cleanup completed successfully',
+      data: {
+        sessionsCleanedUp: sessionCleanup
+      }
     });
   })
 );

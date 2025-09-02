@@ -8,7 +8,11 @@ const initialState = {
   isAuthenticated: false,
   isLoading: true,
   error: null,
-  accessToken: null
+  accessToken: null,
+  sessionId: null,
+  deviceTrust: null,
+  sessions: [],
+  csrfToken: null
 };
 
 const authReducer = (state, action) => {
@@ -21,6 +25,8 @@ const authReducer = (state, action) => {
         ...state,
         user: action.payload.user,
         accessToken: action.payload.accessToken,
+        sessionId: action.payload.sessionId || null,
+        deviceTrust: action.payload.deviceTrust || null,
         isAuthenticated: true,
         isLoading: false,
         error: null
@@ -40,6 +46,18 @@ const authReducer = (state, action) => {
       return {
         ...initialState,
         isLoading: false
+      };
+    
+    case 'SET_SESSIONS':
+      return { ...state, sessions: action.payload };
+    
+    case 'SET_CSRF_TOKEN':
+      return { ...state, csrfToken: action.payload };
+    
+    case 'TERMINATE_SESSION':
+      return {
+        ...state,
+        sessions: state.sessions.filter(session => session.id !== action.payload)
       };
     
     case 'SET_ERROR':
@@ -94,21 +112,32 @@ class AuthService {
     });
   }
 
-  async login(email, password) {
-    return await this.request('/api/auth/login', {
+  async login(email, password, rememberMe = false) {
+    const response = await this.request('/api/auth/login', {
       method: 'POST',
-      body: { email, password }
+      body: { email, password, rememberMe }
     });
+    
+    // Store session ID for subsequent requests
+    if (response.data?.sessionId) {
+      sessionStorage.setItem('sessionId', response.data.sessionId);
+    }
+    
+    return response;
   }
 
   async logout() {
     try {
+      const sessionId = sessionStorage.getItem('sessionId');
       await this.request('/api/auth/logout', {
-        method: 'POST'
+        method: 'POST',
+        body: sessionId ? { sessionId } : {}
       });
     } catch (error) {
       // Even if logout fails on backend, clear frontend state
       console.warn('Logout request failed:', error.message);
+    } finally {
+      sessionStorage.removeItem('sessionId');
     }
   }
 
@@ -151,22 +180,70 @@ class AuthService {
   }
 
   async changePassword(currentPassword, newPassword) {
+    const sessionId = sessionStorage.getItem('sessionId');
     return await this.request('/api/auth/change-password', {
       method: 'POST',
-      body: { currentPassword, newPassword }
+      body: { currentPassword, newPassword, sessionId },
+      headers: {
+        'X-CSRF-Token': this.getCsrfToken()
+      }
     });
   }
+  
+  // Session management methods
+  async getSessions() {
+    return await this.authenticatedRequest('/api/auth/sessions');
+  }
+  
+  async terminateSession(sessionId) {
+    return await this.authenticatedRequest(`/api/auth/sessions/${sessionId}`, {
+      method: 'DELETE',
+      headers: {
+        'X-CSRF-Token': this.getCsrfToken()
+      }
+    });
+  }
+  
+  async terminateAllSessions() {
+    return await this.authenticatedRequest('/api/auth/sessions/terminate-all', {
+      method: 'POST',
+      headers: {
+        'X-CSRF-Token': this.getCsrfToken()
+      }
+    });
+  }
+  
+  async trustDevice(deviceName) {
+    return await this.authenticatedRequest('/api/auth/trust-device', {
+      method: 'POST',
+      body: { deviceName },
+      headers: {
+        'X-CSRF-Token': this.getCsrfToken()
+      }
+    });
+  }
+  
+  async fetchCsrfToken() {
+    return await this.request('/api/auth/csrf-token');
+  }
 
-  // Helper to add auth token to requests
+  // Helper to add auth token and session ID to requests
   authenticatedRequest(endpoint, options = {}) {
     const token = localStorage.getItem('accessToken');
+    const sessionId = sessionStorage.getItem('sessionId');
     return this.request(endpoint, {
       ...options,
       headers: {
         ...options.headers,
-        Authorization: token ? `Bearer ${token}` : undefined
+        Authorization: token ? `Bearer ${token}` : undefined,
+        'X-Session-Id': sessionId || undefined
       }
     });
+  }
+  
+  // Get CSRF token from global state
+  getCsrfToken() {
+    return window.__CSRF_TOKEN__ || null;
   }
 }
 
@@ -247,16 +324,25 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const login = async (email, password) => {
+  const login = async (email, password, rememberMe = false) => {
     dispatch({ type: 'SET_LOADING', payload: true });
     try {
-      const response = await authService.login(email, password);
+      const response = await authService.login(email, password, rememberMe);
       TokenManager.set(response.data.accessToken);
+      
+      // Store CSRF token globally for forms
+      if (response.data.csrfToken) {
+        window.__CSRF_TOKEN__ = response.data.csrfToken;
+        dispatch({ type: 'SET_CSRF_TOKEN', payload: response.data.csrfToken });
+      }
+      
       dispatch({
         type: 'LOGIN_SUCCESS',
         payload: {
           user: response.data.user,
-          accessToken: response.data.accessToken
+          accessToken: response.data.accessToken,
+          sessionId: response.data.sessionId,
+          deviceTrust: response.data.deviceTrust
         }
       });
       return response;
@@ -284,6 +370,7 @@ export function AuthProvider({ children }) {
       await authService.logout();
     } finally {
       TokenManager.clear();
+      window.__CSRF_TOKEN__ = null;
       dispatch({ type: 'LOGOUT' });
     }
   };
@@ -338,6 +425,56 @@ export function AuthProvider({ children }) {
   const changePassword = async (currentPassword, newPassword) => {
     try {
       const response = await authService.changePassword(currentPassword, newPassword);
+      // Password change will terminate other sessions, so refresh current session
+      await refreshSessions();
+      return response;
+    } catch (error) {
+      dispatch({ type: 'SET_ERROR', payload: error.message });
+      throw error;
+    }
+  };
+  
+  // Session management functions
+  const refreshSessions = async () => {
+    try {
+      const response = await authService.getSessions();
+      dispatch({ type: 'SET_SESSIONS', payload: response.data.sessions });
+      return response;
+    } catch (error) {
+      dispatch({ type: 'SET_ERROR', payload: error.message });
+      throw error;
+    }
+  };
+  
+  const terminateSession = async (sessionId) => {
+    try {
+      await authService.terminateSession(sessionId);
+      dispatch({ type: 'TERMINATE_SESSION', payload: sessionId });
+    } catch (error) {
+      dispatch({ type: 'SET_ERROR', payload: error.message });
+      throw error;
+    }
+  };
+  
+  const terminateAllOtherSessions = async () => {
+    try {
+      const response = await authService.terminateAllSessions();
+      await refreshSessions(); // Refresh to show only current session
+      return response;
+    } catch (error) {
+      dispatch({ type: 'SET_ERROR', payload: error.message });
+      throw error;
+    }
+  };
+  
+  const trustCurrentDevice = async (deviceName) => {
+    try {
+      const response = await authService.trustDevice(deviceName);
+      // Update device trust status
+      dispatch({
+        type: 'UPDATE_USER',
+        payload: { ...state.user, deviceTrusted: true }
+      });
       return response;
     } catch (error) {
       dispatch({ type: 'SET_ERROR', payload: error.message });
@@ -391,6 +528,23 @@ export function AuthProvider({ children }) {
     };
   }, [state.accessToken, state.isAuthenticated]);
 
+  // Initialize CSRF token on app load
+  useEffect(() => {
+    const initializeCsrf = async () => {
+      try {
+        const response = await authService.fetchCsrfToken();
+        if (response.data?.csrfToken) {
+          window.__CSRF_TOKEN__ = response.data.csrfToken;
+          dispatch({ type: 'SET_CSRF_TOKEN', payload: response.data.csrfToken });
+        }
+      } catch (error) {
+        console.warn('Failed to initialize CSRF token:', error.message);
+      }
+    };
+    
+    initializeCsrf();
+  }, []);
+
   const value = {
     ...state,
     login,
@@ -401,6 +555,10 @@ export function AuthProvider({ children }) {
     verifyEmail,
     resendVerification,
     changePassword,
+    refreshSessions,
+    terminateSession,
+    terminateAllOtherSessions,
+    trustCurrentDevice,
     clearError,
     authService
   };

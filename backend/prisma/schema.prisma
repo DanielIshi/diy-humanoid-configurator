@@ -36,6 +36,8 @@ model User {
   refreshTokens      RefreshToken[]
   passwordResets     PasswordReset[]
   emailVerifications EmailVerification[]
+  sessions           Session[]
+  trustedDevices     TrustedDevice[]
 
   @@map("users")
 }
@@ -349,4 +351,38 @@ model LoginAttempt {
   createdAt DateTime @default(now())
 
   @@map("login_attempts")
+}
+
+// Auth: Session management with device tracking
+model Session {
+  id                String    @id @default(cuid())
+  userId            String
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deviceFingerprint String
+  ipAddress         String
+  userAgent         String
+  rememberMe        Boolean   @default(false)
+  isActive          Boolean   @default(true)
+  lastActivity      DateTime  @default(now())
+  terminatedAt      DateTime?
+  expiresAt         DateTime
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@map("sessions")
+}
+
+// Auth: Trusted devices for security
+model TrustedDevice {
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deviceFingerprint String
+  deviceName        String?
+  trustedAt         DateTime @default(now())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@unique([userId, deviceFingerprint])
+  @@map("trusted_devices")
 }

@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { getEnv } from '../config/env.js';
 import { UnauthorizedError, BadRequestError, asyncHandler } from './error.js';
+import { logger } from '../lib/logger.js';
 
 const env = getEnv();
 
