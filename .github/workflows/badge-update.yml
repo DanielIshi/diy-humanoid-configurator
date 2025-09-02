@@ -1,0 +1,51 @@
+name: Update Coverage Badge
+
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  update-badge:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Download coverage reports
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage-reports
+          path: ./coverage
+          
+      - name: Generate coverage badge
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/backend/lcov.info,./coverage/frontend/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          
+      - name: Update README with badges
+        run: |
+          # Add or update badges in README.md
+          if ! grep -q "codecov" README.md; then
+            echo "[![codecov](https://codecov.io/gh/${{ github.repository }}/branch/main/graph/badge.svg)](https://codecov.io/gh/${{ github.repository }})" >> README.md
+          fi
+          
+          if ! grep -q "CI Pipeline" README.md; then
+            echo "[![CI Pipeline](https://github.com/${{ github.repository }}/workflows/CI%20Pipeline/badge.svg)](https://github.com/${{ github.repository }}/actions)" >> README.md
+          fi
+          
+      - name: Commit badge updates
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md
+          git diff --staged --quiet || git commit -m "Update coverage and CI badges"
+          git push
