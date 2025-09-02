@@ -18,6 +18,7 @@ import pricesRouter from './routes/prices.js';
 import productsRouter from './routes/products.js';
 import configRouter from './routes/config.js';
 import adminRouter from './routes/admin.js';
+import manualRouter from './routes/manual.js';
 
 export function createServer() {
   const app = express();
@@ -69,6 +70,7 @@ export function createServer() {
   app.use('/api/config', configRouter);
   app.use('/api/llm', llmRouter);
   app.use('/api/prices', pricesRouter);
+  app.use('/api/manual', manualRouter);
   
   // Admin routes (protected)
   app.use('/admin', adminRouter);
