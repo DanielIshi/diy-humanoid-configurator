@@ -1,16 +1,29 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
 import { ConfiguratorProvider } from './contexts/ConfiguratorContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { UserMenu } from './components/auth/UserMenu';
 import Header from './components/shared/Header';
 import Footer from './components/shared/Footer';
-import ConfiguratorPage from './pages/customer/ConfiguratorPage';
-import AdvisorPage from './pages/customer/AdvisorPage';
-import AdminPage from './pages/admin/AdminPage';
-import { LoginPage } from './pages/auth/LoginPage';
-import { ResetPasswordPage } from './pages/auth/ResetPasswordPage';
-import { VerifyEmailPage } from './pages/auth/VerifyEmailPage';
+
+// Lazy Loading für bessere Performance
+const ConfiguratorPage = lazy(() => import('./pages/customer/ConfiguratorPage'));
+const AdvisorPage = lazy(() => import('./pages/customer/AdvisorPage'));
+const AdminPage = lazy(() => import('./pages/admin/AdminPage'));
+const LoginPage = lazy(() => import('./pages/auth/LoginPage').then(module => ({ default: module.LoginPage })));
+const ResetPasswordPage = lazy(() => import('./pages/auth/ResetPasswordPage').then(module => ({ default: module.ResetPasswordPage })));
+const VerifyEmailPage = lazy(() => import('./pages/auth/VerifyEmailPage').then(module => ({ default: module.VerifyEmailPage })));
+
+// Loading Spinner Komponente
+function LoadingSpinner() {
+  return (
+    <div className="flex items-center justify-center min-h-[50vh]">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <span className="ml-3 text-slate-300">Laden...</span>
+    </div>
+  );
+}
 
 function CustomerLayout({ children }) {
   return (
@@ -29,18 +42,32 @@ function App() {
         <ConfiguratorProvider>
           <Routes>
             {/* Public Auth Routes */}
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/login" element={
+              <Suspense fallback={<LoadingSpinner />}>
+                <LoginPage />
+              </Suspense>
+            } />
             <Route path="/register" element={<Navigate to="/login?mode=register" replace />} />
             <Route path="/forgot-password" element={<Navigate to="/login?mode=forgot" replace />} />
-            <Route path="/reset-password" element={<ResetPasswordPage />} />
-            <Route path="/verify-email" element={<VerifyEmailPage />} />
+            <Route path="/reset-password" element={
+              <Suspense fallback={<LoadingSpinner />}>
+                <ResetPasswordPage />
+              </Suspense>
+            } />
+            <Route path="/verify-email" element={
+              <Suspense fallback={<LoadingSpinner />}>
+                <VerifyEmailPage />
+              </Suspense>
+            } />
 
             {/* Public Customer Routes */}
             <Route 
               path="/" 
               element={
                 <CustomerLayout>
-                  <ConfiguratorPage />
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <ConfiguratorPage />
+                  </Suspense>
                 </CustomerLayout>
               } 
             />
@@ -51,7 +78,9 @@ function App() {
               element={
                 <ProtectedRoute>
                   <CustomerLayout>
-                    <AdvisorPage />
+                    <Suspense fallback={<LoadingSpinner />}>
+                      <AdvisorPage />
+                    </Suspense>
                   </CustomerLayout>
                 </ProtectedRoute>
               } 
@@ -61,7 +90,9 @@ function App() {
               path="/configurator" 
               element={
                 <CustomerLayout>
-                  <ConfiguratorPage />
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <ConfiguratorPage />
+                  </Suspense>
                 </CustomerLayout>
               } 
             />
@@ -125,7 +156,9 @@ function App() {
               path="/admin/*" 
               element={
                 <ProtectedRoute requireRole="admin" requireVerified={true}>
-                  <AdminPage />
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <AdminPage />
+                  </Suspense>
                 </ProtectedRoute>
               } 
             />

@@ -4,10 +4,150 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DIY Humanoid Configurator</title>
+    
+    <!-- Performance Optimierungen -->
+    <meta name="theme-color" content="#1e40af" />
+    <meta name="description" content="Konfiguriere deinen DIY Humanoid Roboter mit unserem intelligenten Konfigurator" />
+    
+    <!-- DNS Prefetch für externe Domains -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//api.stripe.com" />
+    <link rel="dns-prefetch" href="//js.stripe.com" />
+    
+    <!-- Preconnect für kritische Ressourcen -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Resource Hints -->
+    <link rel="modulepreload" href="/src/main.jsx" />
+    <link rel="modulepreload" href="/src/App.jsx" />
+    <link rel="modulepreload" href="/src/index.css" />
+    
+    <!-- Preload kritische CSS -->
+    <link rel="preload" href="/src/index.css" as="style" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Performance Budget Script -->
+    <script>
+      // Performance Budget Monitoring
+      const PERFORMANCE_BUDGET = {
+        FCP: 1500, // First Contentful Paint
+        LCP: 2500, // Largest Contentful Paint
+        FID: 100,  // First Input Delay
+        CLS: 0.1   // Cumulative Layout Shift
+      };
+      
+      // Web Vitals Monitoring
+      if ('PerformanceObserver' in window) {
+        const observer = new PerformanceObserver((list) => {
+          list.getEntries().forEach((entry) => {
+            if (entry.entryType === 'paint' && entry.name === 'first-contentful-paint') {
+              const fcp = entry.startTime;
+              if (fcp > PERFORMANCE_BUDGET.FCP) {
+                console.warn(`FCP Budget exceeded: ${fcp}ms (budget: ${PERFORMANCE_BUDGET.FCP}ms)`);
+              }
+            }
+            
+            if (entry.entryType === 'largest-contentful-paint') {
+              const lcp = entry.startTime;
+              if (lcp > PERFORMANCE_BUDGET.LCP) {
+                console.warn(`LCP Budget exceeded: ${lcp}ms (budget: ${PERFORMANCE_BUDGET.LCP}ms)`);
+              }
+            }
+          });
+        });
+        
+        observer.observe({ entryTypes: ['paint', 'largest-contentful-paint'] });
+      }
+      
+      // Loading Performance Timing
+      window.addEventListener('load', () => {
+        const perfData = performance.getEntriesByType('navigation')[0];
+        const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
+        console.log(`Page Load Time: ${loadTime}ms`);
+        
+        // Send to analytics if configured
+        if (window.gtag && loadTime > 3000) {
+          gtag('event', 'page_load_slow', {
+            'event_category': 'Performance',
+            'value': Math.round(loadTime)
+          });
+        }
+      });
+    </script>
+    
+    <!-- Critical CSS Inline (wird durch Build-Prozess ersetzt) -->
+    <style>
+      /* Critical Above-the-fold Styles */
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+          'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background: linear-gradient(to bottom, #0d1224, #080a16);
+        color: #f1f5f9;
+      }
+      
+      #root {
+        min-height: 100vh;
+      }
+      
+      /* Loading Spinner für bessere UX */
+      .loading-spinner {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        border: 3px solid rgba(59, 130, 246, 0.3);
+        border-radius: 50%;
+        border-top-color: #3b82f6;
+        animation: spin 1s ease-in-out infinite;
+      }
+      
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      
+      /* Layout Shift Prevention */
+      .layout-stable {
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Loading Fallback mit Layout Stability -->
+      <div class="layout-stable">
+        <div class="loading-spinner"></div>
+        <span style="margin-left: 12px;">Lade Konfigurator...</span>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
   </body>
-  </html>
-
+</html>
