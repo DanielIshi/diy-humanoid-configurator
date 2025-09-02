@@ -1,0 +1,90 @@
+{
+  "version": 2,
+  "name": "diy-humanoid-configurator",
+  "framework": "vite",
+  "installCommand": "npm install && cd frontend && npm install",
+  "buildCommand": "npm run build:frontend",
+  "outputDirectory": "frontend/dist",
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/admin(.*)",
+      "dest": "/admin/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://diy-humanoid-configurator-backend.railway.app/api/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains"
+        }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://diy-humanoid-configurator.vercel.app"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "X-Requested-With, Content-Type, Authorization"
+        },
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        }
+      ]
+    }
+  ],
+  "env": {
+    "VITE_API_URL": "https://diy-humanoid-configurator-backend.railway.app/api",
+    "VITE_APP_ENV": "production",
+    "VITE_APP_VERSION": "0.7.0",
+    "VITE_STRIPE_PUBLISHABLE_KEY": "@vite_stripe_publishable_key",
+    "VITE_ENABLE_LLM_ADVISOR": "@vite_enable_llm_advisor",
+    "VITE_ENABLE_AUDIO_GUIDES": "@vite_enable_audio_guides",
+    "VITE_SENTRY_DSN": "@vite_sentry_dsn"
+  },
+  "regions": ["fra1"],
+  "functions": {
+    "pages/_middleware.js": {
+      "runtime": "edge"
+    }
+  }
+}

@@ -83,7 +83,7 @@
     "logs:security": "tail -f logs/security.log",
     "backup": "npm run db:backup && echo 'Backup completed'",
     "setup": "npm run install:all && npm run db:setup && echo 'Setup completed successfully'",
-    "postinstall": "cd frontend && npm install && cd ../backend && npm install"
+    "postinstall": "echo 'Use npm run install:all to install all dependencies'"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
