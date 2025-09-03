@@ -1,0 +1,129 @@
+{
+  "legal": {
+    "cookieConsent": {
+      "title": "Cookie-Einstellungen",
+      "description": "Wir verwenden Cookies, um Ihnen die beste Erfahrung auf unserer Website zu bieten. Einige sind notwendig, andere helfen uns, die Website zu verbessern.",
+      "customize": "Anpassen",
+      "necessary": "Nur Notwendige",
+      "acceptAll": "Alle akzeptieren",
+      "detailsTitle": "Cookie-Einstellungen verwalten",
+      "functional": "Funktionale Cookies",
+      "functionalDesc": "Verbessern die Benutzerfreundlichkeit und ermöglichen personalisierte Inhalte.",
+      "analytics": "Analytics Cookies", 
+      "analyticsDesc": "Helfen uns zu verstehen, wie Besucher mit der Website interagieren (anonymisiert).",
+      "marketing": "Marketing Cookies",
+      "marketingDesc": "Ermöglichen personalisierte Werbung und Tracking über mehrere Websites.",
+      "necessaryDesc": "Diese Cookies sind für die Grundfunktionen der Website erforderlich und können nicht deaktiviert werden.",
+      "savePreferences": "Einstellungen speichern"
+    },
+    "privacyPolicy": "Datenschutzerklärung",
+    "terms": {
+      "title": "Allgemeine Geschäftsbedingungen",
+      "version": "Version",
+      "newVersion": "Neue Version verfügbar",
+      "versionHistory": "Versionshistorie",
+      "current": "Aktuell",
+      "acceptanceText": "Ich habe die Allgemeinen Geschäftsbedingungen gelesen und stimme diesen zu.",
+      "acceptAndContinue": "Zustimmen und fortfahren",
+      "lastUpdated": "Zuletzt aktualisiert",
+      "acceptedVersion": "Akzeptierte Version",
+      "scope": {
+        "title": "Geltungsbereich",
+        "content": "Diese Allgemeinen Geschäftsbedingungen gelten für alle Verträge über die Lieferung von Waren, die ein Verbraucher oder Unternehmer mit uns als Verkäufer abschließt.",
+        "variations": "Abweichende Bedingungen des Kunden erkennen wir nur an, wenn wir dem ausdrücklich schriftlich zugestimmt haben."
+      },
+      "contract": {
+        "title": "Vertragsschluss",
+        "offer": "Die Darstellung der Produkte im Online-Shop stellt kein rechtlich bindendes Vertragsangebot unsererseits dar.",
+        "order": "Durch das Absenden einer Bestellung geben Sie ein verbindliches Angebot zum Erwerb der im Warenkorb enthaltenen Waren ab.",
+        "acceptance": "Der Kaufvertrag kommt zustande, wenn wir Ihre Bestellung durch eine Auftragsbestätigungsmail annehmen oder die Waren versenden."
+      },
+      "payment": {
+        "title": "Preise und Zahlung",
+        "prices": "Alle Preise verstehen sich inklusive der gesetzlichen Mehrwertsteuer und sonstiger Preisbestandteile.",
+        "methods": "Die Bezahlung erfolgt wahlweise per Vorkasse, Kreditkarte oder PayPal.",
+        "due": "Bei Vorkasse ist der Kaufpreis sofort nach Vertragsschluss fällig."
+      },
+      "delivery": {
+        "title": "Lieferung",
+        "time": "Die Lieferung erfolgt innerhalb von 7-14 Werktagen nach Zahlungseingang.",
+        "area": "Wir liefern ausschließlich innerhalb der Europäischen Union.",
+        "costs": "Die Versandkosten werden im Bestellvorgang angezeigt und sind vom Kunden zu tragen."
+      },
+      "withdrawal": {
+        "title": "Widerrufsrecht",
+        "instructionTitle": "Widerrufsbelehrung",
+        "right": "Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen.",
+        "period": "Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag, an dem Sie oder ein von Ihnen benannter Dritter die Waren in Besitz genommen haben.",
+        "contact": "Um Ihr Widerrufsrecht auszuüben, müssen Sie uns mittels einer eindeutigen Erklärung über Ihren Entschluss informieren."
+      },
+      "warranty": {
+        "title": "Gewährleistung",
+        "legal": "Es gelten die gesetzlichen Gewährleistungsbestimmungen.",
+        "defects": "Mängel sind uns unverzüglich schriftlich anzuzeigen."
+      },
+      "privacy": {
+        "title": "Datenschutz",
+        "processing": "Ihre personenbezogenen Daten werden gemäß unserer Datenschutzerklärung verarbeitet.",
+        "consent": "Mit der Bestellung stimmen Sie der Datenverarbeitung zu den genannten Zwecken zu."
+      },
+      "law": {
+        "title": "Anwendbares Recht",
+        "content": "Auf sämtliche Rechtsbeziehungen zwischen uns und dem Kunden findet das Recht der Bundesrepublik Deutschland Anwendung."
+      }
+    },
+    "privacy": {
+      "title": "Datenschutzerklärung",
+      "lastUpdated": "Zuletzt aktualisiert: 15. Januar 2024",
+      "sections": {
+        "dataController": {
+          "title": "Verantwortlicher",
+          "content": "Verantwortlich für die Datenverarbeitung auf dieser Website ist:\n\nDIY Humanoid Configurator\nMusterstraße 123\n12345 Berlin\nE-Mail: privacy@diy-humanoid.com"
+        },
+        "dataCollection": {
+          "title": "Datenerfassung",
+          "content": "Wir erheben personenbezogene Daten nur, wenn Sie uns diese freiwillig mitteilen oder wenn dies zur Erfüllung des Vertragszwecks erforderlich ist."
+        },
+        "cookies": {
+          "title": "Cookies",
+          "content": "Diese Website verwendet Cookies. Nähere Informationen erhalten Sie in unseren Cookie-Einstellungen."
+        },
+        "rights": {
+          "title": "Ihre Rechte",
+          "content": "Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Widerspruch und Datenübertragbarkeit."
+        }
+      }
+    },
+    "imprint": {
+      "title": "Impressum",
+      "company": "DIY Humanoid Configurator",
+      "address": "Musterstraße 123\n12345 Berlin\nDeutschland",
+      "contact": "E-Mail: info@diy-humanoid.com\nTelefon: +49 (0) 30 12345678",
+      "legal": "Geschäftsführung: Max Mustermann\nHandelsregister: HRB 12345 B\nUmsatzsteuer-ID: DE123456789"
+    },
+    "compliance": {
+      "gdprCompliant": "DSGVO-konform",
+      "dataProcessing": "Datenverarbeitung",
+      "consent": "Einwilligung",
+      "withdraw": "widerrufen",
+      "dataSubjectRights": "Betroffenenrechte",
+      "contact": "Kontakt",
+      "legalBasis": "Rechtsgrundlage",
+      "retention": "Speicherdauer",
+      "processors": "Auftragsverarbeiter"
+    }
+  },
+  "sidebar": {
+    "netPrice": "Nettopreis",
+    "grossPrice": "Bruttopreis inkl.",
+    "plusVAT": "zzgl.",
+    "showGross": "Brutto anzeigen", 
+    "showNet": "Netto anzeigen",
+    "hideVATDetails": "MwSt. ausblenden",
+    "showVATDetails": "MwSt. Details",
+    "country": "Land",
+    "netAmount": "Nettobetrag",
+    "totalGross": "Gesamtbetrag",
+    "taxNote": "Preise gelten für"
+  }
+}

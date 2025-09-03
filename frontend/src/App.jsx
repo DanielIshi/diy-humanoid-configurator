@@ -6,6 +6,7 @@ import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { UserMenu } from './components/auth/UserMenu';
 import Header from './components/shared/Header';
 import Footer from './components/shared/Footer';
+import PrivacyBanner from './components/legal/PrivacyBanner';
 
 // Import page components
 import ProfilePage from './components/pages/ProfilePage';
@@ -16,6 +17,8 @@ import PrivacyPage from './components/pages/PrivacyPage';
 import TermsPage from './components/pages/TermsPage';
 import NotFoundPage from './components/pages/NotFoundPage';
 import SEOHead from './components/common/SEOHead';
+import CheckoutPage from './pages/CheckoutPage';
+import PaymentSuccessPage from './pages/PaymentSuccessPage';
 
 // Lazy Loading für bessere Performance
 const ConfiguratorPage = lazy(() => import('./pages/customer/ConfiguratorPage'));
@@ -42,6 +45,7 @@ function CustomerLayout({ children }) {
       <Header userMenu={<UserMenu />} />
       {children}
       <Footer />
+      <PrivacyBanner />
     </div>
   );
 }
@@ -81,6 +85,26 @@ function App() {
                   </Suspense>
                 </CustomerLayout>
               } 
+            />
+
+            {/* Checkout Routes */}
+            <Route 
+              path="/checkout/:orderId" 
+              element={
+                <CustomerLayout>
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <CheckoutPage />
+                  </Suspense>
+                </CustomerLayout>
+              }
+            />
+            <Route 
+              path="/order/:orderId/success" 
+              element={
+                <CustomerLayout>
+                  <PaymentSuccessPage />
+                </CustomerLayout>
+              }
             />
             
             {/* Protected Customer Routes */}

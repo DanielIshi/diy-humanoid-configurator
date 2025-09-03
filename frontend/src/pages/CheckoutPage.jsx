@@ -100,10 +100,10 @@ export const CheckoutPage = () => {
 
   if (loading) {
     return (
-      <div className=\"min-h-screen bg-gray-50 flex items-center justify-center\">
-        <div className=\"text-center\">
-          <div className=\"animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4\"></div>
-          <p className=\"text-gray-600\">Loading order...</p>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading order...</p>
         </div>
       </div>
     );
@@ -111,16 +111,16 @@ export const CheckoutPage = () => {
 
   if (error && !order) {
     return (
-      <div className=\"min-h-screen bg-gray-50 flex items-center justify-center\">
-        <div className=\"text-center max-w-md mx-auto p-6\">
-          <div className=\"text-red-600 text-6xl mb-4\">⚠️</div>
-          <h1 className=\"text-2xl font-bold text-gray-900 mb-2\">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto p-6">
+          <div className="text-red-600 text-6xl mb-4">⚠️</div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">
             Unable to Load Order
           </h1>
-          <p className=\"text-gray-600 mb-6\">{error}</p>
+          <p className="text-gray-600 mb-6">{error}</p>
           <button
             onClick={() => navigate('/orders')}
-            className=\"bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg\"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg"
           >
             Back to Orders
           </button>
@@ -131,49 +131,49 @@ export const CheckoutPage = () => {
 
   return (
     <PaymentProviders>
-      <div className=\"min-h-screen bg-gray-50\">
+      <div className="min-h-screen bg-gray-50">
         {/* Header */}
-        <div className=\"bg-white border-b border-gray-200\">
-          <div className=\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8\">
-            <div className=\"py-6\">
-              <nav className=\"flex\" aria-label=\"Breadcrumb\">
-                <ol className=\"flex items-center space-x-4\">
+        <div className="bg-white border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="py-6">
+              <nav className="flex" aria-label="Breadcrumb">
+                <ol className="flex items-center space-x-4">
                   <li>
                     <button
                       onClick={() => navigate('/orders')}
-                      className=\"text-gray-400 hover:text-gray-500\"
+                      className="text-gray-400 hover:text-gray-500"
                     >
                       Orders
                     </button>
                   </li>
                   <li>
-                    <span className=\"text-gray-400\">/</span>
+                    <span className="text-gray-400">/</span>
                   </li>
                   <li>
-                    <span className=\"text-gray-900 font-medium\">
+                    <span className="text-gray-900 font-medium">
                       Checkout
                     </span>
                   </li>
                 </ol>
               </nav>
               
-              <h1 className=\"text-3xl font-bold text-gray-900 mt-4\">
+              <h1 className="text-3xl font-bold text-gray-900 mt-4">
                 Checkout
               </h1>
               
               {/* Progress Steps */}
-              <div className=\"mt-6\">
-                <div className=\"flex items-center\">
+              <div className="mt-6">
+                <div className="flex items-center">
                   <div className={`flex items-center ${step === 'review' ? 'text-blue-600' : 'text-green-600'}`}>
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
                       step === 'review' ? 'bg-blue-600 text-white' : 'bg-green-600 text-white'
                     }`}>
                       {step === 'review' ? '1' : '✓'}
                     </div>
-                    <span className=\"ml-2 font-medium\">Review Order</span>
+                    <span className="ml-2 font-medium">Review Order</span>
                   </div>
                   
-                  <div className=\"flex-1 mx-4 h-0.5 bg-gray-200\">
+                  <div className="flex-1 mx-4 h-0.5 bg-gray-200">
                     <div className={`h-full transition-all duration-300 ${
                       ['payment', 'processing', 'success'].includes(step) ? 'bg-blue-600' : 'bg-gray-200'
                     }`} style={{ width: ['payment', 'processing', 'success'].includes(step) ? '100%' : '0%' }}></div>
@@ -189,7 +189,7 @@ export const CheckoutPage = () => {
                     }`}>
                       {step === 'payment' ? '2' : ['processing', 'success'].includes(step) ? '✓' : '2'}
                     </div>
-                    <span className=\"ml-2 font-medium\">Payment</span>
+                    <span className="ml-2 font-medium">Payment</span>
                   </div>
                 </div>
               </div>
@@ -198,30 +198,30 @@ export const CheckoutPage = () => {
         </div>
 
         {/* Main Content */}
-        <div className=\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8\">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {error && (
-            <div className=\"mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg\">
+            <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
               {error}
             </div>
           )}
 
           {step === 'review' && (
-            <div className=\"grid grid-cols-1 lg:grid-cols-2 gap-8\">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Order Summary */}
               <div>
                 <OrderSummary order={order} />
                 
-                <div className=\"mt-6 bg-white rounded-lg shadow-sm p-6\">
-                  <h3 className=\"text-lg font-semibold mb-4\">Customer Information</h3>
-                  <div className=\"space-y-2 text-sm\">
-                    <p><span className=\"font-medium\">Name:</span> {user?.name}</p>
-                    <p><span className=\"font-medium\">Email:</span> {user?.email}</p>
+                <div className="mt-6 bg-white rounded-lg shadow-sm p-6">
+                  <h3 className="text-lg font-semibold mb-4">Customer Information</h3>
+                  <div className="space-y-2 text-sm">
+                    <p><span className="font-medium">Name:</span> {user?.name}</p>
+                    <p><span className="font-medium">Email:</span> {user?.email}</p>
                   </div>
                 </div>
               </div>
 
               {/* Payment Method Selection */}
-              <div className=\"space-y-6\">
+              <div className="space-y-6">
                 <PaymentMethodSelector 
                   selectedMethod={selectedPaymentMethod}
                   onMethodChange={setSelectedPaymentMethod}
@@ -229,7 +229,7 @@ export const CheckoutPage = () => {
                 
                 <button
                   onClick={handleContinueToPayment}
-                  className=\"w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-medium transition-colors\"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-medium transition-colors"
                 >
                   Continue to Payment
                 </button>
@@ -238,13 +238,13 @@ export const CheckoutPage = () => {
           )}
 
           {step === 'payment' && (
-            <div className=\"grid grid-cols-1 lg:grid-cols-2 gap-8\">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Payment Form */}
               <div>
-                <div className=\"bg-white rounded-lg shadow-sm p-2\">
+                <div className="bg-white rounded-lg shadow-sm p-2">
                   <button
                     onClick={handleBackToReview}
-                    className=\"text-blue-600 hover:text-blue-700 text-sm font-medium mb-4\"
+                    className="text-blue-600 hover:text-blue-700 text-sm font-medium mb-4"
                   >
                     ← Back to Review
                   </button>
@@ -266,12 +266,12 @@ export const CheckoutPage = () => {
           )}
 
           {step === 'processing' && (
-            <div className=\"text-center py-12\">
-              <div className=\"animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-6\"></div>
-              <h2 className=\"text-2xl font-bold text-gray-900 mb-2\">
+            <div className="text-center py-12">
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-6"></div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Processing Payment
               </h2>
-              <p className=\"text-gray-600\">
+              <p className="text-gray-600">
                 Please wait while we confirm your payment...
               </p>
             </div>

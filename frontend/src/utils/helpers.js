@@ -28,32 +28,32 @@ export const useLocalStorage = (key, initial) => {
   return [v, setV];
 };
 
-// CSV Export Helper
-export const exportCSV = (items, retailTotal, ekTotal, retailForPartFn) => {
-  const rows = [["Komponente","Menge","Einheit","Einzelpreis EUR","Zwischensumme EUR","VK/Einheit EUR","Link"]];
+// CSV Export Helper (Customer-facing, no EK/VK data)
+export const exportCSV = (items, retailTotal, retailForPartFn) => {
+  const rows = [["Komponente","Menge","Einheit","Einzelpreis","Gesamtpreis","Link"]];
   
   Object.entries(items).forEach(([k, qty]) => {
     if (!qty) return;
     const p = PARTS[k];
+    const unitPrice = retailForPartFn(k);
     rows.push([
       p.name, 
       String(qty), 
       p.unit, 
-      p.price.toFixed(2), 
-      (p.price * qty).toFixed(2), 
-      retailForPartFn(k).toFixed(2), 
+      unitPrice.toFixed(2) + " EUR", 
+      (unitPrice * qty).toFixed(2) + " EUR", 
       p.link
     ]);
   });
   
-  rows.push(["GESAMT","","","", ekTotal.toFixed(2), retailTotal.toFixed(2),""]);
+  rows.push(["GESAMTPREIS","","","", retailTotal.toFixed(2) + " EUR",""]);
   
   const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(",")).join("\n");
   const blob = new Blob([csv], {type: "text/csv;charset=utf-8;"});
   const url = URL.createObjectURL(blob); 
   const a = document.createElement('a'); 
   a.href = url; 
-  a.download = 'humanoid_bom.csv'; 
+  a.download = 'humanoid_parts_list.csv'; 
   a.click(); 
   URL.revokeObjectURL(url);
 };

@@ -71,6 +71,12 @@
     "clearChat": "Clear Chat",
     "exportChat": "Export Chat"
   },
+  "ui": {
+    "aiAssistants": "AI Assistants",
+    "aiAssistantsDescription": "Let AI help you with component selection and configuration",
+    "autoConfiguration": "Automatic Configuration",
+    "chatAdvisor": "Chat Advisor"
+  },
   "forms": {
     "name": "Name",
     "email": "Email",
@@ -88,6 +94,13 @@
     "invalidEmail": "Invalid email address",
     "passwordTooShort": "Password too short",
     "passwordsNotMatch": "Passwords do not match"
+  },
+  "ui": {
+    "aiAssistants": "AI Assistants",
+    "aiAssistantsDescription": "Get AI help with component selection and configuration",
+    "autoConfiguration": "Auto Configuration", 
+    "chatAdvisor": "Chat Advisor",
+    "aiSuggestions": "AI suggestions for your configuration:"
   },
   "auth": {
     "signIn": "Sign In",
@@ -133,7 +146,15 @@
     "reports": "Reports",
     "inventory": "Inventory",
     "suppliers": "Suppliers",
-    "categories": "Categories"
+    "categories": "Categories",
+    "paymentSettings": "Payment & Provider (Demo)",
+    "provider": "Provider",
+    "stripeKeyPlaceholder": "Stripe Publishable Key (Demo)",
+    "paypalIdPlaceholder": "PayPal Client ID (Demo)",
+    "sepaIbanPlaceholder": "SEPA IBAN (Demo)",
+    "paymentNote": "Note: Real payments require a backend & secure webhooks. This is only simulation.",
+    "noticeDemo": "Notice (Demo)",
+    "demoNotice": "Status changes can be simulated (auto-mode or manually). For real webhooks please connect server endpoints."
   },
   "legal": {
     "privacy": "Privacy Policy",
@@ -156,5 +177,43 @@
     "english": "English",
     "dutch": "Nederlands",
     "thai": "ไทย"
+  },
+  "common": {
+    "productLink": "View product",
+    "quantity": "Quantity",
+    "add": "Add",
+    "search": "Search",
+    "searchPlaceholder": "Product name, category, or specification...",
+    "category": "Category",
+    "allCategories": "All Categories",
+    "noResults": "No products found",
+    "resultCount": "{{count}} products found",
+    "noProductsFound": "No products found",
+    "loading": "Loading...",
+    "lastUpdated": "Last updated",
+    "priceStale": "Price might be outdated",
+    "offlineMode": "Offline - using cached prices",
+    "staticPrice": "Base",
+    "tryDifferentSearch": "Try different search terms or choose another category."
+  },
+  "sidebar": {
+    "costOverview": "Price Overview",
+    "settings": "Settings",
+    "roadmap": "Roadmap",
+    "totalPrice": "TOTAL PRICE",
+    "exportBOM": "Export Parts List",
+    "createOrder": "Create Order",
+    "globalMargin": "Global Margin",
+    "llmProvider": "LLM Provider (optional)",
+    "noProvider": "– none –",
+    "apiKey": "API Key",
+    "modelPlaceholder": "Model (e.g. gpt-4o-mini or openai/gpt-4o-mini)",
+    "roadmapShort": "Roadmap (short)",
+    "excludesShipping": "Excl. shipping/tools. For \"Walker-Light\" consider charger & second LiPo.",
+    "currencyNote": "Prices automatically shown in local currency",
+    "refreshPrices": "Refresh prices",
+    "staticPrice": "Base",
+    "staticTotal": "Base",
+    "offlineMode": "Offline - using cached prices"
   }
 }

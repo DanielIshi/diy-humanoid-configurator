@@ -140,7 +140,15 @@
     "reports": "Berichte",
     "inventory": "Inventar",
     "suppliers": "Lieferanten",
-    "categories": "Kategorien"
+    "categories": "Kategorien",
+    "paymentSettings": "Zahlung & Provider (Demo)",
+    "provider": "Provider",
+    "stripeKeyPlaceholder": "Stripe Publishable Key (Demo)",
+    "paypalIdPlaceholder": "PayPal Client ID (Demo)",
+    "sepaIbanPlaceholder": "SEPA IBAN (Demo)",
+    "paymentNote": "Hinweis: Echte Zahlungen erfordern ein Backend & sichere Webhooks. Hier nur Simulation.",
+    "noticeDemo": "Hinweis (Demo)",
+    "demoNotice": "Statuswechsel können simuliert werden (Auto‑Modus oder manuell). Für echte Webhooks bitte Server‑Endpunkte anbinden."
   },
   "legal": {
     "privacy": "Datenschutzerklärung",
@@ -175,6 +183,31 @@
     "noResults": "Keine Produkte gefunden",
     "resultCount": "{{count}} Produkte gefunden",
     "noProductsFound": "Keine Produkte gefunden",
+    "loading": "Lade...",
+    "lastUpdated": "Zuletzt aktualisiert",
+    "priceStale": "Preis könnte veraltet sein",
+    "offlineMode": "Offline - verwende gespeicherte Preise",
+    "staticPrice": "Basis",
     "tryDifferentSearch": "Versuchen Sie andere Suchbegriffe oder wählen Sie eine andere Kategorie."
+  },
+  "sidebar": {
+    "costOverview": "Preisübersicht",
+    "settings": "Einstellungen",
+    "roadmap": "Roadmap",
+    "totalPrice": "GESAMTPREIS",
+    "exportBOM": "Stückliste exportieren",
+    "createOrder": "Als Bestellung anlegen",
+    "globalMargin": "Globale Marge",
+    "llmProvider": "LLM-Provider (optional)",
+    "noProvider": "– kein –",
+    "apiKey": "API-Key",
+    "modelPlaceholder": "Model (z. B. gpt-4o-mini oder openai/gpt-4o-mini)",
+    "roadmapShort": "Roadmap (kurz)",
+    "excludesShipping": "Exkl. Versand/Tools. Für \"Walker-Light\" ggf. Ladegerät & zweite LiPo sinnvoll.",
+    "currencyNote": "Preise automatisch in lokaler Währung angezeigt",
+    "refreshPrices": "Preise aktualisieren",
+    "staticPrice": "Basis",
+    "staticTotal": "Basis",
+    "offlineMode": "Offline - verwende gespeicherte Preise"
   }
 }

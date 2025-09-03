@@ -1,7 +1,7 @@
 {
   "navigation": {
-    "home": "หน้าหลัก",
-    "configurator": "เครื่องมือปรับแต่ง",
+    "home": "หน้าแรก",
+    "configurator": "ตัวกำหนดค่า",
     "admin": "ผู้ดูแลระบบ",
     "about": "เกี่ยวกับเรา",
     "advisor": "ที่ปรึกษา",
@@ -13,10 +13,10 @@
     "login": "เข้าสู่ระบบ"
   },
   "components": {
-    "servoMotor": "มอเตอร์เซอร์โว",
+    "servoMotor": "เซอร์โวมอเตอร์",
     "controller": "ตัวควบคุม",
     "sensors": "เซ็นเซอร์",
-    "frame": "โครงสร้าง",
+    "frame": "โครง",
     "battery": "แบตเตอรี่",
     "cameras": "กล้อง",
     "speakers": "ลำโพง",
@@ -33,23 +33,23 @@
     "cancel": "ยกเลิก",
     "confirm": "ยืนยัน",
     "back": "กลับ",
-    "next": "ต่อไป",
+    "next": "ถัดไป",
     "finish": "เสร็จสิ้น",
     "reset": "รีเซ็ต"
   },
   "messages": {
-    "welcome": "ยินดีต้อนรับสู่เครื่องมือปรับแต่งหุ่นยนต์คล้ายมนุษย์ DIY",
+    "welcome": "ยินดีต้อนรับสู่ DIY Humanoid Configurator",
     "success": "สำเร็จ",
     "error": "ข้อผิดพลาด",
     "loading": "กำลังโหลด...",
     "saved": "บันทึกแล้ว",
     "deleted": "ลบแล้ว",
-    "configurationSaved": "บันทึกการกำหนดค่าสำเร็จ",
-    "configurationLoaded": "โหลดการกำหนดค่าสำเร็จ",
-    "orderPlaced": "สั่งซื้อสำเร็จ",
-    "pageNotFound": "ไม่พบหน้าที่ต้องการ",
+    "configurationSaved": "บันทึกการกำหนดค่าเรียบร้อยแล้ว",
+    "configurationLoaded": "โหลดการกำหนดค่าเรียบร้อยแล้ว",
+    "orderPlaced": "สั่งซื้อเรียบร้อยแล้ว",
+    "pageNotFound": "ไม่พบหน้า",
     "accessDenied": "การเข้าถึงถูกปฏิเสธ",
-    "sessionExpired": "เซสชั่นหมดอายุ"
+    "sessionExpired": "เซสชันหมดอายุ"
   },
   "prices": {
     "unitPrice": "ราคาต่อหน่วย",
@@ -58,7 +58,7 @@
     "exclVat": "ไม่รวม VAT",
     "currency": "฿",
     "free": "ฟรี",
-    "priceOnRequest": "ราคาตามใบเสนอราคา"
+    "priceOnRequest": "ราคาตามการร้องขอ"
   },
   "aiChat": {
     "askQuestion": "ถามคำถาม",
@@ -84,10 +84,17 @@
     "city": "เมือง",
     "zipCode": "รหัสไปรษณีย์",
     "country": "ประเทศ",
-    "required": "ฟิลด์ที่จำเป็น",
-    "invalidEmail": "ที่อยู่อีเมลไม่ถูกต้อง",
+    "required": "ช่องที่จำเป็น",
+    "invalidEmail": "อีเมลไม่ถูกต้อง",
     "passwordTooShort": "รหัสผ่านสั้นเกินไป",
     "passwordsNotMatch": "รหัสผ่านไม่ตรงกัน"
+  },
+  "ui": {
+    "aiAssistants": "ผู้ช่วย AI",
+    "aiAssistantsDescription": "ให้ AI ช่วยเหลือในการเลือกส่วนประกอบและการกำหนดค่า",
+    "autoConfiguration": "การกำหนดค่าอัตโนมัติ", 
+    "chatAdvisor": "ที่ปรึกษาแชท",
+    "aiSuggestions": "คำแนะนำ AI สำหรับการกำหนดค่าของคุณ:"
   },
   "auth": {
     "signIn": "เข้าสู่ระบบ",
@@ -96,29 +103,29 @@
     "forgotPassword": "ลืมรหัสผ่าน?",
     "resetPassword": "รีเซ็ตรหัสผ่าน",
     "verifyEmail": "ยืนยันอีเมล",
-    "emailVerified": "อีเมลได้รับการยืนยัน",
-    "checkEmail": "โปรดตรวจสอบอีเมลของคุณ",
-    "invalidCredentials": "ข้อมูลรับรองไม่ถูกต้อง",
-    "accountCreated": "สร้างบัญชีสำเร็จ",
-    "passwordReset": "รีเซ็ตรหัสผ่านสำเร็จ",
+    "emailVerified": "ยืนยันอีเมลแล้ว",
+    "checkEmail": "กรุณาตรวจสอบอีเมลของคุณ",
+    "invalidCredentials": "ข้อมูลเข้าสู่ระบบไม่ถูกต้อง",
+    "accountCreated": "สร้างบัญชีเรียบร้อยแล้ว",
+    "passwordReset": "รีเซ็ตรหัสผ่านเรียบร้อยแล้ว",
     "alreadyHaveAccount": "มีบัญชีอยู่แล้ว?",
     "dontHaveAccount": "ยังไม่มีบัญชี?",
     "or": "หรือ"
   },
   "configurator": {
-    "title": "เครื่องมือปรับแต่งหุ่นยนต์คล้ายมนุษย์ DIY",
-    "subtitle": "สร้างหุ่นยนต์คล้ายมนุษย์ของคุณเอง",
-    "selectComponents": "เลือกชิ้นส่วน",
+    "title": "DIY Humanoid Configurator",
+    "subtitle": "สร้างหุ่นยนต์ฮิวแมนนอยด์ของคุณเอง",
+    "selectComponents": "เลือกส่วนประกอบ",
     "configuration": "การกำหนดค่า",
-    "preview": "ดูตัวอย่าง",
+    "preview": "ตัวอย่าง",
     "summary": "สรุป",
-    "totalComponents": "จำนวนชิ้นส่วนทั้งหมด",
-    "estimatedBuildTime": "เวลาประกอบโดยประมาณ",
+    "totalComponents": "จำนวนส่วนประกอบทั้งหมด",
+    "estimatedBuildTime": "เวลาในการสร้างโดยประมาณ",
     "difficultyLevel": "ระดับความยาก",
-    "beginner": "ผู้เริ่มต้น",
-    "intermediate": "ระดับกลาง",
+    "beginner": "เริ่มต้น",
+    "intermediate": "ปานกลาง",
     "advanced": "ขั้นสูง",
-    "compatibilityCheck": "ตรวจสอบความเข้ากันได้",
+    "compatibilityCheck": "การตรวจสอบความเข้ากันได้",
     "compatible": "เข้ากันได้",
     "incompatible": "เข้ากันไม่ได้",
     "warning": "คำเตือน"
@@ -127,18 +134,26 @@
     "dashboard": "แดชบอร์ด",
     "users": "ผู้ใช้",
     "orders": "คำสั่งซื้อ",
-    "components": "ชิ้นส่วน",
+    "components": "ส่วนประกอบ",
     "settings": "การตั้งค่า",
     "analytics": "การวิเคราะห์",
     "reports": "รายงาน",
-    "inventory": "คลังสินค้า",
+    "inventory": "สินค้าคงคลัง",
     "suppliers": "ผู้จัดจำหน่าย",
-    "categories": "หมวดหมู่"
+    "categories": "หมวดหมู่",
+    "paymentSettings": "การชำระเงิน & ผู้ให้บริการ (สาธิต)",
+    "provider": "ผู้ให้บริการ",
+    "stripeKeyPlaceholder": "Stripe Publishable Key (สาธิต)",
+    "paypalIdPlaceholder": "PayPal Client ID (สาธิต)",
+    "sepaIbanPlaceholder": "SEPA IBAN (สาธิต)",
+    "paymentNote": "หมายเหตุ: การชำระเงินจริงต้องการแบ็กเอนด์ & webhooks ที่ปลอดภัย นี่เป็นเพียงการจำลอง",
+    "noticeDemo": "หมายเหตุ (สาธิต)",
+    "demoNotice": "การเปลี่ยนแปลงสถานะสามารถจำลองได้ (โหมดอัตโนมัติหรือด้วยตนเอง) สำหรับ webhooks จริงโปรดเชื่อมต่อจุดปลายเซิร์ฟเวอร์"
   },
   "legal": {
     "privacy": "นโยบายความเป็นส่วนตัว",
     "terms": "ข้อกำหนดการใช้บริการ",
-    "imprint": "ข้อมูลเจ้าของเว็บไซต์",
+    "imprint": "ข้อมูลบริษัท",
     "cookies": "นโยบายคุกกี้"
   },
   "footer": {
@@ -147,8 +162,8 @@
     "legal": "กฎหมาย",
     "followUs": "ติดตามเรา",
     "newsletter": "จดหมายข่าว",
-    "subscribe": "สมัครรับ",
-    "copyright": "© 2024 เครื่องมือปรับแต่งหุ่นยนต์คล้ายมนุษย์ DIY สงวนลิขสิทธิ์"
+    "subscribe": "สมัครรับข้อมูล",
+    "copyright": "© 2024 DIY Humanoid Configurator สงวนลิขสิทธิ์"
   },
   "language": {
     "selectLanguage": "เลือกภาษา",
@@ -156,5 +171,40 @@
     "english": "English",
     "dutch": "Nederlands",
     "thai": "ไทย"
+  },
+  "ui": {
+    "aiAssistants": "AI Assistants",
+    "aiAssistantsDescription": "Let AI help you with component selection and configuration",
+    "autoConfiguration": "Automatic Configuration",
+    "chatAdvisor": "Chat Advisor"
+  },
+  "common": {
+    "productLink": "ดูสินค้า",
+    "quantity": "จำนวน",
+    "add": "เพิ่ม",
+    "search": "ค้นหา",
+    "searchPlaceholder": "ชื่อผลิตภัณฑ์, หมวดหมู่ หรือข้อมูลจำเพาะ...",
+    "category": "หมวดหมู่",
+    "allCategories": "ทุกหมวดหมู่",
+    "noResults": "ไม่พบสินค้า",
+    "resultCount": "พบสินค้า {{count}} รายการ",
+    "noProductsFound": "ไม่พบสินค้า",
+    "tryDifferentSearch": "ลองใช้คำค้นหาอื่นหรือเลือกหมวดหมู่อื่น"
+  },
+  "sidebar": {
+    "costOverview": "ภาพรวมราคา",
+    "settings": "การตั้งค่า",
+    "roadmap": "แผนงาน",
+    "totalPrice": "ราคารวม",
+    "exportBOM": "ส่งออกรายการชิ้นส่วน",
+    "createOrder": "สร้างคำสั่งซื้อ",
+    "globalMargin": "กำไรรวม",
+    "llmProvider": "ผู้ให้บริการ LLM (ไม่บังคับ)",
+    "noProvider": "– ไม่มี –",
+    "apiKey": "กุญแจ API",
+    "modelPlaceholder": "โมเดล (เช่น gpt-4o-mini หรือ openai/gpt-4o-mini)",
+    "roadmapShort": "แผนงาน (สั้น)",
+    "excludesShipping": "ไม่รวมค่าขนส่ง/เครื่องมือ สำหรับ \"Walker-Light\" ควรพิจารณาเครื่องชาร์จ & LiPo ตัวที่สอง",
+    "currencyNote": "ราคาแสดงโดยอัตโนมัติในสกุลเงินท้องถิ่น"
   }
 }

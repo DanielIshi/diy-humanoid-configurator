@@ -3,9 +3,10 @@ import {
   getLocalizedProductName,
   getLocalizedProductDescription,
   getLocalizedCategoryName,
-  getLocalizedUnit 
+  getLocalizedUnit,
+  PARTS 
 } from '../../utils/data.js';
-import { currency } from '../../utils/helpers.js';
+import useCurrency from '../../hooks/useCurrency.js';
 import Tooltip from '../shared/Tooltip';
 
 function ProductCard({ 
@@ -18,12 +19,19 @@ function ProductCard({
   showTechnicalSpecs = true,
   className = "" 
 }) {
-  const { t } = useTranslation('products');
+  const { t } = useTranslation(['translation', 'products']);
+  const { formatCurrencySync } = useCurrency();
 
   const localizedName = getLocalizedProductName(productKey, t);
   const localizedDescription = getLocalizedProductDescription(productKey, t);
   const localizedCategory = getLocalizedCategoryName(product.category, t);
   const localizedUnit = getLocalizedUnit(product.unit, t);
+  
+  // Get generic name and product model separately
+  const genericName = product.genericName ? 
+    t(`products:genericNames.${product.genericName}`, localizedName) : 
+    localizedName;
+  const productModel = product.productModel || '';
 
   const handleQuantityChange = (e) => {
     const newQty = Math.max(0, Math.round(Number(e.target.value) || 0));
@@ -45,12 +53,19 @@ function ProductCard({
             </span>
           </div>
           
-          <h3 className="font-medium text-white flex items-center gap-2">
-            {localizedName}
-            {showTechnicalSpecs && product.tech && (
-              <Tooltip label={product.tech} />
+          <div className="space-y-1">
+            <h3 className="font-medium text-white text-lg leading-tight">
+              {genericName}
+              {showTechnicalSpecs && product.tech && (
+                <Tooltip label={product.tech} className="ml-2 inline-block" />
+              )}
+            </h3>
+            {productModel && (
+              <p className="text-xs text-slate-500">
+                {productModel}
+              </p>
             )}
-          </h3>
+          </div>
           
           {showDescription && localizedDescription && (
             <p className="text-sm text-slate-400 mt-1">
@@ -63,7 +78,7 @@ function ProductCard({
       {/* Preis und Link */}
       <div className="flex items-center justify-between mb-4">
         <div className="text-lg font-semibold text-emerald-400">
-          {currency(product.price)}
+          {formatCurrencySync(product.price)}
           <span className="text-xs text-slate-400 ml-1">/ {localizedUnit}</span>
         </div>
         
@@ -74,7 +89,7 @@ function ProductCard({
             rel="noopener noreferrer"
             className="text-xs text-indigo-300 hover:text-indigo-200 hover:underline"
           >
-            {t('common.productLink', 'Produkt ansehen')}
+            {t('translation:common.productLink', 'Produkt ansehen')}
           </a>
         )}
       </div>
@@ -83,7 +98,7 @@ function ProductCard({
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2 flex-1">
           <label className="text-sm text-slate-300" htmlFor={`qty-${productKey}`}>
-            {t('common.quantity', 'Menge')}:
+            {t('translation:common.quantity', 'Menge')}:
           </label>
           <input 
             id={`qty-${productKey}`}
@@ -101,7 +116,7 @@ function ProductCard({
             onClick={handleAddToCart}
             className="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-sm rounded-lg transition-colors"
           >
-            {t('common.add', 'Hinzufügen')}
+            {t('translation:common.add', 'Hinzufügen')}
           </button>
         )}
       </div>
@@ -111,11 +126,23 @@ function ProductCard({
         <div className="mt-3 pt-3 border-t border-slate-700/60">
           <div className="flex items-center justify-between text-sm">
             <span className="text-slate-400">
-              {quantity} × {currency(product.price)}
+              {quantity} × {formatCurrencySync(displayPrice)}
+              {hasLivePrice && (
+                <span className="text-emerald-400 text-xs ml-1">
+                  LIVE
+                </span>
+              )}
             </span>
-            <span className="font-semibold text-white">
-              {currency(product.price * quantity)}
-            </span>
+            <div className="text-right">
+              <span className="font-semibold text-white">
+                {formatCurrencySync(displayPrice * quantity)}
+              </span>
+              {hasLivePrice && Math.abs(livePrice - staticPrice) > 0.01 && (
+                <div className="text-xs text-slate-500">
+                  {t('translation:common.staticPrice', 'Basis')}: {formatCurrencySync(staticPrice * quantity)}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}

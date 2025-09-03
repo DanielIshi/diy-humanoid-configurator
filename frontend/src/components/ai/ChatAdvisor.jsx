@@ -58,7 +58,12 @@ const ChatAdvisor = ({
     setIsTyping(true);
 
     try {
-      const response = await fetch('/api/ai/chat', {
+      // Verwende Backend auf Port 3001 für lokale Entwicklung
+      const apiUrl = window.location.hostname === 'localhost' 
+        ? 'http://localhost:3001/api/ai/chat'
+        : '/api/ai/chat';
+        
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -68,10 +68,10 @@ function ConfiguratorPage() {
             <div>
               <h2 className="text-lg font-semibold text-slate-100 flex items-center space-x-2">
                 <Sparkles className="h-5 w-5 text-yellow-400" />
-                <span>KI-Assistenten</span>
+                <span>{t('ui.aiAssistants')}</span>
               </h2>
               <p className="text-sm text-slate-300">
-                Lass dir von der KI bei der Komponentenauswahl und Konfiguration helfen
+                {t('ui.aiAssistantsDescription')}
               </p>
             </div>
             
@@ -81,7 +81,7 @@ function ConfiguratorPage() {
                 className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl"
               >
                 <Wand2 size={16} />
-                <span>Automatische Konfiguration</span>
+                <span>{t('ui.autoConfiguration')}</span>
               </button>
               
               <button
@@ -92,7 +92,7 @@ function ConfiguratorPage() {
                     : 'bg-blue-600/20 text-blue-300 hover:bg-blue-600/30'
                 }`}
               >
-                <span>Chat-Berater</span>
+                <span>{t('ui.chatAdvisor')}</span>
                 {showChatAdvisor && <span className="bg-blue-400 text-white text-xs px-2 py-0.5 rounded-full">AN</span>}
               </button>
             </div>

@@ -9,6 +9,21 @@
     "ELECTRONICS": "Electronics",
     "MISC": "Miscellaneous"
   },
+  "genericNames": {
+    "lightweight_metal_servo": "Lightweight Metal Servo",
+    "high_torque_servo": "High Torque Servo",
+    "main_controller_board": "Main Controller Board",
+    "servo_driver_16ch": "16-Channel Servo Driver",
+    "single_board_computer": "Single Board Computer",
+    "motion_sensor_6dof": "Motion Sensor (6 Axis)",
+    "orientation_sensor_9dof": "Orientation Sensor (9 Axis)",
+    "depth_camera_ai": "Depth Camera with AI",
+    "voltage_regulator": "Voltage Regulator",
+    "bench_power_supply": "Bench Power Supply",
+    "lithium_battery": "Lithium Battery",
+    "3d_printing_material": "3D Printing Material",
+    "fastener_set": "Fastener Set"
+  },
   "products": {
     "MG996R": {
       "name": "Lightweight Metal Servo MG996R",
@@ -16,62 +31,62 @@
       "tech": "MG996R (metal gears), approx. 9–11 kg·cm @ 6V"
     },
     "DS3218": {
-      "name": "Strong Servo DS3218 (20 kg)",
+      "name": "High Torque Servo DS3218 (20kg)",
       "description": "High-performance servo for heavy-duty applications",
       "tech": "DS3218, waterproof, up to ~20 kg·cm"
     },
     "ARD_MEGA": {
-      "name": "Arduino Mega 2560",
+      "name": "Main Controller Board Arduino Mega 2560",
       "description": "Microcontroller board with extensive I/O capabilities",
       "tech": "ATmega2560, 54 Digital I/O, 16 analog inputs"
     },
     "PCA9685": {
-      "name": "16-Channel Servo Driver (PCA9685)",
+      "name": "16-Channel Servo Driver PCA9685",
       "description": "PWM controller for multiple servo management",
       "tech": "PCA9685, 12-bit PWM, I²C interface"
     },
     "RPI5": {
-      "name": "Raspberry Pi 5 (8 GB)",
+      "name": "Single Board Computer Raspberry Pi 5 (8GB)",
       "description": "Powerful single-board computer",
       "tech": "Broadcom SoC, 8 GB RAM"
     },
     "MPU6050": {
-      "name": "IMU MPU-6050 (Gyro+Accel)",
+      "name": "Motion Sensor (6 Axis) MPU-6050",
       "description": "6-axis motion tracking sensor",
       "tech": "6 DOF, I²C interface"
     },
     "BNO055": {
-      "name": "IMU BNO055 (9 DOF Fusion)",
+      "name": "Orientation Sensor (9 Axis) BNO055",
       "description": "9-axis orientation sensor with sensor fusion",
       "tech": "Sensor fusion, absolute orientation"
     },
     "OAKDLITE": {
-      "name": "Luxonis OAK-D Lite (DepthAI)",
+      "name": "Depth Camera with AI OAK-D Lite",
       "description": "AI camera with depth perception",
       "tech": "Stereo depth + AI accelerator"
     },
     "UBEC6A": {
-      "name": "Lightweight Switch Mode Regulator (UBEC 5V/6A)",
+      "name": "Voltage Regulator UBEC 5V/6A",
       "description": "Efficient voltage regulator for mobile applications",
       "tech": "UBEC 5V/6A, input 2–6S LiPo"
     },
     "PSU12V10A": {
-      "name": "Power Supply 12V / 10A (Bench)",
+      "name": "Bench Power Supply 12V/10A",
       "description": "Lab power supply for testing purposes",
       "tech": "~120W, 2.1mm barrel connector"
     },
     "LIPO4S5000": {
-      "name": "LiPo Battery 4S 5000 mAh",
+      "name": "Lithium Battery 4S 5000mAh",
       "description": "High-performance lithium polymer battery",
       "tech": "14.8V nominal, 5 Ah capacity"
     },
     "FILAMENT": {
-      "name": "3D Printing Filament (1 kg Spool)",
+      "name": "3D Printing Material 1kg Spool",
       "description": "High-quality filament for 3D printers",
       "tech": "PLA/PETG depending on application"
     },
     "FASTENERS": {
-      "name": "Screws, Bearings & Hardware (Set)",
+      "name": "Fastener Set M3/M4 Hardware",
       "description": "Complete set for assembly and maintenance",
       "tech": "M3/M4 screws, nuts, bearings, hardware"
     }

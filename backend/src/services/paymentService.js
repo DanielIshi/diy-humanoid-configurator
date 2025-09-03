@@ -117,6 +117,7 @@ class PaymentService {
     const { total, currency = 'USD', orderId, customerInfo } = orderData;
     
     try {
+      const payeeEmail = process.env.PAYPAL_RECEIVER_EMAIL;
       const request = {
         intent: 'CAPTURE',
         purchase_units: [{
@@ -125,13 +126,14 @@ class PaymentService {
             currency_code: currency,
             value: total.toFixed(2)
           },
-          description: `DIY Humanoid Order #${orderId}`
+          description: `DIY Humanoid Order #${orderId}`,
+          ...(payeeEmail ? { payee: { email_address: payeeEmail } } : {})
         }],
         application_context: {
           brand_name: 'DIY Humanoid Configurator',
           locale: 'en-US',
           landing_page: 'BILLING',
-          shipping_preference: 'SET_PROVIDED_ADDRESS',
+          shipping_preference: 'NO_SHIPPING',
           user_action: 'PAY_NOW',
           return_url: `${process.env.FRONTEND_URL}/payment/success`,
           cancel_url: `${process.env.FRONTEND_URL}/payment/cancel`

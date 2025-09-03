@@ -15,6 +15,47 @@ function Advisor({ items, settings }) {
     add(userMsg); 
     setInput("");
 
+    // Prüfe ob Server-Proxy verfügbar ist (Backend läuft auf Port 3001)
+    const useServerProxy = window.location.hostname === 'localhost';
+    
+    if (useServerProxy) {
+      // Server-Proxy verwenden (sicherer, keine API-Keys im Frontend)
+      try {
+        const res = await fetch('http://localhost:3001/api/llm/proxy', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: 'include',
+          body: JSON.stringify({
+            messages: [
+              {role:"system", content: messages[0]?.content || "Du bist ein hilfreicher Berater."},
+              ...messages.filter((m,i) => i>0),
+              {role:"user", content: `${userMsg.content}\n\nAktuelle Konfiguration: ${JSON.stringify(items)}`}
+            ],
+            provider: settings?.provider || 'auto',
+            settings: {
+              budget: null,
+              skillLevel: 'intermediate'
+            }
+          })
+        });
+        
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({ error: 'Server nicht erreichbar' }));
+          throw new Error(errorData.error || 'Server-Proxy Fehler');
+        }
+        
+        const json = await res.json();
+        const content = json.response || "(Keine Antwort vom Server erhalten)";
+        add({role:"assistant", content});
+        return;
+      } catch (e) {
+        console.error('Server-Proxy Fehler:', e);
+        // Fallback zu direkten API-Calls oder lokaler Heuristik
+      }
+    }
+
     // Fallback: einfache Heuristik lokal, wenn kein API‑Key gesetzt ist
     const noApi = !settings?.provider || !settings?.apiKey;
     if (noApi) {
@@ -25,11 +66,12 @@ function Advisor({ items, settings }) {
         (items.OAKDLITE?"Vision ist geplant – beachte genügend Rechenleistung (RPi5 ok) und 5V‑Strombudget.":"Ohne Vision kannst du später leicht OAK‑D Lite ergänzen."),
         (items.UBEC6A?"UBEC 5V/6A: plane Stromspitzen ein; ggf. zweite UBEC für Servosplit.":"Füge einen stabilen UBEC 5–6A für Servos hinzu."),
       ];
-      add({role:"assistant", content: `Kurze Einschätzung ohne Online‑LLM (kein API‑Key gesetzt):\n- Servos gesamt: ${servoCount}. ${tips[0]}\n- ${tips[1]}\n- ${tips[2]}\nWenn du willst, trage unter Einstellungen deinen Provider & API‑Key ein (OpenAI/OpenRouter), dann antworte ich ausführlicher.`});
+      add({role:"assistant", content: `Kurze Einschätzung ohne Online‑LLM:\n- Servos gesamt: ${servoCount}. ${tips[0]}\n- ${tips[1]}\n- ${tips[2]}\n\nHinweis: Server-Proxy ist verfügbar - erweiterte KI-Beratung wird automatisch verwendet.`});
       return;
     }
 
     try {
+      // Direkte API-Calls als Fallback
       const endpoint = settings.provider === "openrouter"
         ? "https://openrouter.ai/api/v1/chat/completions"
         : "https://api.openai.com/v1/chat/completions";
@@ -55,7 +97,7 @@ function Advisor({ items, settings }) {
       const content = json?.choices?.[0]?.message?.content || "(Keine Antwort vom LLM erhalten)";
       add({role:"assistant", content});
     } catch (e) {
-      add({role:"assistant", content: "Fehler beim LLM‑Aufruf. Prüfe Provider/Key/Netzwerk."});
+      add({role:"assistant", content: "Fehler beim LLM‑Aufruf. Server-Proxy und direkte APIs nicht verfügbar."});
     }
   };
 

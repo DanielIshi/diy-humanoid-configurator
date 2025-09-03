@@ -9,6 +9,21 @@
     "ELECTRONICS": "อิเล็กทรอนิกส์",
     "MISC": "เบ็ดเตล็ด"
   },
+  "genericNames": {
+    "lightweight_metal_servo": "เซอร์โวโลหะน้ำหนักเบา",
+    "high_torque_servo": "เซอร์โวแรงบิดสูง",
+    "main_controller_board": "บอร์ดควบคุมหลัก",
+    "servo_driver_16ch": "ไดรเวอร์เซอร์โว 16 ช่อง",
+    "single_board_computer": "คอมพิวเตอร์บอร์ดเดียว",
+    "motion_sensor_6dof": "เซ็นเซอร์การเคลื่อนไหว (6 แกน)",
+    "orientation_sensor_9dof": "เซ็นเซอร์ตำแหน่ง (9 แกน)",
+    "depth_camera_ai": "กล้องวัดความลึกพร้อม AI",
+    "voltage_regulator": "ตัวควบคุมแรงดันไฟฟ้า",
+    "bench_power_supply": "แหล่งจ่ายไฟตั้งโต๊ะ",
+    "lithium_battery": "แบตเตอรี่ลิเธียม",
+    "3d_printing_material": "วัสดุพิมพ์ 3 มิติ",
+    "fastener_set": "ชุดอุปกรณ์ยึด"
+  },
   "products": {
     "MG996R": {
       "name": "เซอร์โวโลหะน้ำหนักเบา MG996R",
@@ -16,62 +31,62 @@
       "tech": "MG996R (เกียร์โลหะ), ประมาณ 9–11 kg·cm @ 6V"
     },
     "DS3218": {
-      "name": "เซอร์โวแรง DS3218 (20 kg)",
+      "name": "เซอร์โวแรงบิดสูง DS3218 (20 kg)",
       "description": "เซอร์โวสมรรถนะสูงสำหรับการใช้งานหนัก",
       "tech": "DS3218, กันน้ำ, สูงสุด ~20 kg·cm"
     },
     "ARD_MEGA": {
-      "name": "Arduino Mega 2560",
+      "name": "บอร์ดควบคุมหลัก Arduino Mega 2560",
       "description": "บอร์ดไมโครคอนโทรลเลอร์พร้อมความสามารถ I/O ที่กว้างขวาง",
       "tech": "ATmega2560, 54 Digital I/O, 16 analog inputs"
     },
     "PCA9685": {
-      "name": "ไดรเวอร์เซอร์โว 16 ช่อง (PCA9685)",
+      "name": "ไดรเวอร์เซอร์โว 16 ช่อง PCA9685",
       "description": "ตัวควบคุม PWM สำหรับการจัดการเซอร์โวหลายตัว",
       "tech": "PCA9685, 12-bit PWM, I²C interface"
     },
     "RPI5": {
-      "name": "Raspberry Pi 5 (8 GB)",
+      "name": "คอมพิวเตอร์บอร์ดเดียว Raspberry Pi 5 (8 GB)",
       "description": "คอมพิวเตอร์บอร์ดเดียวที่มีประสิทธิภาพสูง",
       "tech": "Broadcom SoC, 8 GB RAM"
     },
     "MPU6050": {
-      "name": "IMU MPU-6050 (Gyro+Accel)",
+      "name": "เซ็นเซอร์การเคลื่อนไหว MPU-6050 (Gyro+Accel)",
       "description": "เซ็นเซอร์ติดตามการเคลื่อนไหว 6 แกน",
       "tech": "6 DOF, I²C interface"
     },
     "BNO055": {
-      "name": "IMU BNO055 (9 DOF Fusion)",
+      "name": "เซ็นเซอร์ตำแหน่ง BNO055 (9 DOF Fusion)",
       "description": "เซ็นเซอร์ทิศทาง 9 แกนพร้อมการรวมเซ็นเซอร์",
       "tech": "Sensor fusion, absolute orientation"
     },
     "OAKDLITE": {
-      "name": "Luxonis OAK-D Lite (DepthAI)",
+      "name": "กล้องวัดความลึก Luxonis OAK-D Lite (DepthAI)",
       "description": "กล้อง AI พร้อมการรับรู้ความลึก",
       "tech": "Stereo depth + AI accelerator"
     },
     "UBEC6A": {
-      "name": "ตัวปรับแรงดันสวิตชิ่งน้ำหนักเบา (UBEC 5V/6A)",
+      "name": "ตัวควบคุมแรงดันไฟฟ้า UBEC 5V/6A",
       "description": "ตัวปรับแรงดันที่มีประสิทธิภาพสำหรับการใช้งานแบบเคลื่อนที่",
       "tech": "UBEC 5V/6A, input 2–6S LiPo"
     },
     "PSU12V10A": {
-      "name": "แหล่งจ่ายไฟ 12V / 10A (Lab)",
+      "name": "แหล่งจ่ายไฟตั้งโต๊ะ 12V / 10A",
       "description": "แหล่งจ่ายไฟห้องปฏิบัติการสำหรับการทดสอบ",
       "tech": "~120W, 2.1mm barrel connector"
     },
     "LIPO4S5000": {
-      "name": "แบตเตอรี่ LiPo 4S 5000 mAh",
+      "name": "แบตเตอรี่ลิเธียม LiPo 4S 5000 mAh",
       "description": "แบตเตอรี่ลิเธียมโพลิเมอร์สมรรถนะสูง",
       "tech": "14.8V nominal, 5 Ah capacity"
     },
     "FILAMENT": {
-      "name": "เส้นใยพิมพ์ 3D (ม้วน 1 kg)",
+      "name": "วัสดุพิมพ์ 3 มิติ (ม้วน 1 kg)",
       "description": "เส้นใยคุณภาพสูงสำหรับเครื่องพิมพ์ 3D",
       "tech": "PLA/PETG ขึ้นอยู่กับการใช้งาน"
     },
     "FASTENERS": {
-      "name": "สกรู แบริ่ง และฮาร์ดแวร์ (ชุด)",
+      "name": "ชุดอุปกรณ์ยึด (สกรู นัต แบริ่ง)",
       "description": "ชุดสมบูรณ์สำหรับการประกอบและการบำรุงรักษา",
       "tech": "สกรู M3/M4, นัต, แบริ่ง, ฮาร์ดแวร์"
     }

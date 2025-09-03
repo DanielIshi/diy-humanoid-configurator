@@ -1,0 +1,129 @@
+{
+  "legal": {
+    "cookieConsent": {
+      "title": "Cookie-instellingen",
+      "description": "Wij gebruiken cookies om u de beste ervaring op onze website te bieden. Sommige zijn noodzakelijk, andere helpen ons de website te verbeteren.",
+      "customize": "Aanpassen",
+      "necessary": "Alleen noodzakelijke",
+      "acceptAll": "Alle accepteren",
+      "detailsTitle": "Cookie-instellingen beheren",
+      "functional": "Functionele cookies",
+      "functionalDesc": "Verbeteren de gebruikerservaring en maken gepersonaliseerde inhoud mogelijk.",
+      "analytics": "Analytics cookies",
+      "analyticsDesc": "Helpen ons te begrijpen hoe bezoekers omgaan met de website (geanonimiseerd).",
+      "marketing": "Marketing cookies",
+      "marketingDesc": "Maken gepersonaliseerde advertenties en tracking over meerdere websites mogelijk.",
+      "necessaryDesc": "Deze cookies zijn vereist voor de basisfunctionaliteit van de website en kunnen niet worden uitgeschakeld.",
+      "savePreferences": "Voorkeuren opslaan"
+    },
+    "privacyPolicy": "Privacybeleid",
+    "terms": {
+      "title": "Algemene Voorwaarden",
+      "version": "Versie",
+      "newVersion": "Nieuwe versie beschikbaar",
+      "versionHistory": "Versiegeschiedenis",
+      "current": "Huidig",
+      "acceptanceText": "Ik heb de Algemene Voorwaarden gelezen en ga ermee akkoord.",
+      "acceptAndContinue": "Akkoord gaan en doorgaan",
+      "lastUpdated": "Laatst bijgewerkt",
+      "acceptedVersion": "Geaccepteerde versie",
+      "scope": {
+        "title": "Toepassingsgebied",
+        "content": "Deze Algemene Voorwaarden zijn van toepassing op alle contracten voor de levering van goederen die een consument of ondernemer met ons als verkoper sluit.",
+        "variations": "Afwijkende voorwaarden van de klant worden alleen erkend als wij daar uitdrukkelijk schriftelijk mee hebben ingestemd."
+      },
+      "contract": {
+        "title": "Contractvorming",
+        "offer": "De presentatie van producten in de online winkel vormt geen juridisch bindend contractueel aanbod van onze kant.",
+        "order": "Door het indienen van een bestelling doet u een bindend aanbod om de goederen in de winkelwagen te kopen.",
+        "acceptance": "Het koopcontract komt tot stand wanneer wij uw bestelling accepteren via een orderbevestigingsmail of de goederen verzenden."
+      },
+      "payment": {
+        "title": "Prijzen en betaling",
+        "prices": "Alle prijzen zijn inclusief wettelijke BTW en andere prijscomponenten.",
+        "methods": "Betaling geschiedt via vooruitbetaling, creditcard of PayPal.",
+        "due": "Bij vooruitbetaling is de koopprijs onmiddellijk verschuldigd na het sluiten van het contract."
+      },
+      "delivery": {
+        "title": "Levering",
+        "time": "Levering vindt plaats binnen 7-14 werkdagen na ontvangst van betaling.",
+        "area": "Wij leveren uitsluitend binnen de Europese Unie.",
+        "costs": "Verzendkosten worden weergegeven tijdens het bestelproces en zijn voor rekening van de klant."
+      },
+      "withdrawal": {
+        "title": "Herroepingsrecht",
+        "instructionTitle": "Herroepingsinstructie",
+        "right": "U heeft het recht om binnen veertien dagen zonder opgave van redenen dit contract te herroepen.",
+        "period": "De herroepingstermijn bedraagt veertien dagen vanaf de dag waarop u of een door u aangewezen derde de goederen in bezit heeft genomen.",
+        "contact": "Om uw herroepingsrecht uit te oefenen, moet u ons door middel van een duidelijke verklaring op de hoogte stellen van uw beslissing."
+      },
+      "warranty": {
+        "title": "Garantie",
+        "legal": "De wettelijke garantiebepalingen zijn van toepassing.",
+        "defects": "Defecten moeten ons onmiddellijk schriftelijk worden gemeld."
+      },
+      "privacy": {
+        "title": "Gegevensbescherming",
+        "processing": "Uw persoonsgegevens worden verwerkt in overeenstemming met ons privacybeleid.",
+        "consent": "Door het plaatsen van een bestelling stemt u in met gegevensverwerking voor de genoemde doeleinden."
+      },
+      "law": {
+        "title": "Toepasselijk recht",
+        "content": "Het recht van de Bondsrepubliek Duitsland is van toepassing op alle juridische relaties tussen ons en de klant."
+      }
+    },
+    "privacy": {
+      "title": "Privacybeleid",
+      "lastUpdated": "Laatst bijgewerkt: 15 januari 2024",
+      "sections": {
+        "dataController": {
+          "title": "Gegevensverwerker",
+          "content": "Verantwoordelijk voor gegevensverwerking op deze website:\n\nDIY Humanoid Configurator\nVoorbeeldstraat 123\n12345 Berlijn\nE-mail: privacy@diy-humanoid.com"
+        },
+        "dataCollection": {
+          "title": "Gegevensverzameling",
+          "content": "Wij verzamelen alleen persoonsgegevens als u deze vrijwillig aan ons verstrekt of als dit noodzakelijk is om het contractuele doel te vervullen."
+        },
+        "cookies": {
+          "title": "Cookies",
+          "content": "Deze website gebruikt cookies. Voor meer informatie, zie onze cookie-instellingen."
+        },
+        "rights": {
+          "title": "Uw rechten",
+          "content": "U heeft recht op informatie, correctie, verwijdering, beperking van verwerking, bezwaar en gegevensportabiliteit."
+        }
+      }
+    },
+    "imprint": {
+      "title": "Impressum",
+      "company": "DIY Humanoid Configurator",
+      "address": "Voorbeeldstraat 123\n12345 Berlijn\nDuitsland",
+      "contact": "E-mail: info@diy-humanoid.com\nTelefoon: +49 (0) 30 12345678",
+      "legal": "Management: Max Mustermann\nHandelsregister: HRB 12345 B\nBTW-nummer: DE123456789"
+    },
+    "compliance": {
+      "gdprCompliant": "AVG-conform",
+      "dataProcessing": "Gegevensverwerking",
+      "consent": "Toestemming",
+      "withdraw": "intrekken",
+      "dataSubjectRights": "Rechten van betrokkenen",
+      "contact": "Contact",
+      "legalBasis": "Juridische basis",
+      "retention": "Bewaartermijn",
+      "processors": "Gegevensverwerkers"
+    }
+  },
+  "sidebar": {
+    "netPrice": "Nettoprijs",
+    "grossPrice": "Brutoprijs incl.",
+    "plusVAT": "plus",
+    "showGross": "Bruto tonen",
+    "showNet": "Netto tonen",
+    "hideVATDetails": "BTW details verbergen",
+    "showVATDetails": "BTW Details",
+    "country": "Land",
+    "netAmount": "Nettobedrag",
+    "totalGross": "Totaalbedrag",
+    "taxNote": "Prijzen gelden voor"
+  }
+}

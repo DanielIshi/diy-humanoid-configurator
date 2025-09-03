@@ -7,26 +7,32 @@ export const PARTS = {
   MG996R: {
     i18nKey: "MG996R",
     category: "SERVO",
-    name: "Leichtes Metall‑Servo MG996R",  // Fallback
+    genericName: "lightweight_metal_servo",  // Key für generische Übersetzung
+    productModel: "MG996R",  // Bleibt unverändert
+    name: "Leichtes Metall‑Servo MG996R",  // Fallback für alte Version
     unit: "Stk.",
     price: 6.2,
     link: "https://electropeak.com/mg996r-high-torque-digital-servo",
-    tech: "MG996R (Metallgetriebe), ca. 9–11 kg·cm @ 6V"
+    tech: "Metallgetriebe, ca. 9–11 kg·cm @ 6V"
   },
   DS3218: {
     i18nKey: "DS3218",
     category: "SERVO",
+    genericName: "high_torque_servo",  // Key für generische Übersetzung
+    productModel: "DS3218 (20kg)",  // Bleibt unverändert
     name: "Starkes Servo DS3218 (20 kg)",  // Fallback
     unit: "Stk.",
     price: 12.9,
     link: "https://srituhobby.com/product/ds3218-20kg-metal-gear-servo-motor-waterproof-servo/",
-    tech: "DS3218, wasserdicht, bis ~20 kg·cm"
+    tech: "Wasserdicht, bis ~20 kg·cm"
   },
 
   // Steuerung
   ARD_MEGA: {
     i18nKey: "ARD_MEGA",
     category: "CONTROLLER",
+    genericName: "main_controller_board",  // Key für generische Übersetzung
+    productModel: "Arduino Mega 2560",  // Bleibt unverändert
     name: "Arduino Mega 2560",  // Fallback
     unit: "Stk.",
     price: 38.0,
@@ -36,15 +42,19 @@ export const PARTS = {
   PCA9685: {
     i18nKey: "PCA9685",
     category: "CONTROLLER",
+    genericName: "servo_driver_16ch",  // Key für generische Übersetzung
+    productModel: "PCA9685",  // Bleibt unverändert
     name: "16‑Kanal Servo‑Treiber (PCA9685)",  // Fallback
     unit: "Stk.",
     price: 13.2,
     link: "https://eu.robotshop.com/products/pca9685-16-channel-12-bit-pwm-servo-driver",
-    tech: "PCA9685, 12‑Bit PWM, I²C"
+    tech: "12‑Bit PWM, I²C"
   },
   RPI5: {
     i18nKey: "RPI5",
     category: "CONTROLLER",
+    genericName: "single_board_computer",  // Key für generische Übersetzung
+    productModel: "Raspberry Pi 5 (8GB)",  // Bleibt unverändert
     name: "Raspberry Pi 5 (8 GB)",  // Fallback
     unit: "Stk.",
     price: 81.9,
@@ -56,78 +66,94 @@ export const PARTS = {
   MPU6050: {
     i18nKey: "MPU6050",
     category: "SENSOR",
+    genericName: "motion_sensor_6dof",  // Key für generische Übersetzung
+    productModel: "IMU MPU-6050",  // Bleibt unverändert
     name: "IMU MPU‑6050 (Gyro+Accel)",  // Fallback
     unit: "Stk.",
     price: 14.2,
     link: "https://eu.robotshop.com/products/6-dof-gyro-accelerometer-imu-mpu6050",
-    tech: "6 DOF, I²C"
+    tech: "6 DOF Gyro+Accel, I²C"
   },
   BNO055: {
     i18nKey: "BNO055",
     category: "SENSOR",
+    genericName: "orientation_sensor_9dof",  // Key für generische Übersetzung
+    productModel: "IMU BNO055",  // Bleibt unverändert
     name: "IMU BNO055 (9 DOF Fusion)",  // Fallback
     unit: "Stk.",
     price: 36.6,
     link: "https://eu.robotshop.com/products/bno055-9-dof-absolute-orientation-imu-fusion-breakout-board",
-    tech: "Sensor‑Fusion, absolute Orientierung"
+    tech: "9 DOF Sensor‑Fusion"
   },
   OAKDLITE: {
     i18nKey: "OAKDLITE",
     category: "SENSOR",
+    genericName: "depth_camera_ai",  // Key für generische Übersetzung
+    productModel: "Luxonis OAK-D Lite",  // Bleibt unverändert
     name: "Luxonis OAK‑D Lite (DepthAI)",  // Fallback
     unit: "Stk.",
     price: 128.1,
     link: "https://eu.mouser.com/ProductDetail/Luxonis/OAK-D-Lite-FF",
-    tech: "Stereo‑Depth + AI‑Beschleuniger"
+    tech: "Stereo‑Depth + AI"
   },
 
   // Strom / Leistung
   UBEC6A: {
     i18nKey: "UBEC6A",
     category: "POWER",
+    genericName: "voltage_regulator",  // Key für generische Übersetzung
+    productModel: "UBEC 5V/6A",  // Bleibt unverändert
     name: "Leichtgewichtiger Schaltregler (UBEC 5V/6A)",  // Fallback
     unit: "Stk.",
     price: 19.9,
     link: "https://mg-modellbau.de/Akkuweichen-usw/D-Power/D-Power-Antares-6A-UBEC-Regler.html",
-    tech: "UBEC 5V/6A, Eingang 2–6S LiPo"
+    tech: "Eingang 2–6S LiPo"
   },
   PSU12V10A: {
     i18nKey: "PSU12V10A",
     category: "POWER",
+    genericName: "bench_power_supply",  // Key für generische Übersetzung
+    productModel: "12V / 10A (Bench)",  // Bleibt unverändert
     name: "Netzteil 12 V / 10 A (Bench)",  // Fallback
     unit: "Stk.",
     price: 79.0,
     link: "https://www.optics-pro.com/power-supplies/pegasusastro-power-supply-12v-10a-europe-2-1mm/p,60252",
-    tech: "~120 W, 2.1 mm Hohlstecker"
+    tech: "~120 W"
   },
   LIPO4S5000: {
     i18nKey: "LIPO4S5000",
     category: "POWER",
+    genericName: "lithium_battery",  // Key für generische Übersetzung
+    productModel: "LiPo 4S 5000mAh",  // Bleibt unverändert
     name: "LiPo‑Akku 4S 5000 mAh",  // Fallback
     unit: "Stk.",
     price: 70.0,
     link: "https://gensace.de/collections/4s-lipo-battery",
-    tech: "14.8 V nominal, 5 Ah"
+    tech: "14.8V, 5Ah"
   },
 
   // Sonstiges
   FILAMENT: {
     i18nKey: "FILAMENT",
     category: "MISC",
+    genericName: "3d_printing_material",  // Key für generische Übersetzung
+    productModel: "Filament 1kg",  // Bleibt unverändert
     name: "3D‑Druck‑Filament (1 kg Spule)",  // Fallback
     unit: "Spule",
     price: 20.0,
     link: "https://prusa3d.com/",
-    tech: "PLA/PETG je nach Anwendung"
+    tech: "PLA/PETG"
   },
   FASTENERS: {
     i18nKey: "FASTENERS",
     category: "MISC",
+    genericName: "fastener_set",  // Key für generische Übersetzung
+    productModel: "Schrauben & Kleinteile",  // Bleibt unverändert
     name: "Schrauben, Lager & Kleinteile (Set)",  // Fallback
     unit: "Set",
     price: 60.0,
     link: "#",
-    tech: "M3/M4, Muttern, Lager, Kleinteile"
+    tech: "M3/M4 Set"
   }
 };
 
@@ -176,8 +202,27 @@ export const getLocalizedProductName = (partKey, t) => {
   if (!part) return partKey;
   
   try {
-    return t(`products.products.${part.i18nKey}.name`, part.name);
-  } catch {
+    // Verwende erst genericName für generische Übersetzung, dann das spezifische Produkt
+    if (part.genericName) {
+      const genericTranslation = t(`products:genericNames.${part.genericName}`, part.name);
+      
+      // Kombiniere generische Übersetzung mit dem Produktmodell (das unübersetzt bleibt)
+      if (part.productModel && genericTranslation !== part.name) {
+        return `${genericTranslation} ${part.productModel}`;
+      }
+      
+      // Falls keine Generics gefunden wird, versuche spezifische Übersetzung
+      if (genericTranslation === part.name) {
+        return t(`products:products.${part.i18nKey}.name`, part.name);
+      }
+      
+      return genericTranslation;
+    }
+    
+    // Fallback auf spezifische Produktübersetzung
+    return t(`products:products.${part.i18nKey}.name`, part.name);
+  } catch (error) {
+    console.log('Translation error for', partKey, error);
     return part.name; // Fallback auf deutsche Version
   }
 };
@@ -188,8 +233,9 @@ export const getLocalizedProductDescription = (partKey, t) => {
   if (!part) return '';
   
   try {
-    return t(`products.products.${part.i18nKey}.description`, '');
-  } catch {
+    return t(`products:products.${part.i18nKey}.description`, '');
+  } catch (error) {
+    console.log('Translation error for description', partKey, error);
     return ''; // Kein Fallback für Beschreibung
   }
 };
@@ -200,8 +246,9 @@ export const getLocalizedPresetLabel = (presetKey, t) => {
   if (!preset) return presetKey;
   
   try {
-    return t(`products.presets.${preset.i18nKey}.label`, preset.label);
-  } catch {
+    return t(`products:presets.${preset.i18nKey}.label`, preset.label);
+  } catch (error) {
+    console.log('Translation error for preset label', presetKey, error);
     return preset.label; // Fallback
   }
 };
@@ -212,8 +259,9 @@ export const getLocalizedPresetDescription = (presetKey, t) => {
   if (!preset) return '';
   
   try {
-    return t(`products.presets.${preset.i18nKey}.description`, preset.notes);
-  } catch {
+    return t(`products:presets.${preset.i18nKey}.description`, preset.notes);
+  } catch (error) {
+    console.log('Translation error for preset description', presetKey, error);
     return preset.notes; // Fallback
   }
 };
@@ -221,8 +269,9 @@ export const getLocalizedPresetDescription = (presetKey, t) => {
 // Hilfsfunktion für lokalisierte Kategorienamen
 export const getLocalizedCategoryName = (categoryKey, t) => {
   try {
-    return t(`products.categories.${categoryKey}`, categoryKey);
-  } catch {
+    return t(`products:categories.${categoryKey}`, categoryKey);
+  } catch (error) {
+    console.log('Translation error for category', categoryKey, error);
     return categoryKey;
   }
 };
@@ -238,8 +287,9 @@ export const getLocalizedUnit = (unitKey, t) => {
   const mappedKey = unitMapping[unitKey] || unitKey;
   
   try {
-    return t(`products.units.${mappedKey}`, unitKey);
-  } catch {
+    return t(`products:units.${mappedKey}`, unitKey);
+  } catch (error) {
+    console.log('Translation error for unit', unitKey, error);
     return unitKey;
   }
 };

@@ -38,6 +38,9 @@ export function LanguageSwitcher({ className = '' }) {
   const handleLanguageChange = async (languageCode) => {
     try {
       await i18n.changeLanguage(languageCode);
+      try {
+        window.localStorage.setItem('preferred-language', languageCode);
+      } catch {}
       
       // Update document direction for RTL languages
       const selectedLanguage = languages.find(lang => lang.code === languageCode);

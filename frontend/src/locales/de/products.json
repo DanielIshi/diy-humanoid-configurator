@@ -9,6 +9,21 @@
     "ELECTRONICS": "Elektronik",
     "MISC": "Sonstiges"
   },
+  "genericNames": {
+    "lightweight_metal_servo": "Leichter Metall-Servo",
+    "high_torque_servo": "Hochleistungs-Servo",
+    "main_controller_board": "Haupt-Controller-Board",
+    "servo_driver_16ch": "16-Kanal Servo-Treiber",
+    "single_board_computer": "Einplatinencomputer",
+    "motion_sensor_6dof": "Bewegungssensor (6 Achsen)",
+    "orientation_sensor_9dof": "Lagesensor (9 Achsen)",
+    "depth_camera_ai": "Tiefenkamera mit KI",
+    "voltage_regulator": "Spannungsregler",
+    "bench_power_supply": "Tisch-Netzteil",
+    "lithium_battery": "Lithium-Batterie",
+    "3d_printing_material": "3D-Druck Material",
+    "fastener_set": "Befestigungsset"
+  },
   "products": {
     "MG996R": {
       "name": "Leichtes Metall-Servo MG996R",

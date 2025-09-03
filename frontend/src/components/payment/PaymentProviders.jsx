@@ -9,8 +9,8 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 // PayPal configuration
 const paypalOptions = {
   'client-id': import.meta.env.VITE_PAYPAL_CLIENT_ID,
-  currency: 'EUR',
-  intent: 'capture',
+  currency: import.meta.env.VITE_PAYPAL_CURRENCY || 'EUR',
+  intent: (import.meta.env.VITE_PAYPAL_INTENT || 'capture').toLowerCase(),
   'data-client-token': 'false',
 };
 

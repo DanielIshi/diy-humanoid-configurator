@@ -15,7 +15,7 @@ export async function paypalClient() {
 
   const clientId = process.env.PAYPAL_CLIENT_ID;
   const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
-  const environment = process.env.PAYPAL_ENVIRONMENT || 'sandbox';
+  const environment = process.env.PAYPAL_ENVIRONMENT || process.env.PAYPAL_MODE || 'sandbox';
 
   if (!clientId || !clientSecret) {
     throw new Error('PayPal credentials not configured');
@@ -27,13 +27,13 @@ export async function paypalClient() {
         oAuthClientId: clientId,
         oAuthClientSecret: clientSecret,
       },
-      environment: environment === 'production' ? 'production' : 'sandbox',
+      environment: /prod|live/i.test(environment) ? 'production' : 'sandbox',
     });
 
     paypalClientInstance = client;
     
     logger.info('PayPal client initialized', { 
-      environment,
+      environment: /prod|live/i.test(environment) ? 'production' : 'sandbox',
       clientId: clientId.substring(0, 8) + '...' // Log only first 8 chars for security
     });
 

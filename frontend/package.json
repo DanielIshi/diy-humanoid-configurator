@@ -12,6 +12,7 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
+    "i18n:check": "node scripts/check-i18n.js",
     "test:lighthouse": "npx lighthouse http://localhost:4173 --output json --output html --output-path ./lighthouse-report",
     "serve:admin": "vite --port 5174 --base /admin/",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",

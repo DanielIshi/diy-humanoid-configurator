@@ -1,5 +1,6 @@
 import AdminHeader from '../../components/admin/AdminHeader';
 import PaymentSettings from '../../components/admin/PaymentSettings';
+import PaymentProviderStatus from '../../components/admin/PaymentProviderStatus';
 import OrderManagement from '../../components/admin/OrderManagement';
 import { AdminProvider } from '../../contexts/AdminContext';
 
@@ -11,6 +12,7 @@ function AdminPage() {
         
         <main className="max-w-6xl mx-auto px-6 pb-24 grid grid-cols-1 lg:grid-cols-3 gap-6">
           <PaymentSettings />
+          <PaymentProviderStatus />
           <OrderManagement />
         </main>
       </div>

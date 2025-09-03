@@ -1,7 +1,10 @@
 import React from 'react';
 import { Bot } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
-const TypingIndicator = ({ message = 'KI denkt nach...' }) => {
+const TypingIndicator = ({ message }) => {
+  const { t } = useTranslation();
+  const displayMessage = message || t('aiChat.thinking', 'Denke nach...');
   return (
     <div className="flex justify-start space-x-2">
       {/* Avatar */}
@@ -13,7 +16,7 @@ const TypingIndicator = ({ message = 'KI denkt nach...' }) => {
       <div className="max-w-[80%]">
         <div className="bg-gray-50 border border-gray-200 rounded-lg px-4 py-3">
           <div className="flex items-center space-x-2">
-            <span className="text-sm text-gray-600">{message}</span>
+            <span className="text-sm text-gray-600">{displayMessage}</span>
             
             {/* Animated Dots */}
             <div className="flex space-x-1">

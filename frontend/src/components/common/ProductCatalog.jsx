@@ -16,7 +16,7 @@ function ProductCatalog({
   showDescriptions = true,
   className = ""
 }) {
-  const { t } = useTranslation('products');
+  const { t } = useTranslation(['translation', 'products']);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('ALL');
 
@@ -63,12 +63,12 @@ function ProductCatalog({
           {showSearch && (
             <div className="flex-1">
               <label htmlFor="product-search" className="block text-sm font-medium text-slate-300 mb-2">
-                {t('common.search', 'Suchen')}
+                {t('translation:common.search', 'Suchen')}
               </label>
               <input
                 id="product-search"
                 type="text"
-                placeholder={t('common.searchPlaceholder', 'Produktname, Kategorie oder Spezifikation...')}
+                placeholder={t('translation:common.searchPlaceholder', 'Produktname, Kategorie oder Spezifikation...')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
@@ -80,7 +80,7 @@ function ProductCatalog({
           {showCategoryFilter && (
             <div className="md:w-64">
               <label htmlFor="category-filter" className="block text-sm font-medium text-slate-300 mb-2">
-                {t('common.category', 'Kategorie')}
+                {t('translation:common.category', 'Kategorie')}
               </label>
               <select
                 id="category-filter"
@@ -88,7 +88,7 @@ function ProductCatalog({
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
               >
-                <option value="ALL">{t('common.allCategories', 'Alle Kategorien')}</option>
+                <option value="ALL">{t('translation:common.allCategories', 'Alle Kategorien')}</option>
                 {categories.map(category => (
                   <option key={category} value={category}>
                     {getLocalizedCategoryName(category, t)}
@@ -102,9 +102,9 @@ function ProductCatalog({
         {/* Results Summary */}
         <div className="mt-4 text-sm text-slate-400">
           {filteredProducts.length === 0 ? (
-            t('common.noResults', 'Keine Produkte gefunden')
+            t('translation:common.noResults', 'Keine Produkte gefunden')
           ) : (
-            t('common.resultCount', '{{count}} Produkte gefunden', { count: filteredProducts.length })
+            t('translation:common.resultCount', '{{count}} Produkte gefunden', { count: filteredProducts.length })
           )}
         </div>
       </div>
@@ -144,10 +144,10 @@ function ProductCatalog({
             </svg>
           </div>
           <h3 className="text-lg font-medium text-white mb-2">
-            {t('common.noProductsFound', 'Keine Produkte gefunden')}
+            {t('translation:common.noProductsFound', 'Keine Produkte gefunden')}
           </h3>
           <p className="text-slate-400">
-            {t('common.tryDifferentSearch', 'Versuchen Sie andere Suchbegriffe oder wählen Sie eine andere Kategorie.')}
+            {t('translation:common.tryDifferentSearch', 'Versuchen Sie andere Suchbegriffe oder wählen Sie eine andere Kategorie.')}
           </p>
         </div>
       )}

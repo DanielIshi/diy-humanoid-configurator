@@ -151,35 +151,35 @@ export const CheckoutForm = ({
   };
 
   if (!order) {
-    return <div className=\"text-center py-4\">No order data available</div>;
+    return <div className="text-center py-4">No order data available</div>;
   }
 
   return (
-    <div className=\"max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg\">
-      <div className=\"mb-6\">
-        <h3 className=\"text-xl font-semibold mb-2\">Complete Payment</h3>
-        <div className=\"text-gray-600\">
+    <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
+      <div className="mb-6">
+        <h3 className="text-xl font-semibold mb-2">Complete Payment</h3>
+        <div className="text-gray-600">
           <p>Order #{order.id}</p>
-          <p className=\"text-2xl font-bold text-blue-600\">
+          <p className="text-2xl font-bold text-blue-600">
             €{order.totalPrice?.toFixed(2)}
           </p>
         </div>
       </div>
 
       {error && (
-        <div className=\"mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded\">
+        <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
           {error}
         </div>
       )}
 
       {selectedMethod === 'stripe' && (
-        <form onSubmit={handleStripeSubmit} className=\"space-y-4\">
-          <div className=\"p-3 border border-gray-300 rounded\">
+        <form onSubmit={handleStripeSubmit} className="space-y-4">
+          <div className="p-3 border border-gray-300 rounded">
             <CardElement options={CARD_ELEMENT_OPTIONS} />
           </div>
           
           <button
-            type=\"submit\"
+            type="submit"
             disabled={!stripe || isProcessing || !paymentIntent}
             className={`w-full py-3 px-4 rounded-lg font-medium ${
               isProcessing || !stripe || !paymentIntent
@@ -188,8 +188,8 @@ export const CheckoutForm = ({
             }`}
           >
             {isProcessing ? (
-              <div className=\"flex items-center justify-center\">
-                <div className=\"animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2\"></div>
+              <div className="flex items-center justify-center">
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
                 Processing...
               </div>
             ) : (
@@ -200,7 +200,7 @@ export const CheckoutForm = ({
       )}
 
       {selectedMethod === 'paypal' && (
-        <div className=\"space-y-4\">
+        <div className="space-y-4">
           <PayPalButtons
             createOrder={createPayPalOrder}
             onApprove={onPayPalApprove}
@@ -215,17 +215,17 @@ export const CheckoutForm = ({
           />
           
           {isProcessing && (
-            <div className=\"flex items-center justify-center py-4\">
-              <div className=\"animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mr-2\"></div>
+            <div className="flex items-center justify-center py-4">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mr-2"></div>
               Processing PayPal payment...
             </div>
           )}
         </div>
       )}
 
-      <div className=\"mt-6 text-xs text-gray-500 text-center\">
+      <div className="mt-6 text-xs text-gray-500 text-center">
         <p>🔒 Your payment information is secure and encrypted</p>
-        <p className=\"mt-1\">Powered by Stripe and PayPal</p>
+        <p className="mt-1">Powered by Stripe and PayPal</p>
       </div>
     </div>
   );

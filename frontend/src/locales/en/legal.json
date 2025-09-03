@@ -1,0 +1,129 @@
+{
+  "legal": {
+    "cookieConsent": {
+      "title": "Cookie Settings",
+      "description": "We use cookies to provide you with the best experience on our website. Some are necessary, others help us improve the website.",
+      "customize": "Customize",
+      "necessary": "Necessary Only",
+      "acceptAll": "Accept All",
+      "detailsTitle": "Manage Cookie Settings",
+      "functional": "Functional Cookies",
+      "functionalDesc": "Improve user experience and enable personalized content.",
+      "analytics": "Analytics Cookies",
+      "analyticsDesc": "Help us understand how visitors interact with the website (anonymized).",
+      "marketing": "Marketing Cookies",
+      "marketingDesc": "Enable personalized advertising and tracking across multiple websites.",
+      "necessaryDesc": "These cookies are required for basic website functionality and cannot be disabled.",
+      "savePreferences": "Save Preferences"
+    },
+    "privacyPolicy": "Privacy Policy",
+    "terms": {
+      "title": "Terms and Conditions",
+      "version": "Version",
+      "newVersion": "New version available",
+      "versionHistory": "Version History",
+      "current": "Current",
+      "acceptanceText": "I have read and agree to the Terms and Conditions.",
+      "acceptAndContinue": "Accept and continue",
+      "lastUpdated": "Last updated",
+      "acceptedVersion": "Accepted version",
+      "scope": {
+        "title": "Scope of Application",
+        "content": "These Terms and Conditions apply to all contracts for the delivery of goods concluded between a consumer or entrepreneur and us as the seller.",
+        "variations": "Deviating conditions of the customer are only recognized if we have expressly agreed to them in writing."
+      },
+      "contract": {
+        "title": "Contract Formation",
+        "offer": "The presentation of products in the online shop does not constitute a legally binding contractual offer on our part.",
+        "order": "By submitting an order, you make a binding offer to purchase the goods contained in the shopping cart.",
+        "acceptance": "The purchase contract is concluded when we accept your order by order confirmation email or ship the goods."
+      },
+      "payment": {
+        "title": "Prices and Payment",
+        "prices": "All prices are inclusive of statutory VAT and other price components.",
+        "methods": "Payment is made by advance payment, credit card or PayPal.",
+        "due": "For advance payment, the purchase price is due immediately after conclusion of the contract."
+      },
+      "delivery": {
+        "title": "Delivery",
+        "time": "Delivery takes place within 7-14 working days after receipt of payment.",
+        "area": "We deliver exclusively within the European Union.",
+        "costs": "Shipping costs are displayed during the ordering process and are borne by the customer."
+      },
+      "withdrawal": {
+        "title": "Right of Withdrawal",
+        "instructionTitle": "Withdrawal Instruction",
+        "right": "You have the right to withdraw from this contract within fourteen days without giving any reason.",
+        "period": "The withdrawal period is fourteen days from the day on which you or a third party designated by you took possession of the goods.",
+        "contact": "To exercise your right of withdrawal, you must inform us by means of a clear statement of your decision."
+      },
+      "warranty": {
+        "title": "Warranty",
+        "legal": "The statutory warranty provisions apply.",
+        "defects": "Defects must be reported to us immediately in writing."
+      },
+      "privacy": {
+        "title": "Data Protection",
+        "processing": "Your personal data will be processed in accordance with our privacy policy.",
+        "consent": "By placing an order, you consent to data processing for the stated purposes."
+      },
+      "law": {
+        "title": "Applicable Law",
+        "content": "The law of the Federal Republic of Germany applies to all legal relationships between us and the customer."
+      }
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated: January 15, 2024",
+      "sections": {
+        "dataController": {
+          "title": "Data Controller",
+          "content": "Responsible for data processing on this website:\n\nDIY Humanoid Configurator\nSample Street 123\n12345 Berlin\nEmail: privacy@diy-humanoid.com"
+        },
+        "dataCollection": {
+          "title": "Data Collection",
+          "content": "We only collect personal data if you voluntarily provide it to us or if this is necessary to fulfill the contractual purpose."
+        },
+        "cookies": {
+          "title": "Cookies",
+          "content": "This website uses cookies. For more information, please see our cookie settings."
+        },
+        "rights": {
+          "title": "Your Rights",
+          "content": "You have the right to information, correction, deletion, restriction of processing, objection and data portability."
+        }
+      }
+    },
+    "imprint": {
+      "title": "Legal Notice",
+      "company": "DIY Humanoid Configurator",
+      "address": "Sample Street 123\n12345 Berlin\nGermany",
+      "contact": "Email: info@diy-humanoid.com\nPhone: +49 (0) 30 12345678",
+      "legal": "Management: Max Mustermann\nCommercial Register: HRB 12345 B\nVAT ID: DE123456789"
+    },
+    "compliance": {
+      "gdprCompliant": "GDPR compliant",
+      "dataProcessing": "Data processing",
+      "consent": "Consent",
+      "withdraw": "withdraw",
+      "dataSubjectRights": "Data subject rights",
+      "contact": "Contact",
+      "legalBasis": "Legal basis",
+      "retention": "Retention period",
+      "processors": "Data processors"
+    }
+  },
+  "sidebar": {
+    "netPrice": "Net price",
+    "grossPrice": "Gross price incl.",
+    "plusVAT": "plus",
+    "showGross": "Show gross",
+    "showNet": "Show net",
+    "hideVATDetails": "Hide VAT details",
+    "showVATDetails": "VAT Details",
+    "country": "Country",
+    "netAmount": "Net amount",
+    "totalGross": "Total amount",
+    "taxNote": "Prices valid for"
+  }
+}

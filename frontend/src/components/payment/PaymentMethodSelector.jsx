@@ -45,18 +45,18 @@ export const PaymentMethodSelector = ({
     switch (methodId) {
       case 'stripe':
         return (
-          <div className=\"flex items-center space-x-2\">
-            <div className=\"w-8 h-5 bg-blue-600 rounded flex items-center justify-center\">
-              <span className=\"text-white text-xs font-bold\">💳</span>
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-5 bg-blue-600 rounded flex items-center justify-center">
+              <span className="text-white text-xs font-bold">💳</span>
             </div>
             <span>Credit Card</span>
           </div>
         );
       case 'paypal':
         return (
-          <div className=\"flex items-center space-x-2\">
-            <div className=\"w-8 h-5 bg-blue-500 rounded flex items-center justify-center\">
-              <span className=\"text-white text-xs font-bold\">PP</span>
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-5 bg-blue-500 rounded flex items-center justify-center">
+              <span className="text-white text-xs font-bold">PP</span>
             </div>
             <span>PayPal</span>
           </div>
@@ -69,9 +69,9 @@ export const PaymentMethodSelector = ({
   if (loading) {
     return (
       <div className={`animate-pulse ${className}`}>
-        <div className=\"space-y-2\">
-          <div className=\"h-12 bg-gray-200 rounded\"></div>
-          <div className=\"h-12 bg-gray-200 rounded\"></div>
+        <div className="space-y-2">
+          <div className="h-12 bg-gray-200 rounded"></div>
+          <div className="h-12 bg-gray-200 rounded"></div>
         </div>
       </div>
     );
@@ -80,10 +80,10 @@ export const PaymentMethodSelector = ({
   if (error) {
     return (
       <div className={`text-center py-4 ${className}`}>
-        <div className=\"text-red-600 mb-2\">{error}</div>
+        <div className="text-red-600 mb-2">{error}</div>
         <button
           onClick={fetchPaymentMethods}
-          className=\"text-blue-600 hover:text-blue-700 underline\"
+          className="text-blue-600 hover:text-blue-700 underline"
         >
           Retry
         </button>
@@ -101,7 +101,7 @@ export const PaymentMethodSelector = ({
 
   return (
     <div className={`space-y-3 ${className}`}>
-      <h3 className=\"text-lg font-semibold text-gray-800 mb-4\">
+      <h3 className="text-lg font-semibold text-gray-800 mb-4">
         Choose Payment Method
       </h3>
       
@@ -118,34 +118,34 @@ export const PaymentMethodSelector = ({
           `}
           onClick={() => method.enabled && onMethodChange?.(method.id)}
         >
-          <div className=\"flex items-center\">
+          <div className="flex items-center">
             <input
-              type=\"radio\"
-              name=\"paymentMethod\"
+              type="radio"
+              name="paymentMethod"
               value={method.id}
               checked={selectedMethod === method.id}
               onChange={() => method.enabled && onMethodChange?.(method.id)}
               disabled={!method.enabled}
-              className=\"sr-only\"
+              className="sr-only"
             />
             
-            <div className=\"flex-1\">
-              <div className=\"flex items-center justify-between\">
-                <div className=\"font-medium text-gray-900\">
+            <div className="flex-1">
+              <div className="flex items-center justify-between">
+                <div className="font-medium text-gray-900">
                   {getMethodIcon(method.id)}
                 </div>
                 
                 {selectedMethod === method.id && (
-                  <div className=\"flex-shrink-0\">
-                    <div className=\"w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center\">
-                      <div className=\"w-2 h-2 bg-white rounded-full\"></div>
+                  <div className="flex-shrink-0">
+                    <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
                     </div>
                   </div>
                 )}
               </div>
               
               {method.description && (
-                <p className=\"mt-1 text-sm text-gray-500\">
+                <p className="mt-1 text-sm text-gray-500">
                   {method.description}
                 </p>
               )}
@@ -153,8 +153,8 @@ export const PaymentMethodSelector = ({
           </div>
           
           {!method.enabled && (
-            <div className=\"absolute inset-0 flex items-center justify-center bg-white bg-opacity-80 rounded-lg\">
-              <span className=\"text-sm text-gray-500 font-medium\">
+            <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-80 rounded-lg">
+              <span className="text-sm text-gray-500 font-medium">
                 Currently unavailable
               </span>
             </div>
@@ -162,7 +162,7 @@ export const PaymentMethodSelector = ({
         </div>
       ))}
       
-      <div className=\"mt-4 text-xs text-gray-500\">
+      <div className="mt-4 text-xs text-gray-500">
         <p>💳 Credit/Debit cards: Visa, Mastercard, American Express</p>
         <p>🛡️ All payments are secure and encrypted</p>
       </div>

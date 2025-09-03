@@ -1,0 +1,383 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - heading "DIY Humanoid Konfigurator" [level=1] [ref=e7]
+        - paragraph [ref=e8]: Bauen Sie Ihren eigenen humanoiden Roboter (v0.7)
+      - button "Sprache auswählen" [ref=e11] [cursor=pointer]:
+        - img "Deutsch" [ref=e12] [cursor=pointer]: 🇩🇪
+        - generic [ref=e13] [cursor=pointer]: Deutsch
+        - img [ref=e14] [cursor=pointer]
+    - navigation [ref=e16]:
+      - link "Konfigurator" [ref=e17] [cursor=pointer]:
+        - /url: /
+      - link "Berater" [ref=e18] [cursor=pointer]:
+        - /url: /advisor
+  - main [ref=e19]:
+    - generic [ref=e21]:
+      - generic [ref=e22]:
+        - heading "KI-Assistenten" [level=2] [ref=e23]:
+          - img [ref=e24]
+          - generic [ref=e29]: KI-Assistenten
+        - paragraph [ref=e30]: Lass dir von der KI bei der Komponentenauswahl und Konfiguration helfen
+      - generic [ref=e31]:
+        - button "Automatische Konfiguration" [ref=e32] [cursor=pointer]:
+          - img [ref=e33] [cursor=pointer]
+          - generic [ref=e42] [cursor=pointer]: Automatische Konfiguration
+        - button "Chat-Berater" [ref=e43] [cursor=pointer]:
+          - generic [ref=e44] [cursor=pointer]: Chat-Berater
+    - generic [ref=e45]:
+      - generic [ref=e46]:
+        - generic [ref=e47]:
+          - generic [ref=e48]:
+            - heading "Komponenten & Mengen" [level=2] [ref=e49]
+            - generic [ref=e51]:
+              - checkbox "Per‑Teil‑Marge" [ref=e52]
+              - text: Per‑Teil‑Marge
+          - generic [ref=e53]:
+            - button "Starter – Oberkörper (ca. 12 DOF)" [ref=e54] [cursor=pointer]
+            - button "Walker-Light – kleiner Biped (ca. 18 DOF)" [ref=e55] [cursor=pointer]
+            - button "InMoov-Scale – großer Oberkörper (30+ DOF)" [ref=e56] [cursor=pointer]
+          - generic [ref=e57]:
+            - generic [ref=e58]:
+              - generic [ref=e59]:
+                - generic [ref=e60]:
+                  - text: Leichter Metall-Servo MG996R
+                  - img [ref=e62]
+                - generic [ref=e65]: Zuverlässiges Servo mit Metallgetriebe für präzise Bewegungen
+                - link "Produkt/Quelle" [ref=e66] [cursor=pointer]:
+                  - /url: https://electropeak.com/mg996r-high-torque-digital-servo
+              - generic [ref=e67]:
+                - generic [ref=e68]:
+                  - spinbutton [ref=e69]: "12"
+                  - generic [ref=e70]: Stk.
+                - generic [ref=e71]: EK 6,20 € → VK 6,94 €
+            - generic [ref=e72]:
+              - generic [ref=e73]:
+                - generic [ref=e74]:
+                  - text: Hochleistungs-Servo DS3218 (20kg)
+                  - img [ref=e76]
+                - generic [ref=e79]: Hochleistungs-Servo für schwere Lasten
+                - link "Produkt/Quelle" [ref=e80] [cursor=pointer]:
+                  - /url: https://srituhobby.com/product/ds3218-20kg-metal-gear-servo-motor-waterproof-servo/
+              - generic [ref=e81]:
+                - generic [ref=e82]:
+                  - spinbutton [ref=e83]: "0"
+                  - generic [ref=e84]: Stk.
+                - generic [ref=e85]: EK 12,90 € → VK 14,45 €
+            - generic [ref=e86]:
+              - generic [ref=e87]:
+                - generic [ref=e88]:
+                  - text: Haupt-Controller-Board Arduino Mega 2560
+                  - img [ref=e90]
+                - generic [ref=e93]: Mikrocontroller-Platine mit vielen Ein-/Ausgängen
+                - link "Produkt/Quelle" [ref=e94] [cursor=pointer]:
+                  - /url: https://www.kubii.com/en/micro-controllers/2075-arduino-mega-2560-rev3-7630049200067.html
+              - generic [ref=e95]:
+                - generic [ref=e96]:
+                  - spinbutton [ref=e97]: "1"
+                  - generic [ref=e98]: Stk.
+                - generic [ref=e99]: EK 38,00 € → VK 42,56 €
+            - generic [ref=e100]:
+              - generic [ref=e101]:
+                - generic [ref=e102]:
+                  - text: 16-Kanal Servo-Treiber PCA9685
+                  - img [ref=e104]
+                - generic [ref=e107]: PWM-Controller für mehrere Servos
+                - link "Produkt/Quelle" [ref=e108] [cursor=pointer]:
+                  - /url: https://eu.robotshop.com/products/pca9685-16-channel-12-bit-pwm-servo-driver
+              - generic [ref=e109]:
+                - generic [ref=e110]:
+                  - spinbutton [ref=e111]: "1"
+                  - generic [ref=e112]: Stk.
+                - generic [ref=e113]: EK 13,20 € → VK 14,78 €
+            - generic [ref=e114]:
+              - generic [ref=e115]:
+                - generic [ref=e116]:
+                  - text: Einplatinencomputer Raspberry Pi 5 (8GB)
+                  - img [ref=e118]
+                - generic [ref=e121]: Leistungsstarker Einplatinencomputer
+                - link "Produkt/Quelle" [ref=e122] [cursor=pointer]:
+                  - /url: https://www.welectron.com/Raspberry-Pi-5-8-GB-RAM_1
+              - generic [ref=e123]:
+                - generic [ref=e124]:
+                  - spinbutton [ref=e125]: "1"
+                  - generic [ref=e126]: Stk.
+                - generic [ref=e127]: EK 81,90 € → VK 91,73 €
+            - generic [ref=e128]:
+              - generic [ref=e129]:
+                - generic [ref=e130]:
+                  - text: Bewegungssensor (6 Achsen) IMU MPU-6050
+                  - img [ref=e132]
+                - generic [ref=e135]: 6-achsiger Bewegungssensor
+                - link "Produkt/Quelle" [ref=e136] [cursor=pointer]:
+                  - /url: https://eu.robotshop.com/products/6-dof-gyro-accelerometer-imu-mpu6050
+              - generic [ref=e137]:
+                - generic [ref=e138]:
+                  - spinbutton [ref=e139]: "1"
+                  - generic [ref=e140]: Stk.
+                - generic [ref=e141]: EK 14,20 € → VK 15,90 €
+            - generic [ref=e142]:
+              - generic [ref=e143]:
+                - generic [ref=e144]:
+                  - text: Lagesensor (9 Achsen) IMU BNO055
+                  - img [ref=e146]
+                - generic [ref=e149]: 9-achsiger Orientierungssensor mit Sensor-Fusion
+                - link "Produkt/Quelle" [ref=e150] [cursor=pointer]:
+                  - /url: https://eu.robotshop.com/products/bno055-9-dof-absolute-orientation-imu-fusion-breakout-board
+              - generic [ref=e151]:
+                - generic [ref=e152]:
+                  - spinbutton [ref=e153]: "0"
+                  - generic [ref=e154]: Stk.
+                - generic [ref=e155]: EK 36,60 € → VK 40,99 €
+            - generic [ref=e156]:
+              - generic [ref=e157]:
+                - generic [ref=e158]:
+                  - text: Tiefenkamera mit KI Luxonis OAK-D Lite
+                  - img [ref=e160]
+                - generic [ref=e163]: KI-Kamera mit Tiefenerkennung
+                - link "Produkt/Quelle" [ref=e164] [cursor=pointer]:
+                  - /url: https://eu.mouser.com/ProductDetail/Luxonis/OAK-D-Lite-FF
+              - generic [ref=e165]:
+                - generic [ref=e166]:
+                  - spinbutton [ref=e167]: "0"
+                  - generic [ref=e168]: Stk.
+                - generic [ref=e169]: EK 128,10 € → VK 143,47 €
+            - generic [ref=e170]:
+              - generic [ref=e171]:
+                - generic [ref=e172]:
+                  - text: Spannungsregler UBEC 5V/6A
+                  - img [ref=e174]
+                - generic [ref=e177]: Effizienter Spannungsregler für mobile Anwendungen
+                - link "Produkt/Quelle" [ref=e178] [cursor=pointer]:
+                  - /url: https://mg-modellbau.de/Akkuweichen-usw/D-Power/D-Power-Antares-6A-UBEC-Regler.html
+              - generic [ref=e179]:
+                - generic [ref=e180]:
+                  - spinbutton [ref=e181]: "1"
+                  - generic [ref=e182]: Stk.
+                - generic [ref=e183]: EK 19,90 € → VK 22,29 €
+            - generic [ref=e184]:
+              - generic [ref=e185]:
+                - generic [ref=e186]:
+                  - text: Tisch-Netzteil 12V / 10A (Bench)
+                  - img [ref=e188]
+                - generic [ref=e191]: Labornetzteil für Testzwecke
+                - link "Produkt/Quelle" [ref=e192] [cursor=pointer]:
+                  - /url: https://www.optics-pro.com/power-supplies/pegasusastro-power-supply-12v-10a-europe-2-1mm/p,60252
+              - generic [ref=e193]:
+                - generic [ref=e194]:
+                  - spinbutton [ref=e195]: "1"
+                  - generic [ref=e196]: Stk.
+                - generic [ref=e197]: EK 79,00 € → VK 88,48 €
+            - generic [ref=e198]:
+              - generic [ref=e199]:
+                - generic [ref=e200]:
+                  - text: Lithium-Batterie LiPo 4S 5000mAh
+                  - img [ref=e202]
+                - generic [ref=e205]: Hochleistungs-Lithium-Polymer-Akku
+                - link "Produkt/Quelle" [ref=e206] [cursor=pointer]:
+                  - /url: https://gensace.de/collections/4s-lipo-battery
+              - generic [ref=e207]:
+                - generic [ref=e208]:
+                  - spinbutton [ref=e209]: "0"
+                  - generic [ref=e210]: Stk.
+                - generic [ref=e211]: EK 70,00 € → VK 78,40 €
+            - generic [ref=e212]:
+              - generic [ref=e213]:
+                - generic [ref=e214]:
+                  - text: 3D-Druck Material Filament 1kg
+                  - img [ref=e216]
+                - generic [ref=e219]: Hochwertiges Filament für 3D-Drucker
+                - link "Produkt/Quelle" [ref=e220] [cursor=pointer]:
+                  - /url: https://prusa3d.com/
+              - generic [ref=e221]:
+                - generic [ref=e222]:
+                  - spinbutton [ref=e223]: "3"
+                  - generic [ref=e224]: Spule
+                - generic [ref=e225]: EK 20,00 € → VK 22,40 €
+            - generic [ref=e226]:
+              - generic [ref=e227]:
+                - generic [ref=e228]:
+                  - text: Befestigungsset Schrauben & Kleinteile
+                  - img [ref=e230]
+                - generic [ref=e233]: Komplettset für Montage und Wartung
+                - link "Produkt/Quelle" [ref=e234] [cursor=pointer]:
+                  - /url: "#"
+              - generic [ref=e235]:
+                - generic [ref=e236]:
+                  - spinbutton [ref=e237]: "1"
+                  - generic [ref=e238]: Set
+                - generic [ref=e239]: EK 60,00 € → VK 67,20 €
+        - generic [ref=e240]:
+          - article [ref=e241]:
+            - img "InMoov – 3D‑gedruckte Hand (CC BY‑NC)" [ref=e242]
+            - generic [ref=e243]:
+              - heading "InMoov (Open Source, 3D‑gedruckt)" [level=3] [ref=e244]
+              - paragraph [ref=e245]: "Lebensgroßer, 3D‑gedruckter Humanoid – Referenzdesign für Oberkörper & Hände. Lizenz: CC BY‑NC."
+              - generic [ref=e246]:
+                - link "Website" [ref=e247] [cursor=pointer]:
+                  - /url: https://inmoov.fr/
+                - link "Projekt & STL" [ref=e248] [cursor=pointer]:
+                  - /url: https://inmoov.fr/project/
+          - article [ref=e249]:
+            - img [ref=e251]
+            - generic [ref=e254]:
+              - heading "igus® Humanoid Open Platform" [level=3] [ref=e255]
+              - paragraph [ref=e256]: 92 cm, voll 3D‑gedruckte Struktur, ROS‑Stack. Paper & Specs verlinkt.
+              - generic [ref=e257]:
+                - link "Projektseite" [ref=e258] [cursor=pointer]:
+                  - /url: https://www.nimbro.net/OP/
+                - link "Paper (PDF)" [ref=e259] [cursor=pointer]:
+                  - /url: https://www.ais.uni-bonn.de/papers/KI_2016_Allgeuer.pdf
+      - complementary [ref=e260]:
+        - generic [ref=e261]:
+          - heading "Preisübersicht" [level=2] [ref=e262]
+          - generic [ref=e263]:
+            - generic [ref=e264]:
+              - generic [ref=e265]:
+                - generic [ref=e266]: Leichter Metall-Servo MG996R
+                - generic [ref=e267]:
+                  - text: 12 × 6,20 €•
+                  - link "Produkt ansehen" [ref=e268] [cursor=pointer]:
+                    - /url: https://electropeak.com/mg996r-high-torque-digital-servo
+              - generic [ref=e270]: 83,33 €
+            - generic [ref=e271]:
+              - generic [ref=e272]:
+                - generic [ref=e273]: Haupt-Controller-Board Arduino Mega 2560
+                - generic [ref=e274]:
+                  - text: 1 × 38,00 €•
+                  - link "Produkt ansehen" [ref=e275] [cursor=pointer]:
+                    - /url: https://www.kubii.com/en/micro-controllers/2075-arduino-mega-2560-rev3-7630049200067.html
+              - generic [ref=e277]: 42,56 €
+            - generic [ref=e278]:
+              - generic [ref=e279]:
+                - generic [ref=e280]: 16-Kanal Servo-Treiber PCA9685
+                - generic [ref=e281]:
+                  - text: 1 × 13,20 €•
+                  - link "Produkt ansehen" [ref=e282] [cursor=pointer]:
+                    - /url: https://eu.robotshop.com/products/pca9685-16-channel-12-bit-pwm-servo-driver
+              - generic [ref=e284]: 14,78 €
+            - generic [ref=e285]:
+              - generic [ref=e286]:
+                - generic [ref=e287]: Einplatinencomputer Raspberry Pi 5 (8GB)
+                - generic [ref=e288]:
+                  - text: 1 × 81,90 €•
+                  - link "Produkt ansehen" [ref=e289] [cursor=pointer]:
+                    - /url: https://www.welectron.com/Raspberry-Pi-5-8-GB-RAM_1
+              - generic [ref=e291]: 91,73 €
+            - generic [ref=e292]:
+              - generic [ref=e293]:
+                - generic [ref=e294]: Bewegungssensor (6 Achsen) IMU MPU-6050
+                - generic [ref=e295]:
+                  - text: 1 × 14,20 €•
+                  - link "Produkt ansehen" [ref=e296] [cursor=pointer]:
+                    - /url: https://eu.robotshop.com/products/6-dof-gyro-accelerometer-imu-mpu6050
+              - generic [ref=e298]: 15,90 €
+            - generic [ref=e299]:
+              - generic [ref=e300]:
+                - generic [ref=e301]: Spannungsregler UBEC 5V/6A
+                - generic [ref=e302]:
+                  - text: 1 × 19,90 €•
+                  - link "Produkt ansehen" [ref=e303] [cursor=pointer]:
+                    - /url: https://mg-modellbau.de/Akkuweichen-usw/D-Power/D-Power-Antares-6A-UBEC-Regler.html
+              - generic [ref=e305]: 22,29 €
+            - generic [ref=e306]:
+              - generic [ref=e307]:
+                - generic [ref=e308]: Tisch-Netzteil 12V / 10A (Bench)
+                - generic [ref=e309]:
+                  - text: 1 × 79,00 €•
+                  - link "Produkt ansehen" [ref=e310] [cursor=pointer]:
+                    - /url: https://www.optics-pro.com/power-supplies/pegasusastro-power-supply-12v-10a-europe-2-1mm/p,60252
+              - generic [ref=e312]: 88,48 €
+            - generic [ref=e313]:
+              - generic [ref=e314]:
+                - generic [ref=e315]: 3D-Druck Material Filament 1kg
+                - generic [ref=e316]:
+                  - text: 3 × 20,00 €•
+                  - link "Produkt ansehen" [ref=e317] [cursor=pointer]:
+                    - /url: https://prusa3d.com/
+              - generic [ref=e319]: 67,20 €
+            - generic [ref=e320]:
+              - generic [ref=e321]:
+                - generic [ref=e322]: Befestigungsset Schrauben & Kleinteile
+                - generic [ref=e323]:
+                  - text: 1 × 60,00 €•
+                  - link "Produkt ansehen" [ref=e324] [cursor=pointer]:
+                    - /url: "#"
+              - generic [ref=e326]: 67,20 €
+          - generic [ref=e328]:
+            - generic [ref=e329]:
+              - generic [ref=e330]: GESAMTPREIS
+              - button "Preise aktualisieren" [ref=e331] [cursor=pointer]:
+                - img [ref=e332] [cursor=pointer]
+            - generic [ref=e334]:
+              - generic [ref=e335]: 587,23 €
+              - generic [ref=e337]:
+                - text: Bruttopreis inkl. 19% MwSt.
+                - generic [ref=e338]: "Netto: 493,47 € • MwSt: 93,76 €"
+              - generic [ref=e339]:
+                - generic [ref=e340]:
+                  - button "Netto anzeigen" [ref=e341] [cursor=pointer]:
+                    - img [ref=e342] [cursor=pointer]
+                    - text: Netto anzeigen
+                  - button "MwSt. Details" [ref=e344] [cursor=pointer]
+                - text: Preise automatisch in lokaler Währung angezeigt
+          - generic [ref=e345]:
+            - button "Stückliste exportieren" [ref=e346] [cursor=pointer]
+            - button "Als Bestellung anlegen" [ref=e347] [cursor=pointer]
+          - generic [ref=e348]:
+            - paragraph [ref=e349]: Exkl. Versand/Tools. Für "Walker-Light" ggf. Ladegerät & zweite LiPo sinnvoll.
+            - paragraph [ref=e350]:
+              - img [ref=e351]
+              - text: Preise gelten für DE
+        - generic [ref=e353]:
+          - heading "Einstellungen" [level=3] [ref=e354]
+          - generic [ref=e355]:
+            - generic [ref=e356]:
+              - generic [ref=e357]: Globale Marge
+              - spinbutton [ref=e358]: "12"
+              - generic [ref=e359]: "%"
+            - generic [ref=e360]:
+              - generic [ref=e361]: LLM-Provider (optional)
+              - generic [ref=e362]:
+                - combobox [ref=e363]:
+                  - option "– kein –" [selected]
+                  - option "OpenAI"
+                  - option "OpenRouter"
+                - textbox "API-Key" [ref=e364]
+              - textbox "Model (z. B. gpt-4o-mini oder openai/gpt-4o-mini)" [ref=e365]
+        - generic [ref=e366]:
+          - heading "Roadmap (kurz)" [level=3] [ref=e367]
+          - list [ref=e368]:
+            - listitem [ref=e369]: "✅ P0: Marge & Ops‑Simulation"
+            - listitem [ref=e370]: "✅ P1‑3: Per‑Teil‑Marge & Validierung"
+            - listitem [ref=e371]: "✅ P1‑4: Payment‑Platzhalter & Webhook‑Simulation"
+            - listitem [ref=e372]: "✅ P1‑5: Multi‑Currency & i18n (EK/VK Entfernung)"
+            - listitem [ref=e373]: "✅ P1‑6: Währungsumrechnung & Exchange‑Rate‑API"
+            - listitem [ref=e374]: "✅ P2‑7: LLM‑Advisor an echte API (Server‑Proxy, Ratelimits)"
+            - listitem [ref=e375]: "✅ P2‑8: Live‑Preis‑Scraper (Händler‑Fallbacks)"
+            - listitem [ref=e376]: "✅ P2‑6: Recht/Steuern (MwSt., DSGVO, AGB)"
+      - generic [ref=e378]:
+        - heading "Anleitungen zusammenstellen" [level=2] [ref=e379]
+        - paragraph [ref=e380]: Erzeugt eine verständliche, kompakte Anleitung aus allen gewählten Komponenten. Optional als Audio.
+        - generic [ref=e381]:
+          - button "Kompilieren" [ref=e382] [cursor=pointer]
+          - button "Als Audio vorlesen" [ref=e383] [cursor=pointer]
+          - button "Stopp" [ref=e384] [cursor=pointer]
+        - textbox "Hier erscheint deine kompilierte Anleitung…" [ref=e385]
+  - contentinfo [ref=e386]:
+    - paragraph [ref=e387]: "Bildnachweise: InMoov Hand © Gaël Langevin (CC BY‑NC). Verlinkte Marken/Projekte liegen bei ihren Eigentümern."
+  - generic [ref=e391]:
+    - generic [ref=e393]:
+      - img [ref=e395]
+      - generic [ref=e397]:
+        - heading "Cookie-Einstellungen" [level=3] [ref=e398]
+        - paragraph [ref=e399]: Wir verwenden Cookies, um Ihnen die beste Erfahrung auf unserer Website zu bieten. Einige sind notwendig, andere helfen uns, die Website zu verbessern.
+    - generic [ref=e400]:
+      - button "Anpassen" [ref=e401] [cursor=pointer]
+      - button "Nur Notwendige" [ref=e402] [cursor=pointer]
+      - button "Alle akzeptieren" [ref=e403] [cursor=pointer]
+```

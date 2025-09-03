@@ -1,6 +1,7 @@
 import { createContext, useMemo, useState, useEffect } from 'react';
 import { PRESETS, PARTS } from '../utils/data.js';
 import { useLocalStorage, sumEK, clamp } from '../utils/helpers.js';
+import { OrderHistoryManager, LEGAL_BASIS } from '../utils/compliance.js';
 
 export const ConfiguratorContext = createContext();
 
@@ -25,6 +26,9 @@ export function ConfiguratorProvider({ children }) {
     apiKey: '',
     model: ''
   });
+
+  // Compliance Manager
+  const orderHistoryManager = useMemo(() => new OrderHistoryManager(), []);
 
   const ekTotal = useMemo(() => sumEK(items), [items]);
 
@@ -55,6 +59,25 @@ export function ConfiguratorProvider({ children }) {
       log: [], 
       provider: settings.paymentProvider 
     };
+
+    // DSGVO-konforme Bestellhistorie erstellen
+    const complianceOrderData = {
+      id: order.id,
+      items: snapshot,
+      total: retailTotalNow,
+      currency: 'EUR',
+      timestamp: new Date().toISOString(),
+      customerIP: null, // Wird vom Server gesetzt
+      userAgent: navigator.userAgent,
+      language: navigator.language
+    };
+
+    try {
+      orderHistoryManager.createOrderRecord(complianceOrderData, LEGAL_BASIS.CONTRACT);
+    } catch (error) {
+      console.warn('Fehler beim Erstellen der Compliance-Bestellhistorie:', error);
+    }
+
     setOrders(o => [order, ...o]);
     addLog(id, 'Bestellung angelegt. Klicke "Checkout" um zu bezahlen (Demo).');
   };
