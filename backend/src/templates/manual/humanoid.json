@@ -1,0 +1,210 @@
+{
+  "templateId": "humanoid_basic",
+  "name": "DIY Humanoid Roboter Template",
+  "description": "Standard-Template für bipede Humanoid-Roboter mit Grundfunktionen",
+  "robotType": "humanoid",
+  "version": "1.2",
+  "language": "de-DE",
+  "targetAudience": "hobbyist",
+  "estimatedComplexity": "intermediate",
+  "structure": {
+    "sections": [
+      {
+        "id": "cover",
+        "title": "Deckblatt",
+        "required": true,
+        "template": "cover_humanoid"
+      },
+      {
+        "id": "toc", 
+        "title": "Inhaltsverzeichnis",
+        "required": true,
+        "template": "table_of_contents"
+      },
+      {
+        "id": "overview",
+        "title": "Projekt-Übersicht",
+        "required": true,
+        "template": "project_overview_humanoid"
+      },
+      {
+        "id": "safety",
+        "title": "Sicherheitshinweise", 
+        "required": true,
+        "template": "safety_electrical_mechanical"
+      },
+      {
+        "id": "tools_materials",
+        "title": "Werkzeuge und Materialien",
+        "required": true,
+        "template": "tools_materials_comprehensive"
+      },
+      {
+        "id": "mechanical_assembly",
+        "title": "Mechanischer Aufbau",
+        "required": true,
+        "template": "mechanical_humanoid_assembly",
+        "subsections": [
+          "frame_construction",
+          "joint_assembly", 
+          "limb_attachment",
+          "balance_system"
+        ]
+      },
+      {
+        "id": "electrical_system",
+        "title": "Elektronik und Verkabelung",
+        "required": true,
+        "template": "electrical_system_humanoid",
+        "subsections": [
+          "controller_setup",
+          "power_distribution",
+          "motor_wiring",
+          "sensor_integration"
+        ]
+      },
+      {
+        "id": "software_setup",
+        "title": "Software und Programmierung",
+        "required": true, 
+        "template": "software_humanoid_basic",
+        "subsections": [
+          "development_environment",
+          "basic_movement",
+          "balance_control",
+          "sensor_calibration"
+        ]
+      },
+      {
+        "id": "testing_calibration",
+        "title": "Tests und Kalibrierung",
+        "required": true,
+        "template": "testing_humanoid_system"
+      },
+      {
+        "id": "troubleshooting",
+        "title": "Fehlerbehebung",
+        "required": true,
+        "template": "troubleshooting_humanoid"
+      },
+      {
+        "id": "maintenance",
+        "title": "Wartung und Pflege",
+        "required": false,
+        "template": "maintenance_mechanical_electronic"
+      },
+      {
+        "id": "upgrades",
+        "title": "Upgrade-Möglichkeiten", 
+        "required": false,
+        "template": "upgrades_humanoid_advanced"
+      },
+      {
+        "id": "sources",
+        "title": "Quellen und Referenzen",
+        "required": true,
+        "template": "sources_bibliography"
+      },
+      {
+        "id": "legal",
+        "title": "Rechtliche Hinweise",
+        "required": true,
+        "template": "legal_disclaimer_ai_generated"
+      }
+    ]
+  },
+  "templates": {
+    "cover_humanoid": {
+      "placeholders": [
+        "{{robot_name}}",
+        "{{customer_name}}",
+        "{{generation_date}}",
+        "{{order_id}}",
+        "{{estimated_build_time}}",
+        "{{difficulty_level}}"
+      ],
+      "content": "# {{robot_name}} - DIY Humanoid Roboter\n\n## Personalisierte Bauanleitung\n\n**Erstellt für:** {{customer_name}}\n**Generiert am:** {{generation_date}}\n**Bestellnummer:** {{order_id}}\n**Geschätzte Bauzeit:** {{estimated_build_time}}\n**Schwierigkeitsgrad:** {{difficulty_level}}\n\n---\n\n⚠️ **WICHTIGER HINWEIS**\nDiese Anleitung wurde mittels KI aus verschiedenen Quellen zusammengestellt.\nKonsultieren Sie bei Problemen immer die Original-Handbücher.\n\n*Generiert von DIY Humanoid Configurator*"
+    },
+    "project_overview_humanoid": {
+      "placeholders": [
+        "{{robot_type}}",
+        "{{main_features}}",
+        "{{component_count}}",
+        "{{key_capabilities}}"
+      ],
+      "content": "## Willkommen zu Ihrem DIY {{robot_type}} Projekt!\n\nSie bauen einen humanoiden Roboter mit folgenden Eigenschaften:\n\n### Hauptmerkmale:\n{{main_features}}\n\n### Was Sie erwartet:\n- {{component_count}} Hauptkomponenten zu verbauen\n- {{key_capabilities}}\n- Schritt-für-Schritt Anleitung mit detaillierten Erklärungen\n- Troubleshooting für häufige Probleme\n\n### Aufbau dieser Anleitung:\nDie Anleitung ist in logische Abschnitte unterteilt, die aufeinander aufbauen. Überspringen Sie keine Schritte und führen Sie die Tests zwischen den Hauptabschnitten durch.\n\n**Wichtig:** Planen Sie genügend Zeit ein und arbeiten Sie in ruhiger Umgebung!"
+    },
+    "safety_electrical_mechanical": {
+      "placeholders": [
+        "{{max_voltage}}",
+        "{{max_current}}",
+        "{{specific_hazards}}"
+      ],
+      "content": "# ⚠️ SICHERHEIT GEHT VOR!\n\n## ELEKTRISCHE SICHERHEIT\n- **NIEMALS** unter Spannung arbeiten\n- Maximale Spannung beachten: {{max_voltage}}\n- Maximaler Strom: {{max_current}}\n- Polarität vor jedem Anschluss prüfen\n- Multimeter für alle Messungen verwenden\n\n## MECHANISCHE SICHERHEIT\n- Schutzbrille bei Säge- und Bohrarbeiten\n- Handschuhe bei scharfkantigen Teilen\n- Werkzeuge auf Beschädigung prüfen\n- Arbeitsplatz sauber halten\n\n## SPEZIELLE GEFAHREN\n{{specific_hazards}}\n\n## ERSTE HILFE\n- Erste-Hilfe-Set bereit halten\n- Notrufnummer: 112\n- Bei Stromschlag: Spannungsquelle sofort trennen\n\n**Bei Unsicherheiten: Fachmann konsultieren!**"
+    },
+    "mechanical_humanoid_assembly": {
+      "placeholders": [
+        "{{frame_type}}",
+        "{{joint_count}}",
+        "{{assembly_sequence}}"
+      ],
+      "content": "# MECHANISCHER AUFBAU\n\n## Übersicht\nIhr Humanoid basiert auf einem {{frame_type}} mit {{joint_count}} beweglichen Gelenken.\n\n## Montage-Reihenfolge\n{{assembly_sequence}}\n\n### Wichtige Grundregeln:\n1. **Rahmen zuerst** - Stabile Basis ist essentiell\n2. **Von unten nach oben** - Beine vor Oberkörper\n3. **Kabelführung mitplanen** - Später schwer nachzurüsten\n4. **Regelmäßig testen** - Jedes Gelenk einzeln prüfen\n\n### Werkzeug-Tipp:\nNutzen Sie eine Drehmoment-Begrenzung bei kritischen Schrauben. Zu viel Kraft kann Gewinde oder Rahmen beschädigen.\n\n### Balance-Hinweis:\nAchten Sie bereits beim Aufbau auf den Schwerpunkt. Der Roboter sollte auch ohne Elektronik stabil stehen können."
+    },
+    "electrical_system_humanoid": {
+      "placeholders": [
+        "{{controller_type}}",
+        "{{power_requirements}}",
+        "{{wiring_diagram}}"
+      ],
+      "content": "# ELEKTRONIK UND VERKABELUNG\n\n## Systemübersicht\n- **Hauptcontroller:** {{controller_type}}\n- **Stromversorgung:** {{power_requirements}}\n- **Verkabelungsplan:** {{wiring_diagram}}\n\n## KRITISCHE VERBINDUNGEN\n⚠️ **Diese Anschlüsse sind besonders wichtig:**\n- Stromversorgung (falsche Polarität zerstört Komponenten)\n- Servo-Signalleitungen (Verwechslung führt zu Fehlfunktionen)\n- Sensor-Datenleitung (empfindlich gegen Störungen)\n\n## VERKABELUNGS-STRATEGIE\n1. **Planung ist alles** - Skizzieren Sie die Verkabelung\n2. **Kabel beschriften** - Spätere Fehlersuche wird einfacher\n3. **Zugentlastung** - Kabel dürfen nicht an Lötstellen ziehen\n4. **Prüfung vor Spannung** - Alle Verbindungen mit Multimeter testen\n\n## POWER MANAGEMENT\nHumanoide Roboter haben hohen Stromverbrauch:\n- Separate Versorgung für Servos empfohlen\n- Controller-Versorgung stabilisieren\n- Stromstoß-Filter bei größeren Motoren"
+    },
+    "software_humanoid_basic": {
+      "placeholders": [
+        "{{programming_language}}",
+        "{{development_environment}}",
+        "{{basic_functions}}"
+      ],
+      "content": "# SOFTWARE UND PROGRAMMIERUNG\n\n## Entwicklungsumgebung\n**Sprache:** {{programming_language}}\n**IDE:** {{development_environment}}\n\n## GRUNDFUNKTIONEN\n{{basic_functions}}\n\n## PROGRAMMIER-STRATEGIE FÜR HUMANOIDE\n\n### 1. Modularer Aufbau\n```\nHauptprogramm\n├── Balance-Modul\n├── Bewegungs-Modul  \n├── Sensor-Modul\n└── Kommunikations-Modul\n```\n\n### 2. Schritt-für-Schritt Entwicklung\n1. **Grundfunktionen:** Einzelne Servos bewegen\n2. **Koordination:** Mehrere Servos synchron\n3. **Sensoren:** Gleichgewicht und Umgebung\n4. **Integration:** Komplexe Bewegungsabläufe\n\n### 3. Debugging-Tipps\n- Serieller Monitor für Statusausgaben\n- Langsame Bewegungen beim Testen\n- Sicherheits-Stops bei kritischen Positionen\n\n### 4. Sicherheits-Features\n- Software-Endschalter für alle Gelenke\n- Überstrom-Erkennung\n- Notfall-Stop-Funktion"
+    },
+    "testing_humanoid_system": {
+      "placeholders": [
+        "{{test_sequence}}",
+        "{{calibration_steps}}"
+      ],
+      "content": "# TESTS UND KALIBRIERUNG\n\n## SYSTEMATISCHES TESTEN\n{{test_sequence}}\n\n## KALIBRIERUNG\n{{calibration_steps}}\n\n### FUNKTIONS-TESTS\n\n#### 1. Einzelkomponenten-Test\n- [ ] Jedes Servo einzeln bewegen\n- [ ] Sensoren auslesen und Werte prüfen\n- [ ] Stromaufnahme messen\n- [ ] Mechanische Bewegungsfreiheit\n\n#### 2. System-Integration\n- [ ] Koordinierte Bewegungen (langsam)\n- [ ] Balance-System aktivieren\n- [ ] Sensor-Feedback-Schleifen\n- [ ] Notfall-Stops testen\n\n#### 3. Performance-Tests\n- [ ] Kontinuierliche Bewegung (30 Min)\n- [ ] Maximale Bewegungsgeschwindigkeit\n- [ ] Präzision der Positionierung\n- [ ] Stromverbrauch unter Last\n\n### KALIBRIERUNGS-PROTOKOLL\nDokumentieren Sie alle Kalibrierungs-Werte:\n- Servo-Mittelstellungen\n- Sensor-Offset-Werte\n- PID-Parameter für Balance\n- Bewegungsgrenzen"
+    },
+    "troubleshooting_humanoid": {
+      "placeholders": [
+        "{{common_issues}}",
+        "{{diagnostic_procedures}}"
+      ],
+      "content": "# FEHLERBEHEBUNG\n\n## HÄUFIGE PROBLEME\n{{common_issues}}\n\n## DIAGNOSE-VERFAHREN\n{{diagnostic_procedures}}\n\n### 🔧 MECHANISCHE PROBLEME\n\n#### Roboter fällt um\n**Ursachen:**\n- Schwerpunkt zu hoch/falsch\n- Balance-Algorithmus fehlerhaft\n- Servo-Reaktionszeit zu langsam\n\n**Lösungen:**\n- Gewichtsverteilung prüfen\n- Balance-Parameter anpassen\n- Servo-Update-Rate erhöhen\n\n#### Ruckelige Bewegungen\n**Ursachen:**\n- Unzureichende Stromversorgung\n- Mechanische Reibung\n- Software-Timing-Probleme\n\n**Lösungen:**\n- Netzteil-Leistung prüfen\n- Gelenke schmieren\n- Servo-Update-Frequenz optimieren\n\n### ⚡ ELEKTRISCHE PROBLEME\n\n#### Servo bewegt sich nicht\n**Diagnose-Schritte:**\n1. Spannung messen (4.8-6V)\n2. PWM-Signal prüfen\n3. Servo an anderem Pin testen\n4. Mechanische Blockierung ausschließen\n\n#### Controller reagiert nicht\n**Diagnose-Schritte:**\n1. Power-LED leuchtet?\n2. USB-Verbindung prüfen\n3. Reset-Button drücken\n4. Bootloader-Problem?\n\n### 💻 SOFTWARE-PROBLEME\n\n#### Programm stürzt ab\n- Speicher-Overflow prüfen\n- Endlos-Schleifen suchen\n- Array-Grenzen kontrollieren\n\n### 📞 WENN NICHTS HILFT\n1. Zu Grundkonfiguration zurückkehren\n2. Komponenten einzeln testen\n3. Hersteller-Support kontaktieren\n4. Online-Communities befragen"
+    },
+    "sources_bibliography": {
+      "placeholders": [
+        "{{component_sources}}",
+        "{{reference_materials}}"
+      ],
+      "content": "# QUELLEN UND REFERENZEN\n\n## KOMPONENTEN-DOKUMENTATION\n{{component_sources}}\n\n## ZUSÄTZLICHE MATERIALIEN\n{{reference_materials}}\n\n## WICHTIGE ONLINE-RESSOURCEN\n\n### Offizielle Dokumentationen\n- Arduino: https://docs.arduino.cc/\n- Servo-Bibliotheken: https://github.com/arduino-libraries/\n- Elektronik-Grundlagen: https://www.electronics-tutorials.ws/\n\n### Community-Ressourcen\n- Arduino Forum: https://forum.arduino.cc/\n- Reddit r/robotics: https://reddit.com/r/robotics/\n- Instructables Robotics: https://www.instructables.com/circuits/robots/\n\n### Weiterführende Literatur\n- \"Programming Robots with ROS\" - Quigley, Gerkey, Smart\n- \"Introduction to Autonomous Mobile Robots\" - Siegwart, Nourbakhsh\n- \"Robotics: Modelling, Planning and Control\" - Siciliano, Sciavicco\n\n## HAFTUNGSAUSSCHLUSS\nAlle externen Links und Referenzen werden ohne Gewähr zur Verfügung gestellt. Die Verfügbarkeit und Aktualität der Inhalte liegt außerhalb unserer Kontrolle."
+    },
+    "legal_disclaimer_ai_generated": {
+      "content": "# RECHTLICHE HINWEISE\n\n## HAFTUNGSAUSSCHLUSS\n\n**Diese Bauanleitung wurde mittels künstlicher Intelligenz aus verschiedenen öffentlich verfügbaren Quellen zusammengestellt.**\n\n### KEINE GEWÄHRLEISTUNG\n- Wir übernehmen **keinerlei Gewährleistung** für die Vollständigkeit, Richtigkeit oder Aktualität der Informationen\n- Die Nutzung erfolgt **auf eigene Gefahr und Verantwortung**\n- Schäden jeglicher Art sind **ausgeschlossen**\n\n### SICHERHEITSVERANTWORTUNG\n- **Konsultieren Sie immer die Original-Handbücher** der Komponentenhersteller\n- Bei Unsicherheiten: **Fachpersonal hinzuziehen**\n- **Eigene Sicherheitsprüfungen** sind unerlässlich\n\n### URHEBERRECHT\n- Diese Anleitung basiert auf **öffentlich verfügbaren Informationen**\n- Alle **Marken und Produktnamen** sind Eigentum ihrer jeweiligen Inhaber\n- **Kommerzielle Nutzung** dieser Anleitung ist **untersagt**\n\n### DATENSCHUTZ\n- Diese Anleitung wurde für Ihre spezifische Konfiguration personalisiert\n- Ihre Daten werden gemäß unserer **Datenschutzerklärung** verarbeitet\n- Weitere Informationen: [Link zur Datenschutzerklärung]\n\n### SUPPORT UND GARANTIE\n- **Kein technischer Support** für AI-generierte Inhalte\n- **Garantieansprüche** richten sich an die jeweiligen Komponentenhersteller\n- **Modifikationen** erfolgen auf eigene Verantwortung\n\n---\n\n**Mit der Nutzung dieser Anleitung akzeptieren Sie diese Bedingungen vollständig.**\n\n*Stand: Januar 2025*"
+    }
+  },
+  "ai_prompts": {
+    "content_synthesis": "Kompiliere die Bauanleitung für einen DIY Humanoid Roboter. Berücksichtige die spezifischen Komponenten und deren Abhängigkeiten. Erstelle eine logische Schritt-für-Schritt Anleitung auf Deutsch mit Sicherheitshinweisen.",
+    "safety_enhancement": "Analysiere die Bauanleitung auf Sicherheitsrisiken, insbesondere bei elektrischen Arbeiten und mechanischen Belastungen. Ergänze angemessene Warnhinweise.",
+    "troubleshooting_generation": "Erstelle eine umfassende Troubleshooting-Sektion für typische Probleme bei DIY Humanoid Robotern basierend auf den verwendeten Komponenten."
+  },
+  "metadata": {
+    "created": "2024-01-15T10:00:00Z",
+    "lastModified": "2024-01-15T10:00:00Z",
+    "author": "DIY Humanoid Configurator Team",
+    "license": "Internal Use Only",
+    "tags": ["humanoid", "diy", "robotics", "template"],
+    "supportedLanguages": ["de-DE", "en-US"],
+    "minimumComponents": 5,
+    "recommendedBuildTime": "8-12 hours",
+    "difficultyRange": "intermediate-advanced"
+  }
+}

@@ -1,0 +1,378 @@
+{
+  "id": "controller_arduino",
+  "name": "Arduino Uno R3 Mikrocontroller",
+  "type": "controller", 
+  "manufacturer": "Arduino",
+  "model": "Uno R3",
+  "version": "3.0",
+  "difficulty": "medium",
+  "estimatedTime": 40,
+  "category": "electronics",
+  "compatibility": ["humanoid", "robotic_arm", "general_purpose", "educational"],
+  "source": {
+    "type": "official_documentation",
+    "url": "https://docs.arduino.cc/hardware/uno-rev3/",
+    "datasheet": "https://docs.arduino.cc/resources/datasheets/A000066-datasheet.pdf", 
+    "retrievedAt": "2024-01-15T16:45:00Z",
+    "language": "en"
+  },
+  "specifications": {
+    "microcontroller": "ATmega328P",
+    "operating_voltage": "5V",
+    "input_voltage": "7-12V (recommended), 6-20V (limits)",
+    "digital_io_pins": "14 (6 PWM capable)",
+    "analog_input_pins": "6",
+    "dc_current_per_io": "20mA",
+    "dc_current_3v3": "50mA", 
+    "flash_memory": "32KB (0.5KB bootloader)",
+    "sram": "2KB",
+    "eeprom": "1KB",
+    "clock_speed": "16MHz",
+    "dimensions": "68.6 × 53.4mm",
+    "weight": "25g",
+    "usb_connector": "USB-B",
+    "power_connector": "2.1mm barrel jack"
+  },
+  "requiredTools": [
+    "screwdriver_phillips",
+    "wire_strippers", 
+    "multimeter",
+    "computer",
+    "usb_cable_a_to_b"
+  ],
+  "additionalMaterials": [
+    "mounting_screws_m3",
+    "standoffs_plastic",
+    "breadboard_jumper_wires",
+    "external_power_supply"
+  ],
+  "safetyNotes": [
+    "NIEMALS mehr als 20V an VIN anlegen - zerstört Spannungsregler",
+    "ESD-Schutz beachten - Board ist empfindlich",
+    "Bei externer Stromversorgung: Polarität prüfen",
+    "USB und externe Versorgung können gleichzeitig verwendet werden",
+    "Maximaler Gesamtstrom aller IOs: 200mA nicht überschreiten"
+  ],
+  "dependencies": [],
+  "pinout": {
+    "digital_pins": {
+      "D0": "RX (Serial)",
+      "D1": "TX (Serial)", 
+      "D2": "Interrupt 0",
+      "D3": "Interrupt 1, PWM",
+      "D4": "Digital I/O",
+      "D5": "PWM",
+      "D6": "PWM", 
+      "D7": "Digital I/O",
+      "D8": "Digital I/O",
+      "D9": "PWM",
+      "D10": "PWM, SPI SS",
+      "D11": "PWM, SPI MOSI",
+      "D12": "SPI MISO",
+      "D13": "SPI SCK, onboard LED"
+    },
+    "analog_pins": {
+      "A0": "Analog Input",
+      "A1": "Analog Input",
+      "A2": "Analog Input", 
+      "A3": "Analog Input",
+      "A4": "SDA (I2C)",
+      "A5": "SCL (I2C)"
+    },
+    "power_pins": {
+      "VIN": "External power input (7-12V)",
+      "5V": "5V regulated output (max 400mA)",
+      "3V3": "3.3V regulated output (max 50mA)",
+      "GND": "Ground (mehrere verfügbar)"
+    }
+  },
+  "steps": [
+    {
+      "id": "step_1",
+      "title": "Arduino mechanische Montage",
+      "description": "Sichere Befestigung des Arduino Uno am Roboter-Rahmen mit ESD-Schutz.",
+      "estimatedTime": 15,
+      "difficulty": "easy",
+      "category": "mechanical",
+      "requiredTools": ["screwdriver_phillips"],
+      "requiredMaterials": ["mounting_screws_m3", "standoffs_plastic"],
+      "warnings": [
+        "Arduino NIEMALS direkt auf Metall montieren - Kurzschlussgefahr",
+        "Abstandshalter verwenden um Beschädigungen zu vermeiden",
+        "ESD-Armband tragen oder Gehäuse berühren vor Handling"
+      ],
+      "instructions": [
+        "Geeigneten Montageplatz am Rahmen wählen (geschützt, zugänglich)",
+        "Montageabstand prüfen: min. 5mm zu metallischen Teilen",
+        "Abstandshalter (6-10mm) auf Rahmen montieren",
+        "Arduino vorsichtig auf Abstandshalter setzen",
+        "Montagelöcher am Arduino mit Rahmenlöchern ausrichten",
+        "M3-Schrauben einsetzen und handfest anziehen",
+        "Zugänglichkeit aller Anschlüsse prüfen",
+        "Board auf mechanische Stabilität testen"
+      ],
+      "qualityCheck": [
+        "Arduino sitzt fest und wackelt nicht",
+        "Mindestabstand zu leitfähigen Teilen eingehalten",
+        "Alle Anschlüsse sind frei zugänglich",
+        "Keine Verformung oder Spannung am Board"
+      ],
+      "troubleshooting": [
+        {
+          "problem": "Board sitzt schief",
+          "solution": "Abstandshalter-Höhe prüfen und angleichen"
+        },
+        {
+          "problem": "Anschlüsse schwer erreichbar", 
+          "solution": "Montageposition überdenken, eventuell drehen"
+        }
+      ],
+      "tips": [
+        "Antistatische Unterlage verwenden",
+        "Board-Position mit Stift markieren vor endgültiger Montage",
+        "Bei beengten Verhältnissen: Arduino Nano verwenden"
+      ]
+    },
+    {
+      "id": "step_2",
+      "title": "Stromversorgung anschließen",
+      "description": "Korrekte Verkabelung der Spannungsversorgung mit Sicherheitsmaßnahmen.",
+      "estimatedTime": 15,
+      "difficulty": "medium",
+      "category": "electrical",
+      "requiredTools": ["wire_strippers", "multimeter"],
+      "requiredMaterials": ["external_power_supply"],
+      "warnings": [
+        "KRITISCH: Niemals falsche Polarität verwenden",
+        "Spannung vor Anschluss messen - zwischen 7-12V halten", 
+        "Bei mehreren Servos: externe Versorgung PFLICHT",
+        "USB-Verbindung bei externer Versorgung optional"
+      ],
+      "instructions": [
+        "Externe Spannungsquelle auswählen (7-12V, min. 1A)",
+        "Ausgangsspannung mit Multimeter messen und notieren",
+        "Polarität mehrfach prüfen (Plus an VIN, Minus an GND)",
+        "Bei Barrel-Jack: Polung beachten (meist innen Plus)",
+        "Versorgung anschließen - LED sollte aufleuchten",
+        "5V-Ausgang messen (sollte 4.75-5.25V sein)",
+        "3.3V-Ausgang messen (sollte 3.15-3.45V sein)",
+        "Onboard-LED (Pin 13) sollte bei Reset kurz blinken"
+      ],
+      "qualityCheck": [
+        "Power-LED leuchtet kontinuierlich",
+        "5V-Ausgang im Toleranzbereich",
+        "3.3V-Ausgang im Toleranzbereich", 
+        "Arduino reagiert auf Reset-Button",
+        "Keine abnormale Erwärmung"
+      ],
+      "troubleshooting": [
+        {
+          "problem": "LED leuchtet nicht",
+          "solution": [
+            "Spannung und Polarität prüfen",
+            "Sicherung/Schutzschaltung testen",
+            "Ersatz-Spannungsquelle verwenden"
+          ]
+        },
+        {
+          "problem": "Arduino wird heiß",
+          "solution": [
+            "Sofort ausschalten",
+            "Eingangsspannung prüfen (<12V)",
+            "Kurzschlüsse suchen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "step_3",
+      "title": "USB-Verbindung und Software-Setup",
+      "description": "Arduino IDE Installation und erste Verbindung zum Controller.",
+      "estimatedTime": 10,
+      "difficulty": "medium",
+      "category": "software",
+      "requiredTools": ["computer", "usb_cable_a_to_b"],
+      "warnings": [
+        "Originale USB-Kabel verwenden - billige können Probleme machen",
+        "Treiber-Installation kann Admin-Rechte benötigen",
+        "Bei ersten Tests: einfache Programme verwenden"
+      ],
+      "instructions": [
+        "Arduino IDE von arduino.cc herunterladen und installieren",
+        "USB-Kabel zwischen Arduino und Computer verbinden",
+        "Automatische Treiber-Installation abwarten",
+        "Arduino IDE starten",
+        "Tools → Board → Arduino Uno auswählen",
+        "Tools → Port → COM-Port auswählen (Windows) oder /dev/tty... (Linux/Mac)",
+        "Blink-Beispiel laden (File → Examples → Basics → Blink)",
+        "Upload-Button klicken - LED sollte blinken"
+      ],
+      "sample_code": "```cpp\nvoid setup() {\n  pinMode(LED_BUILTIN, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(LED_BUILTIN, HIGH);\n  delay(1000);\n  digitalWrite(LED_BUILTIN, LOW);\n  delay(1000);\n}\n```",
+      "qualityCheck": [
+        "Arduino IDE erkennt Board korrekt",
+        "Upload funktioniert ohne Fehler",
+        "Onboard-LED blinkt im 1-Sekunden-Takt",
+        "Serial Monitor zeigt Verbindung"
+      ],
+      "troubleshooting": [
+        {
+          "problem": "Arduino nicht erkannt",
+          "solution": [
+            "USB-Kabel tauschen",
+            "Anderen USB-Port verwenden",
+            "Treiber manuell installieren",
+            "Board-Reset während Upload versuchen"
+          ]
+        },
+        {
+          "problem": "Upload schlägt fehl",
+          "solution": [
+            "Richtigen COM-Port wählen",
+            "Board-Typ überprüfen",
+            "Reset vor Upload drücken"
+          ]
+        }
+      ]
+    }
+  ],
+  "programming": {
+    "ide": "Arduino IDE (empfohlen), VS Code mit PlatformIO, Atmel Studio",
+    "language": "C/C++ (Arduino Sketch)",
+    "basic_functions": [
+      "pinMode(pin, mode) - Pin-Modus setzen",
+      "digitalWrite(pin, value) - Digital ausgang setzen",
+      "digitalRead(pin) - Digital eingang lesen", 
+      "analogRead(pin) - Analog eingang lesen",
+      "analogWrite(pin, value) - PWM ausgeben",
+      "delay(ms) - Pause in Millisekunden",
+      "Serial.begin(baudrate) - Serielle Kommunikation"
+    ],
+    "advanced_features": [
+      "Interrupts (attachInterrupt)",
+      "Timers und Counter",
+      "SPI und I2C Kommunikation",
+      "EEPROM Speicherung",
+      "Watchdog Timer"
+    ]
+  },
+  "libraries": {
+    "standard": [
+      "Servo - Servo-Motor Steuerung",
+      "LiquidCrystal - LCD Display",
+      "SPI - SPI Kommunikation",
+      "Wire - I2C Kommunikation", 
+      "SoftwareSerial - Zusätzliche serielle Ports"
+    ],
+    "popular_third_party": [
+      "NewPing - Ultraschall Sensoren",
+      "DHT sensor library - Temperatur/Luftfeuchtigkeit",
+      "Adafruit libraries - Verschiedene Sensoren",
+      "AccelStepper - Stepper Motor Kontrolle"
+    ]
+  },
+  "power_consumption": {
+    "typical": {
+      "idle": "15mA @ 5V",
+      "active": "20-30mA @ 5V", 
+      "with_peripherals": "bis 200mA @ 5V"
+    },
+    "maximum_ratings": {
+      "io_pin": "20mA per pin",
+      "total_io": "200mA",
+      "5v_regulator": "400mA (bei 12V Eingang: 200mA)",
+      "3v3_regulator": "50mA"
+    }
+  },
+  "maintenance": {
+    "daily": [],
+    "weekly": [
+      "USB-Verbindung auf Wackelkontakt prüfen",
+      "Visuelle Inspektion auf Beschädigungen"
+    ],
+    "monthly": [
+      "Firmware-Updates prüfen",
+      "Lötverbindungen inspizieren",
+      "Spannungsversorgung messen"
+    ],
+    "yearly": [
+      "Flash-Memory Zyklen prüfen (bei häufigen Updates)",
+      "Kondensatoren auf Alterung prüfen"
+    ]
+  },
+  "troubleshooting": {
+    "hardware": [
+      {
+        "symptom": "Arduino startet nicht",
+        "causes": ["Defekte Stromversorgung", "Kurzschluss", "Defekter Bootloader"],
+        "solutions": [
+          "Spannungsversorgung prüfen (7-12V)",
+          "Board visuell auf Beschädigungen untersuchen",
+          "Bootloader neu brennen",
+          "Minimal-Setup testen (nur Power, kein Shield)"
+        ]
+      },
+      {
+        "symptom": "Programmierung schlägt fehl", 
+        "causes": ["USB-Verbindungsprobleme", "Falscher Port", "Gestörte Serielle Kommunikation"],
+        "solutions": [
+          "USB-Kabel und Port wechseln",
+          "Device Manager prüfen (Windows)",
+          "Reset während Upload drücken",
+          "Bootloader-Reset mit Kondensator"
+        ]
+      }
+    ],
+    "software": [
+      {
+        "symptom": "Programm läuft nicht wie erwartet",
+        "causes": ["Logic-Fehler", "Timing-Probleme", "Speicher-Overflow"],
+        "solutions": [
+          "Serial Monitor für Debugging nutzen",
+          "Schritt-für-Schritt Code testen",
+          "Speicherverbrauch überprüfen"
+        ]
+      }
+    ]
+  },
+  "compatibility": {
+    "shields": [
+      "Motor Shield",
+      "Ethernet Shield", 
+      "WiFi Shield",
+      "Proto Shield",
+      "Sensor Shield"
+    ],
+    "sensors": [
+      "Ultraschall (HC-SR04)",
+      "Temperatur (DS18B20, DHT22)",
+      "Beschleunigung (MPU6050)",
+      "Gyro/Kompass (GY-271)"
+    ],
+    "actuators": [
+      "Servo Motoren",
+      "Stepper Motoren",
+      "DC Motoren (mit Driver)",
+      "LEDs und LED-Strips",
+      "Relais"
+    ]
+  },
+  "certifications": [
+    "CE",
+    "FCC",
+    "RoHS compliant",
+    "Open Source Hardware Association"
+  ],
+  "related_components": [
+    "arduino_shields",
+    "breadboard_400", 
+    "jumper_wires_male_male",
+    "external_power_adapters",
+    "usb_cables"
+  ],
+  "upgrade_options": [
+    "Arduino Mega 2560 (mehr I/Os)",
+    "Arduino Nano (kompakter)",
+    "ESP32 (WiFi/Bluetooth)", 
+    "Raspberry Pi (für komplexere Anwendungen)"
+  ]
+}

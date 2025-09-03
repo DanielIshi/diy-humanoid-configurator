@@ -1,0 +1,354 @@
+{
+  "branding": {
+    "company": {
+      "name": "DIY Humanoid Configurator",
+      "tagline": "Build Your Vision, Powered by AI",
+      "website": "https://diy-humanoid.com",
+      "email": "info@diy-humanoid.com",
+      "legal": {
+        "company": "DIY Robotics Solutions GmbH",
+        "address": "Musterstraße 123, 12345 Musterstadt",
+        "phone": "+49 (0) 123 456789",
+        "taxId": "DE123456789",
+        "ceo": "Max Mustermann"
+      }
+    },
+    "colors": {
+      "primary": {
+        "hex": "#2563eb",
+        "rgb": "37, 99, 235",
+        "hsl": "217, 91%, 60%",
+        "name": "Royal Blue"
+      },
+      "secondary": {
+        "hex": "#1e40af", 
+        "rgb": "30, 64, 175",
+        "hsl": "224, 76%, 48%",
+        "name": "Deep Blue"
+      },
+      "accent": {
+        "hex": "#3b82f6",
+        "rgb": "59, 130, 246", 
+        "hsl": "217, 91%, 60%",
+        "name": "Bright Blue"
+      },
+      "text": {
+        "primary": {
+          "hex": "#1f2937",
+          "rgb": "31, 41, 55",
+          "name": "Charcoal"
+        },
+        "secondary": {
+          "hex": "#6b7280",
+          "rgb": "107, 114, 128", 
+          "name": "Cool Gray"
+        },
+        "light": {
+          "hex": "#9ca3af",
+          "rgb": "156, 163, 175",
+          "name": "Light Gray"
+        }
+      },
+      "background": {
+        "primary": "#ffffff",
+        "secondary": "#f9fafb",
+        "accent": "#eff6ff"
+      },
+      "status": {
+        "success": "#059669",
+        "warning": "#d97706", 
+        "error": "#dc2626",
+        "info": "#0ea5e9"
+      }
+    },
+    "typography": {
+      "primary": {
+        "name": "Inter",
+        "fallback": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        "weights": ["400", "500", "600", "700"],
+        "usage": "Headings, UI elements, body text"
+      },
+      "secondary": {
+        "name": "JetBrains Mono",
+        "fallback": "'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace", 
+        "weights": ["400", "500"],
+        "usage": "Code, technical specifications"
+      },
+      "sizes": {
+        "xs": "12px",
+        "sm": "14px",
+        "base": "16px",
+        "lg": "18px",
+        "xl": "20px",
+        "2xl": "24px",
+        "3xl": "32px",
+        "4xl": "40px"
+      }
+    },
+    "logo": {
+      "primary": {
+        "light": "/assets/images/logo-light.svg",
+        "dark": "/assets/images/logo-dark.svg",
+        "icon": "/assets/images/logo-icon.svg"
+      },
+      "variants": {
+        "horizontal": "/assets/images/logo-horizontal.svg",
+        "stacked": "/assets/images/logo-stacked.svg", 
+        "minimal": "/assets/images/logo-minimal.svg"
+      },
+      "usage": {
+        "minimum_size": "32px height",
+        "clear_space": "equal to logo height on all sides",
+        "backgrounds": ["white", "#f9fafb", "transparent"]
+      }
+    }
+  },
+  "manual_design": {
+    "layout": {
+      "page_margins": {
+        "top": "25mm",
+        "bottom": "25mm", 
+        "left": "20mm",
+        "right": "20mm"
+      },
+      "grid": {
+        "columns": 12,
+        "gutter": "5mm",
+        "baseline": "6mm"
+      },
+      "page_formats": {
+        "A4": {
+          "width": "210mm",
+          "height": "297mm", 
+          "points": [595.28, 841.89]
+        },
+        "Letter": {
+          "width": "8.5in",
+          "height": "11in",
+          "points": [612, 792]
+        }
+      }
+    },
+    "cover_design": {
+      "header_height": "80mm",
+      "gradient": {
+        "start": "#2563eb",
+        "end": "#1e40af",
+        "angle": "135deg"
+      },
+      "title": {
+        "font_size": "28pt",
+        "font_weight": "700",
+        "color": "#ffffff",
+        "line_height": "1.2"
+      },
+      "subtitle": {
+        "font_size": "16pt", 
+        "font_weight": "400",
+        "color": "#e2e8f0",
+        "line_height": "1.4"
+      }
+    },
+    "section_styling": {
+      "h1": {
+        "font_size": "24pt",
+        "font_weight": "700",
+        "color": "#2563eb",
+        "margin_top": "15mm",
+        "margin_bottom": "8mm",
+        "border_bottom": "2pt solid #2563eb"
+      },
+      "h2": {
+        "font_size": "18pt",
+        "font_weight": "600", 
+        "color": "#1e40af",
+        "margin_top": "12mm",
+        "margin_bottom": "6mm"
+      },
+      "h3": {
+        "font_size": "14pt",
+        "font_weight": "600",
+        "color": "#374151",
+        "margin_top": "8mm",
+        "margin_bottom": "4mm"
+      },
+      "body": {
+        "font_size": "11pt",
+        "line_height": "1.5",
+        "color": "#374151",
+        "paragraph_spacing": "4mm"
+      },
+      "code": {
+        "font_family": "JetBrains Mono",
+        "font_size": "9pt",
+        "background": "#f1f5f9",
+        "padding": "2mm",
+        "border_radius": "1mm"
+      }
+    },
+    "components": {
+      "step_boxes": {
+        "background": "#eff6ff",
+        "border": "1pt solid #3b82f6",
+        "border_radius": "2mm",
+        "padding": "3mm",
+        "margin": "2mm 0"
+      },
+      "warning_boxes": {
+        "background": "#fef2f2",
+        "border": "2pt solid #dc2626", 
+        "border_radius": "2mm",
+        "padding": "4mm",
+        "icon_color": "#dc2626"
+      },
+      "info_boxes": {
+        "background": "#f0f9ff",
+        "border": "1pt solid #0ea5e9",
+        "border_radius": "2mm", 
+        "padding": "3mm",
+        "icon_color": "#0ea5e9"
+      },
+      "success_boxes": {
+        "background": "#f0fdf4",
+        "border": "1pt solid #059669",
+        "border_radius": "2mm",
+        "padding": "3mm",
+        "icon_color": "#059669"
+      }
+    }
+  },
+  "icons": {
+    "categories": {
+      "electronics": "⚡",
+      "mechanical": "🔧",
+      "software": "💻",
+      "safety": "⚠️",
+      "tools": "🛠️",
+      "materials": "📦",
+      "testing": "🔍",
+      "assembly": "🏗️"
+    },
+    "status": {
+      "completed": "✅",
+      "in_progress": "🔄", 
+      "warning": "⚠️",
+      "error": "❌",
+      "info": "ℹ️"
+    },
+    "actions": {
+      "download": "⬇️",
+      "print": "🖨️",
+      "share": "📤",
+      "edit": "✏️",
+      "view": "👁️",
+      "delete": "🗑️"
+    }
+  },
+  "templates": {
+    "headers": {
+      "primary": {
+        "height": "15mm",
+        "background": "#2563eb",
+        "logo_position": "left",
+        "title_position": "center",
+        "page_number": "right"
+      },
+      "secondary": {
+        "height": "10mm",
+        "background": "#f8fafc",
+        "border_bottom": "0.5pt solid #e2e8f0"
+      }
+    },
+    "footers": {
+      "primary": {
+        "height": "10mm",
+        "background": "#f8fafc",
+        "border_top": "0.5pt solid #e2e8f0",
+        "content": "Generated by DIY Humanoid Configurator AI"
+      }
+    },
+    "page_numbers": {
+      "position": "bottom_right",
+      "format": "Seite {current} von {total}",
+      "font_size": "9pt",
+      "color": "#6b7280"
+    }
+  },
+  "localization": {
+    "de-DE": {
+      "manual_title": "DIY Bauanleitung",
+      "generated_by": "Generiert von",
+      "page_of": "Seite {current} von {total}",
+      "table_of_contents": "Inhaltsverzeichnis",
+      "safety_notice": "Sicherheitshinweise",
+      "tools_materials": "Werkzeuge und Materialien",
+      "instructions": "Bauanleitung",
+      "troubleshooting": "Fehlerbehebung",
+      "sources": "Quellen und Referenzen",
+      "legal_notice": "Rechtliche Hinweise",
+      "warning": "WARNUNG",
+      "caution": "ACHTUNG",
+      "note": "HINWEIS",
+      "tip": "TIPP",
+      "step": "Schritt",
+      "estimated_time": "Geschätzte Zeit",
+      "difficulty": "Schwierigkeitsgrad",
+      "required_tools": "Benötigte Werkzeuge"
+    },
+    "en-US": {
+      "manual_title": "DIY Build Guide", 
+      "generated_by": "Generated by",
+      "page_of": "Page {current} of {total}",
+      "table_of_contents": "Table of Contents",
+      "safety_notice": "Safety Notice",
+      "tools_materials": "Tools and Materials",
+      "instructions": "Build Instructions", 
+      "troubleshooting": "Troubleshooting",
+      "sources": "Sources and References",
+      "legal_notice": "Legal Notice",
+      "warning": "WARNING",
+      "caution": "CAUTION",
+      "note": "NOTE",
+      "tip": "TIP",
+      "step": "Step",
+      "estimated_time": "Estimated Time",
+      "difficulty": "Difficulty Level",
+      "required_tools": "Required Tools"
+    }
+  },
+  "quality_standards": {
+    "accessibility": {
+      "contrast_ratio": "4.5:1 minimum",
+      "font_size_minimum": "9pt",
+      "alt_text": "required for all images"
+    },
+    "print_quality": {
+      "resolution": "300 DPI minimum",
+      "color_profile": "CMYK for print, RGB for digital",
+      "bleed": "3mm for printed materials"
+    },
+    "file_formats": {
+      "pdf": {
+        "version": "PDF/A-1b",
+        "compression": "Medium quality JPEG for images",
+        "fonts": "Embedded subsets"
+      }
+    }
+  },
+  "legal_disclaimers": {
+    "ai_generated": {
+      "de": "Diese Anleitung wurde mittels künstlicher Intelligenz aus verschiedenen Quellen zusammengestellt und dient ausschließlich als Hilfestellung. Wir übernehmen keinerlei Gewährleistung für die Vollständigkeit oder Richtigkeit der Informationen. Die Nutzung erfolgt auf eigene Gefahr.",
+      "en": "This guide was compiled using artificial intelligence from various sources and serves solely as assistance. We assume no warranty for the completeness or accuracy of the information. Use is at your own risk."
+    },
+    "liability": {
+      "de": "Der Anbieter haftet nicht für Schäden, die durch die Nutzung dieser AI-generierten Anleitung entstehen. Bei Unsicherheiten konsultieren Sie qualifizierte Fachkräfte.",
+      "en": "The provider is not liable for damages arising from the use of this AI-generated guide. If in doubt, consult qualified professionals."
+    },
+    "copyright": {
+      "de": "Alle Marken und Produktnamen sind Eigentum ihrer jeweiligen Inhaber. Diese Anleitung basiert auf öffentlich verfügbaren Informationen.",
+      "en": "All trademarks and product names are the property of their respective owners. This guide is based on publicly available information."
+    }
+  },
+  "version": "1.0.0",
+  "last_updated": "2024-01-15T10:00:00Z"
+}

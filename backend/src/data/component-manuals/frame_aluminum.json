@@ -1,0 +1,210 @@
+{
+  "id": "frame_aluminum",
+  "name": "Aluminium Rahmen System",
+  "type": "structure",
+  "manufacturer": "RobotBuilder Solutions",
+  "model": "AL-FRAME-2024",
+  "version": "2.1",
+  "difficulty": "easy",
+  "estimatedTime": 45,
+  "category": "mechanical",
+  "compatibility": ["humanoid", "general_purpose"],
+  "source": {
+    "type": "manufacturer_manual",
+    "url": "https://robotbuilder.com/manuals/al-frame-2024.pdf",
+    "retrievedAt": "2024-01-15T10:00:00Z",
+    "language": "de"
+  },
+  "specifications": {
+    "material": "Aluminium 6063-T6",
+    "profile": "40x40mm",
+    "length": "2m Standard-Profile",
+    "weight": "3.2kg",
+    "maxLoad": "50kg",
+    "color": "anodized_silver"
+  },
+  "requiredTools": [
+    "allen_key_set",
+    "screwdriver_phillips",
+    "level",
+    "measuring_tape",
+    "marker"
+  ],
+  "safetyNotes": [
+    "Scharfe Kanten vermeiden - Handschuhe tragen",
+    "Schutzbrille bei Sägearbeiten verwenden",
+    "Aluminium-Späne vollständig entfernen",
+    "Profile vor Montage entgraten"
+  ],
+  "dependencies": [],
+  "steps": [
+    {
+      "id": "step_1",
+      "title": "Rahmenteile vorbereiten und prüfen",
+      "description": "Überprüfung aller Rahmenkomponenten auf Vollständigkeit und Unbeschädigtheit.",
+      "estimatedTime": 10,
+      "difficulty": "easy",
+      "category": "preparation",
+      "requiredTools": ["measuring_tape", "level"],
+      "warnings": [
+        "Profile auf Risse oder Verformungen untersuchen",
+        "Alle Verbindungselemente zählen und sortieren"
+      ],
+      "instructions": [
+        "Alle Rahmenteile aus der Verpackung nehmen",
+        "Komponentenliste mit Lieferung abgleichen",
+        "Profile auf Geradheit mit Wasserwaage prüfen",
+        "Verbindungswinkel und Schrauben sortieren",
+        "Arbeitsfläche für Montage vorbereiten (min. 2x1m)"
+      ],
+      "qualityCheck": [
+        "Alle Profile sind gerade und unbeschädigt",
+        "Verbindungselemente vollständig vorhanden",
+        "Arbeitsplatz ist aufgeräumt und ausreichend groß"
+      ],
+      "troubleshooting": [
+        {
+          "problem": "Profil ist verbogen",
+          "solution": "Leichte Verformungen können durch vorsichtiges Biegen korrigiert werden. Bei starken Schäden: Ersatzteil anfordern."
+        }
+      ],
+      "images": ["frame_parts_overview.jpg", "quality_check.jpg"]
+    },
+    {
+      "id": "step_2", 
+      "title": "Grundrahmen zusammensetzen",
+      "description": "Montage der Hauptrahmenstruktur nach Konstruktionsplan.",
+      "estimatedTime": 25,
+      "difficulty": "easy",
+      "category": "assembly",
+      "requiredTools": ["allen_key_set", "level", "screwdriver_phillips"],
+      "warnings": [
+        "Schrauben zunächst nur handfest anziehen",
+        "Rechtwinkligkeit vor endgültigem Festziehen prüfen",
+        "Nicht zu viel Kraft anwenden - Aluminium kann sich verformen"
+      ],
+      "instructions": [
+        "Bodenrahmen (Rechteck 60x40cm) zusammensetzen",
+        "Vertikalstreben an den Ecken befestigen (Höhe: 80cm)",
+        "Querstreben zur Stabilisierung einbauen",
+        "Alle Verbindungen handfest anziehen",
+        "Diagonalen messen (müssen gleich sein)",
+        "Rechtwinkligkeit mit Wasserwaage kontrollieren",
+        "Schrauben gleichmäßig und kreuzweise festziehen",
+        "Stabilität durch leichtes Schütteln testen"
+      ],
+      "qualityCheck": [
+        "Rahmen steht stabil und wackelt nicht",
+        "Alle Ecken sind rechtwinklig",
+        "Diagonalen sind identisch (±2mm)",
+        "Schrauben sind gleichmäßig festgezogen"
+      ],
+      "troubleshooting": [
+        {
+          "problem": "Rahmen ist schief",
+          "solution": "Schrauben lockern, Ausrichtung korrigieren, erneut messen und festziehen."
+        },
+        {
+          "problem": "Schrauben drehen durch",
+          "solution": "Gewinde ist beschädigt. Längere Schraube oder Gewindeeinsatz verwenden."
+        }
+      ],
+      "images": ["frame_assembly_1.jpg", "diagonal_measurement.jpg", "final_frame.jpg"],
+      "tips": [
+        "Profile vor Montage leicht anschleifen für bessere Verbindung",
+        "Bei größeren Rahmen: Zu zweit arbeiten",
+        "Montage auf ebenem Untergrund durchführen"
+      ]
+    },
+    {
+      "id": "step_3",
+      "title": "Oberflächenbehandlung und Finishing",
+      "description": "Nachbearbeitung und Vorbereitung für Anbauteile.",
+      "estimatedTime": 10,
+      "difficulty": "easy",
+      "category": "finishing",
+      "requiredTools": ["sandpaper_fine", "cleaning_cloth", "degreaser"],
+      "instructions": [
+        "Grate an Schnittkanten entfernen",
+        "Oberfläche mit feinem Schleifpapier mattieren",
+        "Späne und Schleifstaub vollständig entfernen",
+        "Rahmen mit Entfetter reinigen",
+        "Montagepunkte für weitere Komponenten markieren"
+      ],
+      "qualityCheck": [
+        "Keine scharfen Kanten oder Grate vorhanden",
+        "Oberfläche ist sauber und fettfrei",
+        "Montagepunkte sind klar markiert"
+      ]
+    }
+  ],
+  "maintenance": {
+    "daily": [],
+    "weekly": [
+      "Sichtprüfung auf Risse oder Lockerungen"
+    ],
+    "monthly": [
+      "Schrauben auf festen Sitz prüfen",
+      "Reinigung mit feuchtem Tuch"
+    ],
+    "yearly": [
+      "Vollständige Demontage und Inspektion",
+      "Erneuerung der Verbindungselemente bei Verschleiß"
+    ]
+  },
+  "troubleshooting": {
+    "common": [
+      {
+        "symptom": "Rahmen wackelt",
+        "causes": ["Lockere Schrauben", "Unebener Untergrund", "Beschädigte Verbindungen"],
+        "solutions": [
+          "Alle Schraubverbindungen überprüfen und nachziehen",
+          "Rahmen auf ebenen Untergrund stellen",
+          "Beschädigte Teile austauschen"
+        ]
+      },
+      {
+        "symptom": "Profile passen nicht zusammen",
+        "causes": ["Fertigungstoleranzen", "Verformungen", "Falsche Teile"],
+        "solutions": [
+          "Profile vorsichtig nacharbeiten",
+          "Verbindungselemente anpassen",
+          "Teile auf Korrektheit prüfen"
+        ]
+      }
+    ]
+  },
+  "specifications_extended": {
+    "structural": {
+      "tensile_strength": "215 MPa",
+      "yield_strength": "170 MPa", 
+      "elastic_modulus": "69 GPa",
+      "thermal_expansion": "23.1 × 10⁻⁶/K"
+    },
+    "environmental": {
+      "temperature_range": "-40°C to +80°C",
+      "humidity_resistance": "excellent",
+      "corrosion_resistance": "very_good"
+    }
+  },
+  "certifications": [
+    "DIN EN 755-2",
+    "ISO 6063",
+    "CE"
+  ],
+  "warranty": {
+    "period": "24 months",
+    "coverage": "manufacturing defects",
+    "exclusions": ["wear and tear", "misuse", "modifications"]
+  },
+  "related_components": [
+    "joint_servo_brackets",
+    "electronics_mounting_plates", 
+    "cable_management_system"
+  ],
+  "upgrade_options": [
+    "carbon_fiber_reinforcement",
+    "anodized_color_options",
+    "extended_profile_lengths"
+  ]
+}

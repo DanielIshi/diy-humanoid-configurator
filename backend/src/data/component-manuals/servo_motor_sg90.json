@@ -1,0 +1,309 @@
+{
+  "id": "servo_motor_sg90",
+  "name": "Servo Motor SG90 9g Micro",
+  "type": "actuator",
+  "manufacturer": "Tower Pro",
+  "model": "SG90",
+  "version": "3.2",
+  "difficulty": "medium",
+  "estimatedTime": 30,
+  "category": "electronic_mechanical",
+  "compatibility": ["humanoid", "robotic_arm", "general_purpose"],
+  "source": {
+    "type": "manufacturer_datasheet",
+    "url": "https://towerpro.com.tw/product/sg90/",
+    "datasheet": "https://towerpro.com.tw/wp-content/uploads/2022/SG90-Datasheet.pdf",
+    "retrievedAt": "2024-01-15T14:30:00Z",
+    "language": "en"
+  },
+  "specifications": {
+    "voltage": "4.8V - 6.0V",
+    "current": "100mA - 650mA (stall)",
+    "torque": "1.8 kg⋅cm (4.8V), 2.2 kg⋅cm (6V)",
+    "speed": "0.1s/60° (4.8V), 0.08s/60° (6V)",
+    "rotation": "180° (90° each direction)",
+    "pwm_frequency": "50Hz",
+    "pulse_width": "1ms-2ms (1.5ms center)",
+    "weight": "9g",
+    "dimensions": "22.2 × 11.8 × 31mm",
+    "gear_ratio": "1:130",
+    "material": "plastic_gears"
+  },
+  "requiredTools": [
+    "screwdriver_phillips_small",
+    "wire_strippers",
+    "multimeter",
+    "computer"
+  ],
+  "additionalMaterials": [
+    "servo_screws_m2",
+    "servo_horn_plastic", 
+    "jumper_wires_3pin",
+    "heat_shrink_tubing"
+  ],
+  "safetyNotes": [
+    "Niemals Überspannung anlegen (max 6V)",
+    "Motor nicht blockieren - kann überhitzen",
+    "Richtige Polung beachten (Rot=+, Braun/Schwarz=-, Orange/Gelb=Signal)",
+    "Bei erstem Anschuss: niedrige Spannung verwenden (4.8V)"
+  ],
+  "dependencies": [
+    "controller_arduino",
+    "power_supply_5v"
+  ],
+  "wiring": {
+    "pin_configuration": {
+      "red": "VCC (+4.8V to +6V)",
+      "brown_black": "Ground (GND/0V)",
+      "orange_yellow": "PWM Signal (3.3V/5V logic)"
+    },
+    "arduino_connection": {
+      "red": "5V pin",
+      "brown_black": "GND pin", 
+      "orange_yellow": "Digital Pin (z.B. Pin 9)"
+    }
+  },
+  "steps": [
+    {
+      "id": "step_1",
+      "title": "Servo-Motor mechanisch montieren",
+      "description": "Befestigung des SG90 Servos am Rahmen oder Halterung mit korrekter Ausrichtung.",
+      "estimatedTime": 12,
+      "difficulty": "easy",
+      "category": "mechanical",
+      "requiredTools": ["screwdriver_phillips_small"],
+      "requiredMaterials": ["servo_screws_m2"],
+      "warnings": [
+        "Servo nicht mit zu viel Kraft festziehen - Gehäuse kann brechen",
+        "Montagelöcher müssen exakt passen",
+        "Servo-Horn erst nach Kalibrierung montieren"
+      ],
+      "instructions": [
+        "Montageplatz am Rahmen identifizieren und säubern",
+        "Servo in gewünschte Position bringen",
+        "Ausrichtung der Servo-Achse prüfen (90° zur Bewegungsebene)",
+        "Erste Befestigungsschraube einsetzen (nur handfest)",
+        "Position nochmals kontrollieren",
+        "Restliche Schrauben einsetzen und gleichmäßig anziehen",
+        "Bewegungsfreiheit der Achse testen (per Hand drehen)"
+      ],
+      "qualityCheck": [
+        "Servo sitzt fest und wackelt nicht",
+        "Achse kann sich frei bewegen",
+        "Keine mechanischen Blockierungen",
+        "Servo ist korrekt ausgerichtet"
+      ],
+      "troubleshooting": [
+        {
+          "problem": "Servo sitzt schief",
+          "solution": "Schrauben lösen, Position korrigieren, gleichmäßig festziehen"
+        },
+        {
+          "problem": "Achse klemmt",
+          "solution": "Servo lockerer montieren, Bewegungsfreiheit prüfen"
+        }
+      ],
+      "tips": [
+        "Unterlegscheiben verwenden bei unebenen Oberflächen",
+        "Servo-Horn erst nach elektrischer Kalibrierung montieren",
+        "Bei kritischen Anwendungen: Servo-Gehäuse zusätzlich sichern"
+      ]
+    },
+    {
+      "id": "step_2",
+      "title": "Elektrische Verkabelung und Anschluss",
+      "description": "Korrekte Verkabelung des Servos mit Mikrocontroller und Stromversorgung.",
+      "estimatedTime": 15,
+      "difficulty": "medium", 
+      "category": "electrical",
+      "requiredTools": ["wire_strippers", "multimeter"],
+      "requiredMaterials": ["jumper_wires_3pin", "heat_shrink_tubing"],
+      "warnings": [
+        "NIEMALS falsche Polung verwenden - zerstört Servo sofort",
+        "Spannungsbereich 4.8V-6V strikt einhalten",
+        "Nie unter Last verkabeln - Controller ausschalten",
+        "PWM-Signalleitung ist empfindlich - kurze Wege bevorzugen"
+      ],
+      "instructions": [
+        "Controller und Stromversorgung ausschalten",
+        "Servo-Kabel prüfen: Rot=+, Braun/Schwarz=-, Orange/Gelb=Signal",
+        "Bei Arduino Uno: Rotes Kabel an 5V-Pin",
+        "Braunes/Schwarzes Kabel an GND-Pin",
+        "Orange/Gelbes Kabel an digitalen PWM-Pin (z.B. Pin 9)",
+        "Alle Verbindungen auf festen Sitz prüfen",
+        "Mit Multimeter Spannungen vor Einschalten messen",
+        "Controller einschalten und Servo-Horn Position beobachten"
+      ],
+      "qualityCheck": [
+        "Alle Kabelverbindungen sind fest",
+        "Spannung liegt im Bereich 4.8V-6V",  
+        "Keine Kurzschlüsse messbar",
+        "Servo bewegt sich zur Default-Position (90°)"
+      ],
+      "troubleshooting": [
+        {
+          "problem": "Servo bewegt sich nicht",
+          "solution": [
+            "Spannungsversorgung prüfen (Multimeter)",
+            "PWM-Signalleitung kontrollieren",
+            "Arduino-Code überprüfen"
+          ]
+        },
+        {
+          "problem": "Servo zittert oder summt",
+          "solution": [
+            "Stromversorgung stabilisieren (Kondensator)",
+            "PWM-Frequenz auf 50Hz einstellen",
+            "Mechanische Blockierung prüfen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "step_3",
+      "title": "Software-Konfiguration und Kalibrierung",
+      "description": "Arduino-Programmierung und Feinabstimmung der Servo-Position.",
+      "estimatedTime": 8,
+      "difficulty": "medium",
+      "category": "software",
+      "requiredTools": ["computer"],
+      "warnings": [
+        "Servo-Horn erst nach Software-Kalibrierung montieren",
+        "Extreme Positionen vermeiden - kann Servo beschädigen",
+        "Bei mehreren Servos: genügend Strom bereitstellen"
+      ],
+      "instructions": [
+        "Arduino IDE öffnen und Servo-Library laden",
+        "Test-Code schreiben oder Beispiel verwenden",
+        "Code kompilieren und auf Controller laden",
+        "Servo zur Mittelposition (90°) fahren",
+        "Servo-Horn in gewünschter Nullposition montieren",
+        "Bewegungsbereich testen (0° bis 180°)",
+        "Feinabstimmung der Position im Code",
+        "Endanschläge definieren (Software-Limits)"
+      ],
+      "sample_code": "```cpp\n#include <Servo.h>\nServo myservo;\n\nvoid setup() {\n  myservo.attach(9);\n  myservo.write(90); // Mittelposition\n}\n\nvoid loop() {\n  // Test-Bewegung\n  myservo.write(0);\n  delay(1000);\n  myservo.write(180);\n  delay(1000);\n}\n```",
+      "qualityCheck": [
+        "Servo reagiert auf Software-Befehle",
+        "Bewegungsbereich ist korrekt (0°-180°)",
+        "Keine mechanischen Blockierungen",
+        "Servo-Horn ist fest montiert"
+      ],
+      "troubleshooting": [
+        {
+          "problem": "Servo überdreht",
+          "solution": "Software-Limits einbauen (map-Funktion verwenden)"
+        },
+        {
+          "problem": "Ungenau Positionierung",
+          "solution": "PWM-Signal überprüfen, eventuell Hardware-Problem"
+        }
+      ]
+    }
+  ],
+  "programming": {
+    "arduino_library": "Servo.h (Standard)",
+    "basic_functions": [
+      "attach(pin) - Servo an Pin anschließen",
+      "write(angle) - Position setzen (0-180°)",
+      "read() - Aktuelle Position lesen",
+      "detach() - Servo trennen"
+    ],
+    "advanced_functions": [
+      "writeMicroseconds(us) - Direkte PWM-Kontrolle",
+      "map(value, fromLow, fromHigh, toLow, toHigh) - Wertebereich umrechnen"
+    ]
+  },
+  "maintenance": {
+    "daily": [],
+    "weekly": [
+      "Servo-Horn auf festen Sitz prüfen",
+      "Bewegung auf Unregelmäßigkeiten überwachen"
+    ],
+    "monthly": [
+      "Mechanische Verbindungen prüfen",
+      "Stromaufnahme messen (sollte <100mA im Stillstand)",
+      "Kabelverbindungen auf Verschleiß prüfen"
+    ],
+    "yearly": [
+      "Servo-Getriebe auf Verschleiß prüfen",
+      "Bei hoher Laufzeit: präventiver Austausch"
+    ]
+  },
+  "troubleshooting": {
+    "electrical": [
+      {
+        "symptom": "Servo bewegt sich nicht",
+        "causes": ["Keine Spannung", "Defektes PWM-Signal", "Defekter Servo"],
+        "solutions": [
+          "Spannungsversorgung messen (4.8-6V)",
+          "PWM-Signal am Controller-Pin prüfen",
+          "Servo an anderem Pin testen",
+          "Ersatz-Servo zum Test verwenden"
+        ]
+      },
+      {
+        "symptom": "Servo zittert/summt kontinuierlich",
+        "causes": ["Instabile Stromversorgung", "Mechanische Blockierung", "Defektes PWM-Signal"],
+        "solutions": [
+          "Stabilisierten Spannungsregler verwenden",
+          "Mechanik auf freie Bewegung prüfen",
+          "PWM-Frequenz auf exakt 50Hz einstellen",
+          "Entstörkondensator parallel zum Servo"
+        ]
+      }
+    ],
+    "mechanical": [
+      {
+        "symptom": "Servo-Horn löst sich",
+        "causes": ["Zu wenig Drehmoment", "Vibrationn", "Abgenutzte Verzahnung"],
+        "solutions": [
+          "Servo-Horn-Schraube nachziehen",
+          "Schraubensicherung verwenden", 
+          "Servo-Horn austauschen"
+        ]
+      }
+    ]
+  },
+  "performance": {
+    "operating_conditions": {
+      "temperature": "-10°C to +50°C",
+      "humidity": "< 85% RH",
+      "altitude": "< 2000m"
+    },
+    "lifetime": {
+      "cycles": "> 300,000 (bei Nennlast)",
+      "hours": "> 500h kontinuierlicher Betrieb"
+    }
+  },
+  "compatibility": {
+    "microcontrollers": [
+      "Arduino Uno/Nano/Pro Mini",
+      "ESP32/ESP8266",
+      "Raspberry Pi (mit PWM-Hat)",
+      "STM32",
+      "Teensy"
+    ],
+    "power_supplies": [
+      "4x AA Batterien (6V)",
+      "USB Powerbank (5V)",
+      "Labornetzteil (regelbar 4.8-6V)",
+      "LiPo 1S (3.7V - nur mit Booster)"
+    ]
+  },
+  "certifications": [
+    "RoHS compliant",
+    "CE marking"
+  ],
+  "related_components": [
+    "servo_horn_metal",
+    "servo_extension_cables",
+    "servo_mounting_brackets",
+    "pwm_servo_driver_pca9685"
+  ],
+  "upgrade_options": [
+    "MG90S (Metall-Getriebe Version)",
+    "SG92R (360° Continuous Rotation)",
+    "Digital Servos für höhere Präzision"
+  ]
+}
