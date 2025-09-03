@@ -90,7 +90,7 @@ function CostPanel() {
   const displayPrice = showNetPrices ? taxDetails.net : taxDetails.gross;
 
   return (
-    <aside className="space-y-4">
+    <aside data-testid="cost-panel" className="space-y-4">
       <div className="bg-[#0e1630] rounded-2xl p-5 border border-slate-700/60 shadow-lg">
         <h2 className="text-xl font-semibold">{t('sidebar.costOverview')}</h2>
         <div className="mt-3 divide-y divide-slate-700/60">

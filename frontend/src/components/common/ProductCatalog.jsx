@@ -55,7 +55,7 @@ function ProductCatalog({
   }, [filteredProducts, productsByCategory]);
 
   return (
-    <div className={`space-y-6 ${className}`}>
+    <div data-testid="product-catalog" className={`space-y-6 ${className}`}>
       {/* Search and Filter Controls */}
       <div className="bg-[#0e1630] rounded-2xl p-5 border border-slate-700/60">
         <div className="flex flex-col md:flex-row gap-4">

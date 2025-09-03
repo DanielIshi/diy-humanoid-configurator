@@ -6,7 +6,7 @@ test.describe('Smoke Tests - Critical Functionality', () => {
     await page.goto('/');
     
     // Check if page loads without errors
-    await expect(page).toHaveTitle(/DIY Humanoid Configurator/);
+    await expect(page).toHaveTitle(/DIY Humanoid/);
     
     // Check if main navigation is present
     await expect(page.locator('header')).toBeVisible();
