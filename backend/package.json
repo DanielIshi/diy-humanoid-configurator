@@ -19,6 +19,7 @@
     "lint:fix": "eslint src --ext .js --fix"
   },
   "dependencies": {
+    "@paypal/checkout-server-sdk": "^1.0.3",
     "@paypal/paypal-server-sdk": "^1.1.0",
     "@prisma/client": "^5.7.1",
     "bcrypt": "^5.1.1",
@@ -40,7 +41,7 @@
     "pdfkit": "^0.17.2",
     "puppeteer": "^24.18.0",
     "rate-limit-redis": "^4.2.2",
-    "stripe": "^14.0.0",
+    "stripe": "^14.25.0",
     "supabase": "^2.39.2",
     "user-agents": "^1.1.651",
     "uuid": "^9.0.1",

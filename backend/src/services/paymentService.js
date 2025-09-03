@@ -1,14 +1,21 @@
 import { logger } from '../lib/logger.js';
-import { paypalClient } from '../lib/paypalClient.js';
+import Stripe from 'stripe';
+import db from '../db/client.js';
 
 class PaymentService {
   constructor() {
     this.stripeEnabled = !!process.env.STRIPE_SECRET_KEY;
-    this.paypalEnabled = !!process.env.PAYPAL_CLIENT_ID;
+    this.paypalEnabled = !!process.env.PAYPAL_CLIENT_ID && !!process.env.PAYPAL_CLIENT_SECRET;
     
     // Initialize payment providers
     this.stripe = null;
     this.paypal = null;
+    
+    // Supported currencies and regions
+    this.supportedCurrencies = {
+      stripe: ['eur', 'usd', 'gbp', 'chf'],
+      paypal: ['EUR', 'USD', 'GBP', 'CHF']
+    };
     
     this.initializeProviders();
   }
@@ -29,7 +36,13 @@ class PaymentService {
     // PayPal initialization
     if (this.paypalEnabled) {
       try {
-        this.paypal = await paypalClient();
+        // Dynamic import für PayPal SDK
+        const { PayPalServer } = await import('@paypal/paypal-server-sdk');
+        this.paypal = new PayPalServer({
+          clientId: process.env.PAYPAL_CLIENT_ID,
+          clientSecret: process.env.PAYPAL_CLIENT_SECRET,
+          environment: process.env.PAYPAL_ENVIRONMENT || 'sandbox'
+        });
         logger.info('PayPal payment provider initialized');
       } catch (error) {
         logger.error('Failed to initialize PayPal', { error: error.message });

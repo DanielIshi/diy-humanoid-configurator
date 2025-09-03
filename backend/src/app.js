@@ -17,6 +17,7 @@ import paymentsRouter from './routes/payments.js';
 import llmRouter from './routes/llm.js';
 import aiRouter from './routes/ai.js';
 import aiManualRouter from './routes/aiManual.js';
+import enhancedPaymentsRouter from './routes/enhancedPayments.js';
 import pricesRouter from './routes/prices.js';
 import productsRouter from './routes/products.js';
 import configRouter from './routes/config.js';
@@ -75,6 +76,7 @@ export function createServer() {
   app.use('/api/llm', llmRouter);
   app.use('/api/ai', aiRouter); // NEW: AI/LLM Features
   app.use('/api/ai-manual', aiManualRouter); // NEW: AI Manual Compiler
+  app.use('/api/payments-v2', enhancedPaymentsRouter); // NEW: Enhanced Payment System
   app.use('/api/prices', pricesRouter);
   app.use('/api/manual', manualRouter);
   
